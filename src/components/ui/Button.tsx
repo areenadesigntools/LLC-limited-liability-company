@@ -1,53 +1,43 @@
-import Link from "next/link";
-import { cn } from "@/lib/cn";
+import React from 'react';
+import { cn } from '@/lib/cn';
 
-type Variant = "primary" | "secondary" | "ghost" | "whatsapp";
-type Size = "md" | "lg";
-
-const base =
-  "inline-flex items-center justify-center gap-2 rounded-xl font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2";
-
-const variants: Record<Variant, string> = {
-  primary:
-    "bg-brand text-white shadow-[0_8px_24px_-8px_rgba(37,99,235,0.7)] hover:bg-brand-dark hover:-translate-y-0.5",
-  secondary:
-    "border border-line bg-white text-ink hover:border-brand hover:text-brand",
-  ghost: "text-white/90 border border-white/20 hover:bg-white/10",
-  whatsapp:
-    "bg-success text-white hover:brightness-95 hover:-translate-y-0.5 shadow-[0_8px_24px_-8px_rgba(16,185,129,0.7)]",
-};
-
-const sizes: Record<Size, string> = {
-  md: "h-11 px-5 text-sm",
-  lg: "h-13 px-7 text-base py-3.5",
-};
-
-export function Button({
-  href,
-  children,
-  variant = "primary",
-  size = "md",
-  className,
-  external,
-}: {
-  href: string;
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger';
+  size?: 'sm' | 'md' | 'lg';
+  isLoading?: boolean;
   children: React.ReactNode;
-  variant?: Variant;
-  size?: Size;
-  className?: string;
-  external?: boolean;
-}) {
-  const cls = cn(base, variants[variant], sizes[size], className);
-  if (external) {
+}
+
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ variant = 'primary', size = 'md', isLoading = false, disabled, className, children, ...props }, ref) => {
+    const baseStyles = 'font-semibold transition-all duration-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 flex items-center justify-center gap-2';
+    
+    const variants = {
+      primary: 'bg-primary-blue text-white hover:bg-blue-700 focus:ring-primary-blue disabled:bg-gray-400',
+      secondary: 'bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-gray-300 disabled:bg-gray-300',
+      outline: 'border-2 border-primary-blue text-primary-blue hover:bg-blue-50 focus:ring-primary-blue disabled:border-gray-400 disabled:text-gray-400',
+      ghost: 'text-gray-700 hover:bg-gray-100 focus:ring-gray-300 disabled:text-gray-400',
+      danger: 'bg-red-600 text-white hover:bg-red-700 focus:ring-red-600 disabled:bg-gray-400',
+    };
+
+    const sizes = {
+      sm: 'px-3 py-2 text-sm',
+      md: 'px-4 py-2.5 text-base',
+      lg: 'px-6 py-3 text-lg',
+    };
+
     return (
-      <a href={href} target="_blank" rel="noopener noreferrer" className={cls}>
+      <button
+        ref={ref}
+        disabled={disabled || isLoading}
+        className={cn(baseStyles, variants[variant], sizes[size], className)}
+        {...props}
+      >
+        {isLoading && <span className="animate-spin">⟳</span>}
         {children}
-      </a>
+      </button>
     );
   }
-  return (
-    <Link href={href} className={cls}>
-      {children}
-    </Link>
-  );
-}
+);
+
+Button.displayName = 'Button';

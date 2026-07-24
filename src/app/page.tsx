@@ -1,42 +1,53 @@
-import { Header } from "@/components/site/Header";
-import { Hero } from "@/components/site/Hero";
-import { TrustStrip } from "@/components/site/TrustStrip";
-import { Services } from "@/components/site/Services";
-import { WhoWeHelp } from "@/components/site/WhoWeHelp";
-import { HowItWorks } from "@/components/site/HowItWorks";
-import { WhyUs } from "@/components/site/WhyUs";
-import { Comparison } from "@/components/site/Comparison";
-import { Pricing } from "@/components/site/Pricing";
-import { Testimonials } from "@/components/site/Testimonials";
-import { Faq } from "@/components/site/Faq";
-import { faqJsonLd } from "@/lib/faq";
-import { FinalCta } from "@/components/site/FinalCta";
-import { Footer } from "@/components/site/Footer";
-import { MobileCta } from "@/components/site/MobileCta";
+import type { Metadata } from 'next';
+import {
+  HeroSection,
+  FeaturedServicesSection,
+  WhyChooseUsSection,
+  FreeLLCPromotionalSection,
+  TaxServicesPreviewSection,
+  HowItWorksSection,
+  PaymentAccountsSection,
+  FAQPreviewSection,
+  ConsultationCTASection,
+} from '@/components/home/Sections';
+import { generateMetadata as generateSeoMetadata, generateBreadcrumbSchema } from '@/lib/seo';
 
-export default function Home() {
+export const metadata: Metadata = generateSeoMetadata({
+  title: 'LLC Limited Liability Company - Free LLC Registration & Business Formation',
+  description: 'Start your U.S. business with free LLC registration. Professional business formation, EIN application, tax filing, and compliance services for entrepreneurs worldwide.',
+  keywords: [
+    'free LLC registration',
+    'LLC formation',
+    'U.S. business formation',
+    'EIN application',
+    'ITIN application',
+    'registered agent',
+    'tax services',
+    'business incorporation',
+  ],
+  canonical: 'https://llclimitedliabilitycompany.com',
+  ogImage: 'https://llclimitedliabilitycompany.com/og-home.png',
+  twitterCard: 'summary_large_image',
+});
+
+export default function HomePage() {
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', url: 'https://llclimitedliabilitycompany.com' },
+  ]);
+
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-      />
-      <Header />
-      <main className="flex-1">
-        <Hero />
-        <TrustStrip />
-        <Services />
-        <WhoWeHelp />
-        <HowItWorks />
-        <WhyUs />
-        <Comparison />
-        <Pricing />
-        <Testimonials />
-        <Faq />
-        <FinalCta />
-      </main>
-      <Footer />
-      <MobileCta />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      
+      <HeroSection />
+      <FeaturedServicesSection />
+      <WhyChooseUsSection />
+      <FreeLLCPromotionalSection />
+      <TaxServicesPreviewSection />
+      <HowItWorksSection />
+      <PaymentAccountsSection />
+      <FAQPreviewSection />
+      <ConsultationCTASection />
     </>
   );
 }

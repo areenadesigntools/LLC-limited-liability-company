@@ -1,29 +1,23 @@
 @import "tailwindcss";
 
-@theme inline {
-  --color-navy: #0b1220;
-  --color-navy-700: #131c2e;
-  --color-ink: #111827;
-  --color-slate: #475569;
-  --color-muted: #64748b;
-  --color-line: #e2e8f0;
-  --color-surface: #f7f9fc;
-  --color-brand: #2563eb;
-  --color-brand-dark: #1e3a8a;
-  --color-success: #10b981;
-  --color-amber: #f59e0b;
-
-  --font-sans: var(--font-inter);
-  --font-display: var(--font-sora);
-
-  --shadow-card: 0 4px 24px rgba(2, 6, 23, 0.06);
-  --shadow-lift: 0 12px 40px rgba(2, 6, 23, 0.12);
-  --shadow-glow: 0 30px 80px -20px rgba(37, 99, 235, 0.45);
-}
-
 :root {
   --background: #ffffff;
-  --foreground: #111827;
+  --foreground: #171717;
+  --primary-blue: #2563eb;
+  --primary-dark: #0b1220;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary-blue: var(--primary-blue);
+  --color-primary-dark: var(--primary-dark);
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-poppins);
+}
+
+* {
+  @apply scroll-smooth;
 }
 
 html {
@@ -34,34 +28,140 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-inter), system-ui, sans-serif;
-  -webkit-font-smoothing: antialiased;
 }
 
-.font-display {
-  font-family: var(--font-sora), system-ui, sans-serif;
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-poppins), system-ui, sans-serif;
+  @apply font-bold;
 }
 
-/* Soft dotted grid used behind dark sections */
-.bg-grid {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
-  background-size: 28px 28px;
-}
-
-.bg-grid-light {
-  background-image: radial-gradient(rgba(15, 23, 42, 0.06) 1px, transparent 1px);
-  background-size: 26px 26px;
-}
-
-@keyframes floaty {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
-.animate-floaty {
-  animation: floaty 6s ease-in-out infinite;
-}
-
+/* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  .animate-floaty { animation: none; }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .animate-pulse,
+  .animate-spin,
+  .animate-bounce {
+    animation: none !important;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply px-6 py-3 bg-primary-blue text-white font-semibold rounded-lg hover:bg-blue-700 transition-all duration-300;
+  }
+
+  .btn-secondary {
+    @apply px-6 py-3 border-2 border-primary-blue text-primary-blue font-semibold rounded-lg hover:bg-blue-50 transition-all duration-300;
+  }
+
+  .container-width {
+    @apply w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-spacing {
+    @apply py-16 md:py-24 lg:py-32;
+  }
+}
+
+/* Custom animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Utility classes */
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.6s ease-out;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.6s ease-out;
+}
+
+/* Links styling */
+a {
+  @apply transition-colors duration-300;
+}
+
+/* Focus states for accessibility */
+button:focus-visible,
+a:focus-visible {
+  @apply outline-2 outline-offset-2 outline-primary-blue;
+}
+
+/* Selection styling */
+::selection {
+  @apply bg-primary-blue text-white;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-primary-blue rounded-full hover:bg-blue-700;
+}
+
+/* Form elements styling */
+input,
+textarea,
+select {
+  @apply transition-all duration-200;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  @apply ring-2 ring-primary-blue/50;
+}
+
+/* Placeholder styling */
+::placeholder {
+  @apply text-gray-400;
 }
