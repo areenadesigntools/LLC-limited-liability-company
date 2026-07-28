@@ -39,7 +39,7 @@ export default function TermsPage() {
 
             <h2 className="text-2xl font-bold text-primary-dark mt-8 mb-4">3. Disclaimer of Warranties</h2>
             <p className="text-gray-600 mb-6">
-              The materials on our website are provided on an "as is" basis. We make no warranties, expressed or implied, and hereby disclaim and negate all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property.
+              The materials on our website are provided on an &quot;as is&quot; basis. We make no warranties, expressed or implied, and hereby disclaim and negate all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property.
             </p>
 
             <h2 className="text-2xl font-bold text-primary-dark mt-8 mb-4">4. Limitations of Liability</h2>

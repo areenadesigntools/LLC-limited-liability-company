@@ -47,7 +47,7 @@ export default function PaymentAccountsPage() {
 
           <Grid cols={2} gap="lg">
             {paymentProviders.map((provider) => (
-              <Card key={provider.id} className="hover:shadow-lg transition h-full">
+              <Card id={provider.id} key={provider.id} className="hover:shadow-lg transition h-full scroll-mt-28">
                 <CardContent className="p-8">
                   <div className="mb-6 p-4 bg-blue-100 rounded-lg w-fit">
                     <CreditCard className="w-8 h-8 text-primary-blue" />

@@ -1,22 +1,8 @@
 User-agent: *
 Allow: /
 Disallow: /api/
-Disallow: /*.json$
-Disallow: /_next/
-Disallow: /private/
-
-Sitemap: https://llclimitedliabilitycompany.com/sitemap.xml
-
-User-agent: Googlebot
-Allow: /
-Crawl-delay: 0
-
-User-agent: Bingbot
-Allow: /
-Crawl-delay: 1
-
-# Prevent access to sensitive areas
-User-agent: *
 Disallow: /admin/
 Disallow: /dashboard/
 Disallow: /private/
+
+Sitemap: https://llclimitedliabilitycompany.com/sitemap.xml

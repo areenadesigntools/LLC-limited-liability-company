@@ -7,33 +7,39 @@ const siteDescription = 'Helping entrepreneurs worldwide establish and manage U.
 
 export function generateMetadata(meta: SeoMetadata): Metadata {
   const canonical = meta.canonical || `${siteUrl}`;
-  const image = meta.ogImage || `${siteUrl}/og-image.png`;
+  const image = meta.ogImage;
 
   return {
     title: meta.title,
     description: meta.description,
     keywords: meta.keywords,
-    canonical,
+    alternates: {
+      canonical,
+    },
     openGraph: {
       title: meta.title,
       description: meta.description,
       url: canonical,
       siteName,
-      images: [
-        {
-          url: image,
-          width: 1200,
-          height: 630,
-          alt: meta.title,
-        },
-      ],
-      type: (meta.ogType as 'website' | 'article' | 'business.business') || 'website',
+      type: meta.ogType || 'website',
+      ...(image
+        ? {
+            images: [
+              {
+                url: image,
+                width: 1200,
+                height: 630,
+                alt: meta.title,
+              },
+            ],
+          }
+        : {}),
     },
     twitter: {
       card: (meta.twitterCard as 'summary' | 'summary_large_image' | 'app' | 'player') || 'summary_large_image',
       title: meta.title,
       description: meta.description,
-      images: [image],
+      ...(image ? { images: [image] } : {}),
     },
   };
 }
@@ -46,7 +52,6 @@ export function generateOrganizationSchema() {
     name: 'LLC Limited Liability Company',
     description: 'Business formation and tax compliance services',
     url: siteUrl,
-    logo: `${siteUrl}/logo.png`,
     sameAs: [
       'https://www.facebook.com/llclimitedliabilitycompany',
       'https://www.linkedin.com/company/llc-limited-liability-company',
@@ -68,14 +73,12 @@ export function generateLocalBusinessSchema() {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
     name: 'LLC Limited Liability Company',
-    image: `${siteUrl}/logo.png`,
     description: 'Business formation and tax compliance services',
     address: {
       '@type': 'PostalAddress',
       streetAddress: 'B-206, Block A, North Nazimabad',
       addressLocality: 'Karachi',
       addressRegion: 'Sindh',
-      postalCode: 'Pakistan',
       addressCountry: 'PK',
     },
     telephone: '+923712559501',
@@ -143,14 +146,6 @@ export function generateWebsiteSchema() {
     name: 'LLC Limited Liability Company',
     url: siteUrl,
     description: siteDescription,
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: {
-        '@type': 'EntryPoint',
-        urlTemplate: `${siteUrl}/search?q={search_term_string}`,
-      },
-      'query-input': 'required name=search_term_string',
-    },
   };
 }
 
@@ -160,7 +155,6 @@ export function generateProfessionalServiceSchema() {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
     name: 'LLC Limited Liability Company',
-    image: `${siteUrl}/logo.png`,
     description: siteDescription,
     url: siteUrl,
     telephone: '+923712559501',

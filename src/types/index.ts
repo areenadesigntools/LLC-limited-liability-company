@@ -46,7 +46,7 @@ export type FormField = {
   type: 'text' | 'email' | 'phone' | 'select' | 'textarea' | 'checkbox' | 'radio';
   placeholder?: string;
   required?: boolean;
-  validation?: any;
+  validation?: unknown;
 };
 
 export type ApplicationFormData = {
@@ -93,12 +93,12 @@ export type SeoMetadata = {
   keywords?: string[];
   canonical?: string;
   ogImage?: string;
-  ogType?: string;
+  ogType?: 'website' | 'article';
   twitterCard?: string;
 };
 
 export type SchemaOrg = {
   '@context': string;
   '@type': string;
-  [key: string]: any;
+  [key: string]: unknown;
 };

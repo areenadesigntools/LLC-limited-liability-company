@@ -36,7 +36,10 @@ export const Header: React.FC = () => {
     },
     {
       label: 'Tax Services',
-      submenu: taxServices.slice(0, 3).map((ts) => ({ label: ts.name, href: `/tax-services#${ts.slug}` })),
+      submenu: taxServices.slice(0, 3).map((taxService) => ({
+        label: taxService.name,
+        href: taxService.href,
+      })),
     },
     { label: 'FAQ', href: '/faq' },
     { label: 'Contact Us', href: '/contact-us' },
@@ -75,7 +78,10 @@ export const Header: React.FC = () => {
                       {link.label}
                     </Link>
                   ) : (
-                    <button className="px-4 py-2 text-gray-700 hover:text-primary-blue transition-colors duration-200 flex items-center gap-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary-blue after:transition-all after:duration-300 hover:after:w-full">
+                    <button
+                      type="button"
+                      className="px-4 py-2 text-gray-700 hover:text-primary-blue transition-colors duration-200 flex items-center gap-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary-blue after:transition-all after:duration-300 hover:after:w-full"
+                    >
                       {link.label}
                       <ChevronDown className="w-4 h-4" />
                     </button>
@@ -120,8 +126,12 @@ export const Header: React.FC = () => {
 
               {/* Mobile Menu Toggle */}
               <button
+                type="button"
                 className="lg:hidden p-2 text-gray-700 hover:text-primary-blue"
                 onClick={() => setIsOpen(!isOpen)}
+                aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
+                aria-expanded={isOpen}
+                aria-controls="mobile-navigation"
               >
                 {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
@@ -134,7 +144,7 @@ export const Header: React.FC = () => {
       {isOpen && (
         <div className="lg:hidden bg-white border-b border-gray-200 shadow-md animate-in fade-in slide-in-from-top">
           <Container>
-            <nav className="py-4 flex flex-col gap-2">
+            <nav id="mobile-navigation" className="py-4 flex flex-col gap-2">
               {navLinks.map((link) => (
                 <div key={link.label}>
                   {link.href ? (
@@ -148,8 +158,10 @@ export const Header: React.FC = () => {
                   ) : (
                     <>
                       <button
+                        type="button"
                         className="w-full text-left px-4 py-2 text-gray-700 hover:text-primary-blue hover:bg-blue-50 rounded transition-colors flex items-center justify-between"
                         onClick={() => setActiveSubmenu(activeSubmenu === link.label ? null : link.label)}
+                        aria-expanded={activeSubmenu === link.label}
                       >
                         {link.label}
                         <ChevronDown

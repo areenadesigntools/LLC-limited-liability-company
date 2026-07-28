@@ -38,6 +38,7 @@ export const contactFormSchema = z.object({
   subject: z.string().min(5, 'Subject is required'),
   message: z.string().min(20, 'Message must be at least 20 characters'),
   consent: z.boolean().refine((val) => val === true, 'You must consent to contact'),
+  website: z.string().max(200).optional(),
 });
 
 // Consultation form schema

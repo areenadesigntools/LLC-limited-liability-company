@@ -1,4 +1,4 @@
-export { services, basicServiceIds } from './services';
+export { services, basicServiceIds, getServiceBySlug } from './services';
 export { taxServices } from './taxServices';
 export { paymentProviders } from './paymentProviders';
 export { faqItems } from './faq';

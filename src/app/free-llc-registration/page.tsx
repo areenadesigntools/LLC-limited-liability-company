@@ -121,7 +121,7 @@ export default function FreeLLCRegistrationPage() {
           <SectionHeading title="Who Can Register?" centered />
           <div className="max-w-3xl mx-auto space-y-4">
             <p className="text-gray-700 text-center mb-6">
-              You can form an LLC as a non-U.S. resident. Here's what you need:
+              You can form an LLC as a non-U.S. resident. Here&apos;s what you need:
             </p>
             <div className="grid gap-4">
               <div className="p-4 bg-white rounded-lg border-l-4 border-primary-blue">
@@ -150,7 +150,7 @@ export default function FreeLLCRegistrationPage() {
           <div className="bg-gradient-to-r from-primary-blue to-blue-700 text-white p-8 rounded-lg text-center">
             <h2 className="text-2xl font-bold mb-4">Ready to Start Your Free LLC Registration?</h2>
             <p className="mb-6 text-blue-100">
-              Reach out to our team today and let's get your business started.
+              Reach out to our team today and let&apos;s get your business started.
             </p>
             <a href="/contact-us" className="inline-block px-8 py-3 bg-white text-primary-blue font-bold rounded-lg hover:bg-gray-100 transition">
               Start Your LLC Registration

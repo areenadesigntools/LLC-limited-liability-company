@@ -34,7 +34,7 @@ export default function RefundPolicyPage() {
             <ul className="list-disc list-inside text-gray-600 mb-6 space-y-2">
               <li><strong>Government Filing Fees:</strong> Non-refundable once submitted to government agencies</li>
               <li><strong>Our Service Fees:</strong> Subject to our refund policy under specific conditions</li>
-              <li><strong>Payment Provider Fees:</strong> Determined by the payment provider's policies</li>
+              <li><strong>Payment Provider Fees:</strong> Determined by the payment provider&apos;s policies</li>
             </ul>
 
             <h2 className="text-2xl font-bold text-primary-dark mt-8 mb-4">2. LLC Registration Service Refunds</h2>

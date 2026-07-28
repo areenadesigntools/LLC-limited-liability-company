@@ -1,10 +1,10 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
 import { contactInfo, socialLinks } from '@/data/company';
-import { Phone, Mail, MapPin, Facebook, Linkedin, Instagram, MessageCircle } from 'lucide-react';
+import { Phone, Mail, MapPin, MessageCircle } from 'lucide-react';
 import { Container } from '@/components/ui';
+import { FacebookIcon, InstagramIcon, LinkedInIcon } from '@/components/ui/BrandIcons';
 import { cn } from '@/lib/cn';
 
 export const TopBar: React.FC = () => {
@@ -23,9 +23,9 @@ export const TopBar: React.FC = () => {
   }, [lastScrollY]);
 
   const iconMap: Record<string, React.ReactNode> = {
-    Facebook: <Facebook className="w-4 h-4" />,
-    Linkedin: <Linkedin className="w-4 h-4" />,
-    Instagram: <Instagram className="w-4 h-4" />,
+    Facebook: <FacebookIcon className="w-4 h-4" />,
+    Linkedin: <LinkedInIcon className="w-4 h-4" />,
+    Instagram: <InstagramIcon className="w-4 h-4" />,
     MessageCircle: <MessageCircle className="w-4 h-4" />,
   };
 
@@ -68,7 +68,7 @@ export const TopBar: React.FC = () => {
                 aria-label={link.name}
                 title={link.name}
               >
-                {iconMap[link.icon] || <link.icon className="w-4 h-4" />}
+                {iconMap[link.icon] ?? null}
               </a>
             ))}
           </div>

@@ -61,3 +61,13 @@ export const services: Service[] = [
 ];
 
 export const basicServiceIds = ['free-llc', 'llc-formation', 'ein-application'];
+
+export function getServiceBySlug(slug: string): Service {
+  const service = services.find((item) => item.slug === slug);
+
+  if (!service) {
+    throw new Error(`Service data is missing for slug: ${slug}`);
+  }
+
+  return service;
+}

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { faqItems } from '@/data';
 import { Section, Container, SectionHeading } from '@/components/ui';
-import { Card, CardContent } from '@/components/ui';
+import { Card } from '@/components/ui';
 import { generateMetadata as generateSeoMetadata, generateFAQSchema, generateBreadcrumbSchema } from '@/lib/seo';
 
 export const metadata: Metadata = generateSeoMetadata({

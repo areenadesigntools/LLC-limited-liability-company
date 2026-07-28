@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { TopBar, Header, Footer, WhatsAppButton } from "@/components/layout";
 import { generateWebsiteSchema, generateOrganizationSchema } from "@/lib/seo";
@@ -30,6 +31,9 @@ export const metadata: Metadata = {
     "Business incorporation",
   ],
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://llclimitedliabilitycompany.com"),
+  alternates: {
+    canonical: "/",
+  },
   robots: "index, follow",
   openGraph: {
     type: "website",
@@ -46,6 +50,7 @@ export default function RootLayout({
 }>) {
   const websiteSchema = generateWebsiteSchema();
   const organizationSchema = generateOrganizationSchema();
+  const googleAnalyticsId = process.env.NEXT_PUBLIC_GA_ID;
 
   return (
     <html lang="en">
@@ -55,7 +60,6 @@ export default function RootLayout({
         {process.env.NEXT_PUBLIC_GOOGLE_SEARCH_CONSOLE_CODE && (
           <meta name="google-site-verification" content={process.env.NEXT_PUBLIC_GOOGLE_SEARCH_CONSOLE_CODE} />
         )}
-        <link rel="canonical" href={process.env.NEXT_PUBLIC_SITE_URL || "https://llclimitedliabilitycompany.com"} />
       </head>
       <body className={`${inter.variable} ${poppins.variable} antialiased bg-white`}>
         <TopBar />
@@ -65,8 +69,21 @@ export default function RootLayout({
         </main>
         <Footer />
         <WhatsAppButton />
-        {process.env.NEXT_PUBLIC_GA_ID && (
-          <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}></script>
+        {googleAnalyticsId && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}
+              strategy="afterInteractive"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', ${JSON.stringify(googleAnalyticsId)});
+              `}
+            </Script>
+          </>
         )}
       </body>
     </html>

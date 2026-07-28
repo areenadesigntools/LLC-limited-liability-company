@@ -42,8 +42,8 @@ export default function TaxServicesPage() {
           <SectionHeading title="Our Tax Services" centered />
 
           <Grid cols={3} gap="md">
-            {taxServices.map((service, index) => (
-              <Card key={service.id} className="hover:shadow-lg transition h-full">
+            {taxServices.map((service) => (
+              <Card id={service.id} key={service.id} className="hover:shadow-lg transition h-full scroll-mt-28">
                 <CardContent className="p-6">
                   <div className="mb-4 p-3 bg-blue-100 rounded-lg w-fit">
                     <FileText className="w-6 h-6 text-primary-blue" />

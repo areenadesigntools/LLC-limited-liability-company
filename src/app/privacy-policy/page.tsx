@@ -29,7 +29,7 @@ export default function PrivacyPolicyPage() {
 
             <h2 className="text-2xl font-bold text-primary-dark mt-8 mb-4">1. Introduction</h2>
             <p className="text-gray-600 mb-6">
-              LLC Limited Liability Company ("we," "us," "our," or "Company") respects your privacy and is committed to protecting your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information.
+              LLC Limited Liability Company (&quot;we,&quot; &quot;us,&quot; &quot;our,&quot; or &quot;Company&quot;) respects your privacy and is committed to protecting your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information.
             </p>
 
             <h2 className="text-2xl font-bold text-primary-dark mt-8 mb-4">2. Information We Collect</h2>

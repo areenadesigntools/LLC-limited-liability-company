@@ -26,7 +26,6 @@ export const metadata: Metadata = generateSeoMetadata({
     'business incorporation',
   ],
   canonical: 'https://llclimitedliabilitycompany.com',
-  ogImage: 'https://llclimitedliabilitycompany.com/og-home.png',
   twitterCard: 'summary_large_image',
 });
 

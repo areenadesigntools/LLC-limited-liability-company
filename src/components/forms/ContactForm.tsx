@@ -4,7 +4,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { contactFormSchema, type ContactForm } from '@/lib/validations';
-import { Button, Input, Select, Textarea, Checkbox, Card, CardContent } from '@/components/ui';
+import { Button, Input, Select, Textarea, Checkbox, Card } from '@/components/ui';
 import { AlertCircle, CheckCircle } from 'lucide-react';
 
 interface ContactFormComponentProps {
@@ -35,6 +35,7 @@ export const ContactFormComponent: React.FC<ContactFormComponentProps> = ({ onSu
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
+      const result = await response.json().catch(() => null) as { error?: string } | null;
 
       if (response.ok) {
         setSubmitStatus('success');
@@ -44,11 +45,15 @@ export const ContactFormComponent: React.FC<ContactFormComponentProps> = ({ onSu
           onSuccess?.();
         }, 3000);
       } else {
-        throw new Error('Failed to send message');
+        throw new Error(result?.error || 'Failed to send message');
       }
     } catch (error) {
       setSubmitStatus('error');
-      setErrorMessage('Failed to send your message. Please try again.');
+      setErrorMessage(
+        error instanceof Error
+          ? error.message
+          : 'Failed to send your message. Please try again.'
+      );
       console.error('Form submission error:', error);
     } finally {
       setIsSubmitting(false);
@@ -58,6 +63,15 @@ export const ContactFormComponent: React.FC<ContactFormComponentProps> = ({ onSu
   return (
     <Card className="p-8">
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6" noValidate>
+        <input
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden="true"
+          className="hidden"
+          {...register('website')}
+        />
+
         <div className="grid md:grid-cols-2 gap-6">
           <Input
             label="Full Name"
@@ -119,7 +133,7 @@ export const ContactFormComponent: React.FC<ContactFormComponentProps> = ({ onSu
         {submitStatus === 'success' && (
           <div className="flex items-center gap-3 p-4 bg-green-50 border border-green-200 rounded-lg text-green-700">
             <CheckCircle className="w-5 h-5" />
-            <span>Message sent successfully! We'll be in touch soon.</span>
+            <span>Message sent successfully! We&apos;ll be in touch soon.</span>
           </div>
         )}
 

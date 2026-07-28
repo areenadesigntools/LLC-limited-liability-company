@@ -7,13 +7,14 @@ import { services } from '@/data/services';
 import { taxServices } from '@/data/taxServices';
 import { paymentProviders } from '@/data/paymentProviders';
 import { Container } from '@/components/ui';
-import { Facebook, Linkedin, Instagram, MessageCircle, Mail, Phone, MapPin } from 'lucide-react';
+import { MessageCircle, Mail, Phone, MapPin } from 'lucide-react';
+import { FacebookIcon, InstagramIcon, LinkedInIcon } from '@/components/ui/BrandIcons';
 
 export const Footer: React.FC = () => {
   const iconMap: Record<string, React.ReactNode> = {
-    Facebook: <Facebook className="w-5 h-5" />,
-    Linkedin: <Linkedin className="w-5 h-5" />,
-    Instagram: <Instagram className="w-5 h-5" />,
+    Facebook: <FacebookIcon className="w-5 h-5" />,
+    Linkedin: <LinkedInIcon className="w-5 h-5" />,
+    Instagram: <InstagramIcon className="w-5 h-5" />,
     MessageCircle: <MessageCircle className="w-5 h-5" />,
   };
 
@@ -64,7 +65,7 @@ export const Footer: React.FC = () => {
                   aria-label={link.name}
                   title={link.name}
                 >
-                  {iconMap[link.icon] || <link.icon className="w-4 h-4" />}
+                  {iconMap[link.icon] ?? null}
                 </a>
               ))}
             </div>
