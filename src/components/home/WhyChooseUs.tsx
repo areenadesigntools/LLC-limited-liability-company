@@ -43,7 +43,7 @@ const reasons = [
 
 export function WhyChooseUs() {
   return (
-    <section className="bg-white py-20 md:py-28 lg:py-32">
+    <section className="bg-white pt-20 pb-2 md:pt-28 md:pb-3 lg:pt-32 lg:pb-4">
       <Container>
         <SectionIntro
           eyebrow="Why choose us"

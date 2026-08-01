@@ -1,0 +1,369 @@
+.section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(16rem, 22vw, 20rem) 1.5rem clamp(4.5rem, 7vw, 7rem);
+  background: #fff;
+}
+
+.inner {
+  width: min(100%, 88rem);
+  margin-inline: auto;
+}
+
+.panel {
+  --notch-radius: min(22vw, 22rem);
+
+  position: relative;
+  overflow: visible;
+  min-height: 35rem;
+  padding: clamp(19.5rem, 23vw, 22.5rem) clamp(1.5rem, 4vw, 3.5rem) 2.6rem;
+  border-radius: 2rem;
+}
+
+.panel::before,
+.panel::after {
+  position: absolute;
+  content: '';
+  pointer-events: none;
+}
+
+.panel::before {
+  inset: 0;
+  z-index: 0;
+  border: 1px solid rgba(103, 232, 249, 0.15);
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 50% 0, rgba(37, 99, 235, 0.22), transparent 31%),
+    linear-gradient(rgba(96, 165, 250, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(96, 165, 250, 0.05) 1px, transparent 1px),
+    linear-gradient(145deg, #06142b 0%, #071a38 54%, #061126 100%);
+  background-size: auto, 3.5rem 3.5rem, 3.5rem 3.5rem, auto;
+  box-shadow:
+    0 3.5rem 7rem -4.2rem rgba(8, 26, 56, 0.85),
+    inset 0 1px rgba(255, 255, 255, 0.07);
+  -webkit-mask-image: radial-gradient(
+    circle var(--notch-radius) at 50% 0,
+    transparent calc(100% - 1px),
+    #000 100%
+  );
+  mask-image: radial-gradient(
+    circle var(--notch-radius) at 50% 0,
+    transparent calc(100% - 1px),
+    #000 100%
+  );
+}
+
+.panel::after {
+  right: 8%;
+  bottom: 0;
+  left: 8%;
+  z-index: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.55), transparent);
+}
+
+.earthStage {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 4;
+  width: min(38vw, 38rem);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+}
+
+.earthSphere {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 999px;
+  box-shadow:
+    -1.6rem 1.8rem 3.4rem rgba(2, 8, 23, 0.52),
+    0 0 2.3rem rgba(56, 189, 248, 0.2);
+}
+
+.earthVideo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 187%;
+  max-width: none;
+  height: auto;
+  clip-path: circle(42% at 50% 50%);
+  transform: translate(-50%, -50%);
+}
+
+.panelContent {
+  position: relative;
+  z-index: 3;
+}
+
+.heading {
+  max-width: 50rem;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #a9bad2;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.eyebrow span {
+  color: #38bdf8;
+  font-size: 0.95rem;
+  letter-spacing: -0.12em;
+}
+
+.heading h2 {
+  margin-top: 0.6rem;
+  color: #fff;
+  font-family: var(--font-poppins), system-ui, sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 750;
+  line-height: 1.08;
+  letter-spacing: -0.045em;
+}
+
+.heading h2 span {
+  background: linear-gradient(90deg, #60a5fa, #22d3ee);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.steps {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.25rem;
+  margin-top: 3rem;
+  padding: 0;
+  list-style: none;
+}
+
+.stepCard {
+  position: relative;
+  min-width: 0;
+  text-align: center;
+}
+
+.stepCard:not(:last-child)::after {
+  position: absolute;
+  top: 3.45rem;
+  left: calc(50% + 3.5rem);
+  z-index: 0;
+  width: calc(100% - 7rem + 1.25rem);
+  height: 2px;
+  background: linear-gradient(90deg, #2563eb, #22d3ee, #2563eb);
+  background-size: 220% 100%;
+  box-shadow: 0 0 0.8rem rgba(34, 211, 238, 0.38);
+  content: '';
+  animation: processFlow 4s linear infinite;
+}
+
+.stepNode {
+  position: relative;
+  z-index: 2;
+  width: 7rem;
+  height: 7rem;
+  margin-inline: auto;
+}
+
+.iconShell {
+  position: relative;
+  display: grid;
+  width: 100%;
+  height: 100%;
+  place-items: center;
+  border: 1px solid rgba(147, 197, 253, 0.56);
+  border-radius: 50%;
+  background: linear-gradient(145deg, #3b82f6 0%, #2563eb 55%, #1749b5 100%);
+  box-shadow:
+    0 1.4rem 2.5rem -1.25rem rgba(37, 99, 235, 0.95),
+    0 0 0 0.42rem rgba(37, 99, 235, 0.08),
+    inset 0 1px rgba(255, 255, 255, 0.32);
+  color: #fff;
+  transition:
+    transform 300ms ease,
+    box-shadow 300ms ease;
+}
+
+.iconShell::before {
+  position: absolute;
+  inset: 0.55rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 50%;
+  content: '';
+}
+
+.iconShell svg {
+  width: 2rem;
+  height: 2rem;
+  stroke-width: 1.8;
+}
+
+.stepNumber {
+  position: absolute;
+  right: -0.6rem;
+  bottom: 0.45rem;
+  z-index: 3;
+  display: grid;
+  width: 2.35rem;
+  height: 2.35rem;
+  place-items: center;
+  border: 0.2rem solid #071936;
+  border-radius: 50%;
+  background: #061126;
+  box-shadow: 0 0.65rem 1.4rem rgba(0, 0, 0, 0.45);
+  color: #fff;
+  font-family: var(--font-poppins), system-ui, sans-serif;
+  font-size: 0.67rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.stepCard:hover .iconShell {
+  box-shadow:
+    0 1.65rem 3rem -1.25rem rgba(37, 99, 235, 1),
+    0 0 0 0.52rem rgba(34, 211, 238, 0.12),
+    inset 0 1px rgba(255, 255, 255, 0.36);
+  transform: translateY(-0.35rem) scale(1.035);
+}
+
+.stepCard h3 {
+  margin-top: 1.25rem;
+  color: #fff;
+  font-family: var(--font-poppins), system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+
+.stepCard p {
+  max-width: 15rem;
+  margin: 0.55rem auto 0;
+  color: #8fa2bd;
+  font-size: 0.73rem;
+  line-height: 1.6;
+}
+
+@keyframes processFlow {
+  to {
+    background-position: 220% 0;
+  }
+}
+
+@media (max-width: 900px) {
+  .panel {
+    padding-inline: 1.2rem;
+  }
+
+  .steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 2.4rem;
+  }
+
+  .stepCard::after {
+    display: none;
+  }
+
+  .stepCard:nth-child(odd)::after {
+    display: block;
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding: 8.75rem 0.75rem 3.5rem;
+  }
+
+  .panel {
+    --notch-radius: min(37vw, 9.5rem);
+
+    min-height: 0;
+    padding: 9.6rem 0.75rem 1.15rem;
+    border-radius: 1.45rem;
+  }
+
+  .earthStage {
+    top: 0;
+    width: min(62vw, 15.5rem);
+  }
+
+  .earthSphere {
+    inset: 0;
+  }
+
+  .eyebrow {
+    font-size: 0.6rem;
+  }
+
+  .heading h2 {
+    margin-top: 0.55rem;
+    font-size: clamp(1.55rem, 7.7vw, 2rem);
+  }
+
+  .steps {
+    column-gap: 0.7rem;
+    row-gap: 1.8rem;
+    margin-top: 1.8rem;
+  }
+
+  .stepCard:nth-child(odd)::after {
+    top: 2.55rem;
+    left: calc(50% + 2.6rem);
+    width: calc(100% - 5.2rem + 0.7rem);
+  }
+
+  .stepNode {
+    width: 5.2rem;
+    height: 5.2rem;
+  }
+
+  .iconShell::before {
+    inset: 0.42rem;
+  }
+
+  .iconShell svg {
+    width: 1.45rem;
+    height: 1.45rem;
+  }
+
+  .stepNumber {
+    right: -0.42rem;
+    bottom: 0.22rem;
+    width: 1.85rem;
+    height: 1.85rem;
+    border-width: 0.16rem;
+    font-size: 0.56rem;
+  }
+
+  .stepCard h3 {
+    margin-top: 0.9rem;
+    font-size: 0.76rem;
+  }
+
+  .stepCard p {
+    margin-top: 0.4rem;
+    font-size: 0.58rem;
+    line-height: 1.48;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stepCard::after {
+    animation: none;
+  }
+
+  .iconShell {
+    transition: none;
+  }
+}
