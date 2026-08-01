@@ -14,6 +14,7 @@ export interface HeaderMenuEntry {
 export interface HeaderNavItem {
   label: string;
   href?: string;
+  highlight?: boolean;
   menu?: HeaderMenuId;
   children?: HeaderMenuEntry[];
 }
@@ -41,6 +42,7 @@ const paymentEntries: HeaderMenuEntry[] = paymentProviders.map((provider) => ({
 
 export const headerNavItems: HeaderNavItem[] = [
   { label: 'Home', href: '/' },
+  { label: 'Free LLC', href: '/free-llc-registration', highlight: true },
   {
     label: 'Business Formation',
     menu: 'formation',

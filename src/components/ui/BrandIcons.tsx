@@ -2,6 +2,17 @@ import type { SVGProps } from 'react';
 
 type BrandIconProps = SVGProps<SVGSVGElement>;
 
+export const socialIconToneClasses = {
+  Facebook:
+    'border-blue-400/25 bg-blue-500/10 text-blue-300 hover:border-blue-300/70 hover:bg-[#1877f2] hover:text-white hover:shadow-[0_10px_28px_-12px_rgba(24,119,242,.9)]',
+  LinkedIn:
+    'border-sky-400/25 bg-sky-500/10 text-sky-300 hover:border-sky-300/70 hover:bg-[#0a66c2] hover:text-white hover:shadow-[0_10px_28px_-12px_rgba(10,102,194,.9)]',
+  Instagram:
+    'border-pink-400/25 bg-pink-500/10 text-pink-300 hover:border-pink-300/70 hover:bg-[#d946ef] hover:text-white hover:shadow-[0_10px_28px_-12px_rgba(217,70,239,.9)]',
+  WhatsApp:
+    'border-emerald-400/25 bg-emerald-500/10 text-emerald-300 hover:border-emerald-300/70 hover:bg-[#16a66a] hover:text-white hover:shadow-[0_10px_28px_-12px_rgba(22,166,106,.9)]',
+} as const;
+
 const sharedProps = {
   viewBox: '0 0 24 24',
   fill: 'none',

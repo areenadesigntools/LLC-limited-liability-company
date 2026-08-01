@@ -1,8 +1,6 @@
 .footer {
   isolation: isolate;
-  background:
-    radial-gradient(circle at 12% 28%, rgba(37, 99, 235, 0.13), transparent 30rem),
-    linear-gradient(180deg, #0a1930 0%, #050e20 44%, #020617 100%);
+  background: #000;
 }
 
 .skylineBackdrop {

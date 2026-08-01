@@ -27,7 +27,7 @@ export function BusinessFormation() {
         </header>
 
         <div className={styles.grid}>
-          {services.map((service, index) => {
+          {services.map((service) => {
             return (
               <Link
                 key={service.id}
@@ -46,7 +46,6 @@ export function BusinessFormation() {
                 </div>
 
                 <div className={styles.cardBody}>
-                  <span className={styles.cardNumber}>{String(index + 1).padStart(2, '0')}</span>
                   <h3>{service.title}</h3>
                   <p>{service.shortDescription}</p>
                   <span className={styles.cta}>

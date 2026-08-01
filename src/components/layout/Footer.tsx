@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import {
+  Check,
   Clock3,
   Mail,
   MapPin,
@@ -12,7 +13,12 @@ import { services } from '@/data/services';
 import { taxServices } from '@/data/taxServices';
 import { paymentProviders } from '@/data/paymentProviders';
 import { Container } from '@/components/ui';
-import { FacebookIcon, InstagramIcon, LinkedInIcon } from '@/components/ui/BrandIcons';
+import {
+  FacebookIcon,
+  InstagramIcon,
+  LinkedInIcon,
+  socialIconToneClasses,
+} from '@/components/ui/BrandIcons';
 import { Brand } from './Brand';
 import styles from './Footer.module.css';
 
@@ -45,15 +51,20 @@ function FooterLinks({
 }) {
   return (
     <div>
-      <h3 className="mb-5 text-sm font-bold uppercase tracking-[0.14em] text-white">{title}</h3>
+      <h3 className="mb-4 text-[0.68rem] font-bold uppercase leading-5 tracking-[0.1em] text-white sm:mb-5 sm:text-sm sm:tracking-[0.14em]">
+        {title}
+      </h3>
       <ul className="space-y-3">
         {links.map((link) => (
           <li key={`${link.label}-${link.href}`}>
             <Link
               href={link.href}
-              className="inline-flex text-sm leading-5 text-slate-400 hover:translate-x-0.5 hover:text-cyan-100"
+              className="group -mx-2 inline-flex items-start gap-2 rounded-lg px-2 py-1 text-xs leading-5 text-slate-400 hover:translate-x-1 hover:bg-blue-500/10 hover:text-white sm:text-sm"
             >
-              {link.label}
+              <span className="mt-0.5 grid size-4.5 shrink-0 place-items-center rounded-full border border-blue-400/25 bg-blue-500/10 text-blue-300 shadow-[0_7px_18px_-12px_rgba(37,99,235,.9)] transition duration-200 group-hover:scale-110 group-hover:border-blue-300 group-hover:bg-[#2563eb] group-hover:text-white group-hover:shadow-[0_0_14px_rgba(37,99,235,.55)]">
+                <Check aria-hidden="true" className="size-2.5" strokeWidth={3} />
+              </span>
+              <span>{link.label}</span>
             </Link>
           </li>
         ))}
@@ -72,8 +83,8 @@ export function Footer() {
       />
 
       <Container className="relative">
-        <div className="grid gap-10 pb-7 pt-72 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8 lg:pb-8">
-          <div className="sm:col-span-2 lg:col-span-4 lg:pr-10">
+        <div className="grid grid-cols-2 gap-x-5 gap-y-10 pb-7 pt-72 sm:gap-x-8 lg:grid-cols-12 lg:gap-8 lg:pb-8">
+          <div className="col-span-2 lg:col-span-4 lg:pr-10">
             <Brand inverse />
             <p className="mt-6 max-w-sm text-sm leading-7 text-slate-400">{companyInfo.description}</p>
             <div className="mt-6 flex gap-2">
@@ -86,9 +97,12 @@ export function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`Visit our ${link.name}`}
-                    className="grid size-10 place-items-center rounded-xl border border-white/10 bg-white/[0.035] text-slate-400 hover:-translate-y-0.5 hover:border-blue-400/30 hover:bg-blue-500/10 hover:text-white"
+                    className={`group grid size-10 place-items-center rounded-xl border transition duration-300 hover:-translate-y-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400 ${socialIconToneClasses[link.name as keyof typeof socialIconToneClasses]}`}
                   >
-                    <Icon aria-hidden="true" className="size-4" />
+                    <Icon
+                      aria-hidden="true"
+                      className="size-4 transition-transform duration-300 group-hover:scale-110"
+                    />
                   </a>
                 );
               })}

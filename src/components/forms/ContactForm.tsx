@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { contactFormSchema, type ContactForm } from '@/lib/validations';
@@ -147,9 +148,9 @@ export const ContactFormComponent: React.FC<ContactFormComponentProps> = ({
           label={
             <>
               I agree to be contacted and accept the{' '}
-              <a className="font-semibold text-electric underline-offset-2 hover:underline" href="/privacy-policy">
+              <Link className="font-semibold text-electric underline-offset-2 hover:underline" href="/privacy-policy">
                 Privacy Policy
-              </a>
+              </Link>
               .
             </>
           }

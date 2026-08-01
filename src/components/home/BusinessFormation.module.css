@@ -184,23 +184,15 @@
   position: relative;
   z-index: 1;
   display: flex;
-  min-height: 14.2rem;
+  min-height: 10.6rem;
   flex-direction: column;
   align-items: center;
-  padding: 1.5rem 1.55rem 1.6rem;
+  padding: 1rem 1.3rem 1.1rem;
   text-align: center;
 }
 
-.cardNumber {
-  color: #2563eb;
-  font-family: var(--font-poppins), system-ui, sans-serif;
-  font-size: 0.65rem;
-  font-weight: 800;
-  letter-spacing: 0.18em;
-}
-
 .cardBody h3 {
-  margin-top: 0.45rem;
+  margin-top: 0;
   color: #081a38;
   font-family: var(--font-poppins), system-ui, sans-serif;
   font-size: 1.18rem;
@@ -211,7 +203,7 @@
 
 .cardBody p {
   display: -webkit-box;
-  margin-top: 0.7rem;
+  margin-top: 0.45rem;
   overflow: hidden;
   color: #65738a;
   font-size: 0.82rem;
@@ -227,7 +219,7 @@
   justify-content: center;
   gap: 0.45rem;
   margin-top: auto;
-  padding: 0.7rem 1.1rem;
+  padding: 0.62rem 1.05rem;
   border: 1px solid rgba(37, 99, 235, 0.25);
   border-radius: 999px;
   background: linear-gradient(135deg, #2563eb, #1551df);
@@ -264,8 +256,8 @@
   }
 
   .cardBody {
-    min-height: 12.5rem;
-    padding: 1.1rem 0.85rem 1.15rem;
+    min-height: 10rem;
+    padding: 0.85rem 0.75rem 0.9rem;
   }
 
   .cardBody h3 {
@@ -320,18 +312,13 @@
   }
 
   .cardBody {
-    min-height: 8.6rem;
-    padding: 0.65rem 0.3rem 0.6rem;
-  }
-
-  .cardNumber {
-    font-size: 0.43rem;
-    letter-spacing: 0.12em;
+    min-height: 7.5rem;
+    padding: 0.5rem 0.3rem 0.55rem;
   }
 
   .cardBody h3 {
     min-height: 1.7rem;
-    margin-top: 0.28rem;
+    margin-top: 0;
     font-size: clamp(0.57rem, 2.55vw, 0.72rem);
     line-height: 1.18;
   }

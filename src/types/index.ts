@@ -25,6 +25,7 @@ export type TaxService = {
 
 export type PaymentProvider = {
   id: string;
+  slug: string;
   name: string;
   description: string;
   setupAssistance: string;

@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { Section, Container, SectionHeading, Grid, Card, CardContent } from '@/components/ui';
 import { paymentProviders } from '@/data';
 import { generateMetadata as generateSeoMetadata, generateBreadcrumbSchema } from '@/lib/seo';
-import { CreditCard, CheckCircle, AlertCircle } from 'lucide-react';
+import { AlertCircle, ArrowRight, CheckCircle, CreditCard } from 'lucide-react';
 
 export const metadata: Metadata = generateSeoMetadata({
   title: 'Payment Accounts - LLC Limited Liability Company',
@@ -84,6 +85,13 @@ export default function PaymentAccountsPage() {
                       ))}
                     </ul>
                   </div>
+                  <Link
+                    href={provider.href}
+                    className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-electric hover:text-blue-700"
+                  >
+                    View Setup Details
+                    <ArrowRight aria-hidden="true" className="size-4" />
+                  </Link>
                 </CardContent>
               </Card>
             ))}
@@ -124,9 +132,9 @@ export default function PaymentAccountsPage() {
             <p className="mb-6 text-blue-100">
               Our team can guide you through the setup process. Contact us for more information.
             </p>
-            <a href="/contact-us" className="inline-block px-8 py-3 bg-white text-primary-blue font-bold rounded-lg hover:bg-gray-100 transition">
+            <Link href="/contact-us" className="inline-block px-8 py-3 bg-white text-primary-blue font-bold rounded-lg hover:bg-gray-100 transition">
               Get Payment Account Assistance
-            </a>
+            </Link>
           </div>
         </Container>
       </Section>

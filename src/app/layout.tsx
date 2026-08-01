@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
-import { AnnouncementBar, TopBar, Header, Footer, WhatsAppButton } from "@/components/layout";
+import { TopBar, Header, Footer, WhatsAppButton } from "@/components/layout";
 import { generateWebsiteSchema, generateOrganizationSchema } from "@/lib/seo";
 
 const inter = Inter({
@@ -62,7 +62,6 @@ export default function RootLayout({
         )}
       </head>
       <body className={`${inter.variable} ${poppins.variable} antialiased`}>
-        <AnnouncementBar />
         <TopBar />
         <Header />
         <main>

@@ -12,10 +12,10 @@ import {
   Menu,
   MessageCircle,
   Phone,
+  Sparkles,
   X,
 } from 'lucide-react';
 import { contactInfo, socialLinks } from '@/data/company';
-import { Container } from '@/components/ui';
 import { FacebookIcon, InstagramIcon, LinkedInIcon } from '@/components/ui/BrandIcons';
 import { cn } from '@/lib/cn';
 import { HeaderBrand } from './HeaderBrand';
@@ -213,20 +213,20 @@ export function Header() {
       <header
         ref={headerRef}
         className={cn(
-          'sticky top-0 z-[60] flex h-[5.5rem] items-center transition-[background-color,box-shadow,backdrop-filter] duration-300',
+          'sticky top-0 z-[60] flex h-[5rem] items-center transition-[background-color,box-shadow,backdrop-filter] duration-300',
           isScrolled
             ? 'bg-white/94 shadow-[0_20px_54px_-32px_rgba(15,23,42,.38)] backdrop-blur-2xl'
             : 'bg-gradient-to-b from-slate-50 via-white to-blue-50/90 shadow-[0_18px_42px_-34px_rgba(15,23,42,.34)]'
         )}
       >
-        <Container className="h-full">
+        <div className="h-full w-full px-2 sm:px-3 lg:px-4">
           <div className="flex h-full items-center">
             <div
               className={cn(
-                'relative flex w-full items-center justify-between gap-4 overflow-visible rounded-[1.2rem] border px-3.5 transition-[height,background-color,border-color,box-shadow] duration-300 sm:px-4',
+                'relative flex w-full items-center justify-between gap-2 overflow-visible rounded-[1.1rem] border px-3.5 transition-[height,background-color,border-color,box-shadow] duration-300 sm:px-4 min-[1536px]:gap-3',
                 isScrolled
-                  ? 'h-[4.5rem] border-blue-200/80 bg-white/96 shadow-[0_20px_55px_-30px_rgba(15,23,42,.32),0_0_0_1px_rgba(37,99,235,.035)]'
-                  : 'h-[4.75rem] border-slate-200/90 bg-gradient-to-r from-white via-[#fbfdff] to-blue-50/80 shadow-[0_22px_60px_-34px_rgba(15,23,42,.34),0_0_0_1px_rgba(37,99,235,.035)] min-[1340px]:h-[5rem]'
+                  ? 'h-[4.1rem] border-blue-200/80 bg-white/96 shadow-[0_20px_55px_-30px_rgba(15,23,42,.32),0_0_0_1px_rgba(37,99,235,.035)]'
+                  : 'h-[4.25rem] border-slate-200/90 bg-gradient-to-r from-white via-[#fbfdff] to-blue-50/80 shadow-[0_22px_60px_-34px_rgba(15,23,42,.34),0_0_0_1px_rgba(37,99,235,.035)] min-[1340px]:h-[4.5rem]'
               )}
             >
               <span
@@ -242,7 +242,7 @@ export function Header() {
 
               <nav
                 aria-label="Primary navigation"
-                className="relative z-10 hidden min-w-0 flex-1 items-center justify-center gap-0 min-[1340px]:flex"
+                className="relative z-10 hidden min-w-0 flex-1 items-center justify-center gap-0 min-[1340px]:flex min-[1536px]:gap-0.5"
               >
                 {headerNavItems.map((item) => {
                   const isActive = isNavItemActive(pathname, item);
@@ -254,24 +254,41 @@ export function Header() {
                         href={item.href}
                         onClick={closeMenuNow}
                         className={cn(
-                          'group relative flex min-h-11 items-center whitespace-nowrap rounded-lg px-2.5 text-[0.76rem] font-semibold text-slate-600 transition duration-200 min-[1420px]:px-3 min-[1420px]:text-[0.8rem]',
+                          'group relative flex min-h-10 items-center justify-center whitespace-nowrap rounded-lg px-2 text-[0.74rem] font-semibold text-slate-600 transition duration-200 min-[1536px]:px-2.5 min-[1536px]:text-[0.8rem]',
                           'hover:bg-blue-50/90 hover:text-primary-dark',
-                          isActive && 'text-electric'
+                          ['About Us', 'Contact Us', 'FAQ'].includes(item.label) &&
+                            'w-[4.75rem] shrink-0 px-1 min-[1536px]:w-20',
+                          item.highlight &&
+                            'mx-0.5 min-h-9 w-auto shrink-0 gap-1.5 overflow-hidden rounded-full border border-blue-400/40 bg-gradient-to-r from-blue-700 via-blue-600 to-blue-500 px-2.5 font-bold text-white shadow-[0_10px_26px_-14px_rgba(37,99,235,.95)] hover:border-cyan-200/60 hover:bg-blue-600 hover:text-white hover:shadow-[0_13px_30px_-14px_rgba(37,99,235,1)] min-[1536px]:px-3.5',
+                          isActive &&
+                            (item.highlight
+                              ? 'border-cyan-200/70 bg-gradient-to-r from-blue-800 via-blue-600 to-cyan-500 text-white shadow-[0_12px_30px_-13px_rgba(37,99,235,1)] hover:text-white'
+                              : 'text-electric')
                         )}
                       >
-                        {item.label}
-                        <span
-                          aria-hidden="true"
-                          className={cn(
-                            'absolute inset-x-3 bottom-1 h-px origin-center scale-x-0 bg-gradient-to-r from-transparent via-electric to-cyan-400 opacity-0 shadow-[0_0_8px_rgba(37,99,235,.55)] transition duration-300 group-hover:scale-x-100 group-hover:opacity-70',
-                            isActive && 'scale-x-100 opacity-100'
-                          )}
-                        />
-                        {isActive && (
-                          <span
+                        {item.highlight && (
+                          <Sparkles
                             aria-hidden="true"
-                            className="absolute bottom-0.5 left-1/2 size-1 -translate-x-1/2 rounded-full bg-electric shadow-[0_0_10px_2px_rgba(37,99,235,.45)]"
+                            className="size-3.5 shrink-0 transition-transform duration-300 group-hover:rotate-6 group-hover:scale-110"
                           />
+                        )}
+                        {item.label}
+                        {!item.highlight && (
+                          <>
+                            <span
+                              aria-hidden="true"
+                              className={cn(
+                                'absolute inset-x-3 bottom-1 h-px origin-center scale-x-0 bg-gradient-to-r from-transparent via-electric to-cyan-400 opacity-0 shadow-[0_0_8px_rgba(37,99,235,.55)] transition duration-300 group-hover:scale-x-100 group-hover:opacity-70',
+                                isActive && 'scale-x-100 opacity-100'
+                              )}
+                            />
+                            {isActive && (
+                              <span
+                                aria-hidden="true"
+                                className="absolute bottom-0.5 left-1/2 size-1 -translate-x-1/2 rounded-full bg-electric shadow-[0_0_10px_2px_rgba(37,99,235,.45)]"
+                              />
+                            )}
+                          </>
                         )}
                       </Link>
                     );
@@ -299,7 +316,7 @@ export function Header() {
                         onClick={() => (isOpen ? closeMenuNow() : openMenuNow(menu))}
                         onKeyDown={(event) => handleMenuKeyDown(event, menu)}
                         className={cn(
-                          'group relative flex min-h-11 items-center gap-1 whitespace-nowrap rounded-lg px-2.5 text-[0.76rem] font-semibold text-slate-600 transition duration-200 min-[1420px]:px-3 min-[1420px]:text-[0.8rem]',
+                          'group relative flex min-h-10 items-center gap-1 whitespace-nowrap rounded-lg px-2 !text-[0.74rem] !font-semibold text-slate-600 transition duration-200 min-[1536px]:px-2.5 min-[1536px]:!text-[0.8rem]',
                           'hover:bg-blue-50/90 hover:text-primary-dark',
                           (isOpen || isActive) && 'bg-blue-50/90 text-electric'
                         )}
@@ -329,7 +346,7 @@ export function Header() {
                 <Link
                   href="/contact-us"
                   onClick={closeMenuNow}
-                  className="header-consultation-cta group relative hidden min-h-11 items-center gap-2 overflow-hidden whitespace-nowrap rounded-xl border border-blue-300/25 bg-gradient-to-r from-blue-600 via-blue-500 to-blue-600 px-4 text-xs font-bold text-white shadow-[0_14px_34px_-15px_rgba(37,99,235,.9)] hover:-translate-y-0.5 hover:border-cyan-200/35 sm:inline-flex min-[1340px]:px-4.5"
+                  className="header-consultation-cta group relative hidden min-h-10 items-center gap-2 overflow-hidden whitespace-nowrap rounded-xl border border-blue-300/25 bg-gradient-to-r from-blue-600 via-blue-500 to-blue-600 px-3.5 text-xs font-bold text-white shadow-[0_14px_34px_-15px_rgba(37,99,235,.9)] hover:-translate-y-0.5 hover:border-cyan-200/35 sm:inline-flex min-[1536px]:px-4.5"
                 >
                   <span
                     aria-hidden="true"
@@ -379,7 +396,7 @@ export function Header() {
                 ))}
             </div>
           </div>
-        </Container>
+        </div>
       </header>
 
       {isDrawerOpen && (
@@ -432,9 +449,15 @@ export function Header() {
                         onClick={closeDrawer}
                         className={cn(
                           'flex min-h-12 items-center rounded-xl px-4 text-[0.95rem] font-semibold text-slate-300 hover:bg-white/[0.055] hover:text-white',
-                          isActive && 'bg-blue-500/12 text-cyan-100'
+                          item.highlight &&
+                            'my-2 justify-center gap-2 border border-blue-400/30 bg-gradient-to-r from-blue-600/25 to-cyan-500/10 font-bold text-cyan-100 shadow-[0_12px_32px_-20px_rgba(37,99,235,.95)] hover:border-blue-300/50 hover:bg-blue-500/25',
+                          isActive &&
+                            (item.highlight
+                              ? 'border-blue-300/60 bg-gradient-to-r from-blue-600 to-blue-500 text-white'
+                              : 'bg-blue-500/12 text-cyan-100')
                         )}
                       >
+                        {item.highlight && <Sparkles aria-hidden="true" className="size-4" />}
                         {item.label}
                       </Link>
                     );
@@ -451,7 +474,7 @@ export function Header() {
                         aria-expanded={isOpen}
                         aria-controls={submenuId}
                         className={cn(
-                          'flex min-h-12 w-full items-center justify-between rounded-xl px-4 text-left text-[0.95rem] font-semibold text-slate-300 hover:bg-white/[0.055] hover:text-white',
+                          'flex min-h-12 w-full items-center justify-between rounded-xl px-4 text-left !text-[0.95rem] !font-semibold text-slate-300 hover:bg-white/[0.055] hover:text-white',
                           (isOpen || isActive) && 'bg-blue-500/8 text-cyan-100'
                         )}
                       >

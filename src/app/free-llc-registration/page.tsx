@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { Section, Container, SectionHeading, Grid } from '@/components/ui';
 import { usStates } from '@/data';
 import { generateMetadata as generateSeoMetadata, generateBreadcrumbSchema } from '@/lib/seo';
@@ -152,9 +153,9 @@ export default function FreeLLCRegistrationPage() {
             <p className="mb-6 text-blue-100">
               Reach out to our team today and let&apos;s get your business started.
             </p>
-            <a href="/contact-us" className="inline-block px-8 py-3 bg-white text-primary-blue font-bold rounded-lg hover:bg-gray-100 transition">
+            <Link href="/contact-us" className="inline-block px-8 py-3 bg-white text-primary-blue font-bold rounded-lg hover:bg-gray-100 transition">
               Start Your LLC Registration
-            </a>
+            </Link>
           </div>
         </Container>
       </Section>

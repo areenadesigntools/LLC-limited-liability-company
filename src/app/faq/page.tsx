@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { faqItems } from '@/data';
 import { Section, Container, SectionHeading } from '@/components/ui';
 import { Card } from '@/components/ui';
@@ -74,9 +75,9 @@ export default function FAQPage() {
             <p className="text-gray-600 mb-4">
               Feel free to contact us directly. Our team is ready to help.
             </p>
-            <a href="/contact-us" className="inline-block text-primary-blue font-semibold hover:underline transition">
+            <Link href="/contact-us" className="inline-block text-primary-blue font-semibold hover:underline transition">
               Contact Us → 
-            </a>
+            </Link>
           </div>
         </Container>
       </Section>

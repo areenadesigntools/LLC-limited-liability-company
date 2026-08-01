@@ -1,7 +1,12 @@
 import { Mail, MapPin, MessageCircle, Phone } from 'lucide-react';
 import { contactInfo, socialLinks } from '@/data/company';
 import { Container } from '@/components/ui';
-import { FacebookIcon, InstagramIcon, LinkedInIcon } from '@/components/ui/BrandIcons';
+import {
+  FacebookIcon,
+  InstagramIcon,
+  LinkedInIcon,
+  socialIconToneClasses,
+} from '@/components/ui/BrandIcons';
 
 const iconMap = {
   Facebook: FacebookIcon,
@@ -46,10 +51,13 @@ export function TopBar() {
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="grid size-8 place-items-center rounded-lg text-slate-400 hover:bg-white/8 hover:text-white"
+                  className={`group grid size-8 place-items-center rounded-lg border transition duration-300 hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400 ${socialIconToneClasses[link.name as keyof typeof socialIconToneClasses]}`}
                   aria-label={`Visit our ${link.name}`}
                 >
-                  <Icon aria-hidden="true" className="size-3.5" />
+                  <Icon
+                    aria-hidden="true"
+                    className="size-3.5 transition-transform duration-300 group-hover:scale-110"
+                  />
                 </a>
               );
             })}

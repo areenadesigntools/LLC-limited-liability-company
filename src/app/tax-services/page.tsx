@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { Section, Container, SectionHeading, Grid, Card, CardContent } from '@/components/ui';
 import { taxServices } from '@/data';
 import { generateMetadata as generateSeoMetadata, generateBreadcrumbSchema } from '@/lib/seo';
-import { FileText, Users, Zap } from 'lucide-react';
+import { ArrowRight, FileText, Users, Zap } from 'lucide-react';
 
 export const metadata: Metadata = generateSeoMetadata({
   title: 'Tax Services - LLC Limited Liability Company',
@@ -67,6 +68,13 @@ export default function TaxServicesPage() {
                       ))}
                     </ul>
                   </div>
+                  <Link
+                    href={service.href}
+                    className="inline-flex items-center gap-2 text-sm font-bold text-electric hover:text-blue-700"
+                  >
+                    View Service Details
+                    <ArrowRight aria-hidden="true" className="size-4" />
+                  </Link>
                 </CardContent>
               </Card>
             ))}
@@ -104,9 +112,9 @@ export default function TaxServicesPage() {
             <p className="text-gray-700 mb-6">
               Contact us today for a free consultation on your tax needs.
             </p>
-            <a href="/contact-us" className="inline-block px-8 py-3 bg-primary-blue text-white font-bold rounded-lg hover:bg-blue-700 transition">
+            <Link href="/contact-us" className="inline-block px-8 py-3 bg-primary-blue text-white font-bold rounded-lg hover:bg-blue-700 transition">
               Get Tax Consultation
-            </a>
+            </Link>
           </div>
         </Container>
       </Section>

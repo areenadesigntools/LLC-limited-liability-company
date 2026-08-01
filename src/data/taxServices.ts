@@ -9,7 +9,7 @@ export const taxServices: TaxService[] = [
     typicalUsers: 'LLCs conducting business in multiple states',
     requiredInfo: ['LLC formation documents', 'State business registration', 'Income records', 'Business expenses'],
     considerations: ['File in states where you do business', 'Estimated tax deadlines', 'Nexus requirements'],
-    href: '/tax-services#state-tax-filing',
+    href: '/state-tax-filing',
   },
   {
     id: 'form-1065',
@@ -19,7 +19,7 @@ export const taxServices: TaxService[] = [
     typicalUsers: 'Multi-member LLCs taxed as partnerships',
     requiredInfo: ['Member information', 'Income and deductions', 'Capital accounts', 'Member distributions'],
     considerations: ['Pass-through entity taxation', 'K-1 schedule requirements', 'Estimated tax payments'],
-    href: '/tax-services#form-1065',
+    href: '/form-1065-filing',
   },
   {
     id: 'form-1120',
@@ -29,7 +29,7 @@ export const taxServices: TaxService[] = [
     typicalUsers: 'LLCs electing corporate taxation, small corporations',
     requiredInfo: ['Business income records', 'Corporate deductions', 'Asset information', 'Shareholder details'],
     considerations: ['Corporate tax rates', 'Estimated payments', 'Double taxation implications'],
-    href: '/tax-services#form-1120',
+    href: '/form-1120-filing',
   },
   {
     id: 'form-1120-proforma',
@@ -39,7 +39,7 @@ export const taxServices: TaxService[] = [
     typicalUsers: 'U.S. corporations with foreign ownership',
     requiredInfo: ['Ownership structure', 'Foreign owner details', 'Intercompany transactions', 'Corporate records'],
     considerations: ['Foreign ownership reporting', 'Transfer pricing', 'Withholding requirements'],
-    href: '/tax-services#form-1120-proforma',
+    href: '/form-1120-proforma-5472',
   },
   {
     id: 'form-1040-nr',
@@ -49,7 +49,7 @@ export const taxServices: TaxService[] = [
     typicalUsers: 'Individual business owners, freelancers, non-resident aliens',
     requiredInfo: ['Income records', 'Business expenses', 'Investment income', 'Tax documents'],
     considerations: ['Residency status', 'U.S. income determination', 'Tax treaty implications'],
-    href: '/tax-services#form-1040-nr',
+    href: '/form-1040-nr-filing',
   },
   {
     id: 'form-5472',
@@ -59,6 +59,10 @@ export const taxServices: TaxService[] = [
     typicalUsers: 'U.S. entities with foreign owners or transactions',
     requiredInfo: ['Foreign owner information', 'Related party transactions', 'Ownership percentages'],
     considerations: ['Transfer pricing compliance', 'Documentation requirements', 'Penalty implications'],
-    href: '/tax-services#form-5472',
+    href: '/form-5472-filing',
   },
 ];
+
+export function getTaxServiceBySlug(slug: string): TaxService | undefined {
+  return taxServices.find((service) => service.slug === slug);
+}

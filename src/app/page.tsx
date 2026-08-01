@@ -50,10 +50,10 @@ export default function HomePage() {
       <LaunchJourney />
       <BusinessFormation />
       <TaxCompliance />
+      <PaymentAssistance />
       <WhyChooseUs />
       <WorkingProcess />
       <GlobalSupport />
-      <PaymentAssistance />
       <FreeLlcExplainer />
       <LeadInquiry />
       <FaqPreview />

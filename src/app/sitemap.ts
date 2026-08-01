@@ -1,4 +1,5 @@
 import { MetadataRoute } from 'next';
+import { paymentProviders, taxServices } from '@/data';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://llclimitedliabilitycompany.com';
@@ -49,6 +50,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.7,
     },
+    ...taxServices.map((service) => ({
+      url: `${baseUrl}${service.href}`,
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    })),
+    ...paymentProviders.map((provider) => ({
+      url: `${baseUrl}${provider.href}`,
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
+    })),
     {
       url: `${baseUrl}/about-us`,
       changeFrequency: 'monthly',
