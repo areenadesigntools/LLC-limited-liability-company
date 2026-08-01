@@ -1,70 +1,85 @@
-import {
-  ClipboardCheck,
-  Globe2,
-  Headphones,
-  ListChecks,
-  LockKeyhole,
-  Waypoints,
-} from 'lucide-react';
-import { Container, SectionIntro } from '@/components/ui';
+import Image from 'next/image';
+import { Container } from '@/components/ui';
+import styles from './WhyChooseUs.module.css';
 
 const reasons = [
   {
-    icon: Waypoints,
-    title: 'Transparent guidance',
-    description: 'Know what is required, what it costs, and what happens next.',
+    title: 'Transparent',
+    description:
+      'Clear requirements, pricing guidance, and next steps before your service begins.',
+    image: '/images/LLC Formation Card Banner.webp',
+    alt: 'LLC formation documents arranged on a professional desk',
   },
   {
-    icon: Headphones,
-    title: 'Dedicated support',
-    description: 'A direct channel for questions throughout your service journey.',
+    title: 'Structured',
+    description:
+      'One organized process for sharing information, reviewing documents, and tracking progress.',
+    image: '/images/EIN Application Card Banner.webp',
+    alt: 'EIN application documents prepared for review',
   },
   {
-    icon: Globe2,
-    title: 'Global-client assistance',
-    description: 'Remote-friendly communication for founders outside the United States.',
+    title: 'Secure',
+    description:
+      'Your business and personal information is handled carefully throughout every request.',
+    image: '/images/Registered Agent Card Banner.webp',
+    alt: 'Professional registered agent service workspace',
   },
   {
-    icon: ListChecks,
-    title: 'Structured process',
-    description: 'Clear information requests and organized progress updates.',
-  },
-  {
-    icon: ClipboardCheck,
-    title: 'Compliance-focused service',
-    description: 'Attention to the documents and obligations tied to your request.',
-  },
-  {
-    icon: LockKeyhole,
-    title: 'Secure communication',
-    description: 'Business and personal details are handled with care.',
+    title: 'Reliable',
+    description:
+      'Practical updates and responsive support keep your U.S. business journey moving forward.',
+    image: '/images/Reseller Certificate Banner.webp',
+    alt: 'Reseller certificate and business compliance materials',
   },
 ];
 
+function Connector({ side }: { side: 'left' | 'right' }) {
+  return (
+    <svg
+      className={`${styles.connector} ${styles[side]}`}
+      viewBox="0 0 120 78"
+      aria-hidden="true"
+    >
+      <path d="M20 2C18 35 17 54 52 55C71 55 74 73 52 75C36 76 32 62 43 57C56 51 77 62 99 68" />
+      <path className={styles.arrow} d="m91 62 9 6-10 3" />
+    </svg>
+  );
+}
+
 export function WhyChooseUs() {
   return (
-    <section className="bg-white pt-20 pb-2 md:pt-28 md:pb-3 lg:pt-32 lg:pb-4">
+    <section className={styles.section} aria-labelledby="why-choose-us-title">
       <Container>
-        <SectionIntro
-          eyebrow="Why choose us"
-          title="Professional support built around informed decisions"
-          description="Our role is to help you move through complex business tasks with a clear, practical, and carefully qualified process."
-          align="center"
-        />
+        <header className={styles.heading}>
+          <h2 id="why-choose-us-title">Why Choose Us?</h2>
+          <p>Four reasons founders trust us with their next U.S. business step.</p>
+        </header>
 
-        <div className="mt-12 grid gap-px overflow-hidden rounded-3xl border border-slate-200 bg-slate-200 md:grid-cols-2 lg:grid-cols-3">
-          {reasons.map((reason) => {
-            const Icon = reason.icon;
-            return (
-              <article key={reason.title} className="group bg-white p-7 sm:p-8">
-                <span className="icon-shell transition-transform group-hover:-translate-y-0.5">
-                  <Icon aria-hidden="true" className="size-5" />
-                </span>
-                <h3 className="mt-6 text-lg text-primary-dark">{reason.title}</h3>
-                <p className="mt-3 text-sm leading-6 text-muted">{reason.description}</p>
+        <div className={styles.timeline}>
+          {reasons.map((reason, index) => (
+            <div key={reason.title} className={styles.item}>
+              <article className={styles.card}>
+                <div className={styles.content}>
+                  <h3>{reason.title}</h3>
+                  <p>{reason.description}</p>
+                </div>
+
+                <div className={styles.imageWrap}>
+                  <Image
+                    src={reason.image}
+                    alt={reason.alt}
+                    fill
+                    sizes="(max-width: 640px) 42vw, (max-width: 1024px) 34vw, 360px"
+                  />
+                  <span aria-hidden="true" />
+                </div>
               </article>
-            );
-          })}
+
+              {index < reasons.length - 1 ? (
+                <Connector side={index % 2 === 0 ? 'left' : 'right'} />
+              ) : null}
+            </div>
+          ))}
         </div>
       </Container>
     </section>

@@ -1,4 +1,13 @@
-import { ClipboardList, FileSearch, MessageSquareText, Send } from 'lucide-react';
+import {
+  ClipboardList,
+  FileSearch,
+  Globe2,
+  Layers3,
+  MessageSquareText,
+  RadioTower,
+  Send,
+  ShieldCheck,
+} from 'lucide-react';
 import styles from './WorkingProcess.module.css';
 
 const steps = [
@@ -43,6 +52,61 @@ export function WorkingProcess() {
               </video>
             </div>
           </div>
+
+          <div className={styles.globeDetails}>
+            <div className={`${styles.orbitalBadge} ${styles.orbitalLeft}`}>
+              <span className={styles.orbitalIcon}>
+                <RadioTower aria-hidden="true" />
+              </span>
+              <strong>Remote access</strong>
+              <small>Built for global founders</small>
+            </div>
+
+            <div className={`${styles.orbitalBadge} ${styles.orbitalRight}`}>
+              <span className={styles.orbitalIcon}>
+                <ShieldCheck aria-hidden="true" />
+              </span>
+              <strong>Secure guidance</strong>
+              <small>Clear and careful support</small>
+            </div>
+
+            <div className={`${styles.globeInfoCard} ${styles.globeInfoLeft}`}>
+              <span className={styles.globeInfoIcon}>
+                <Globe2 aria-hidden="true" />
+              </span>
+              <span>
+                <strong>Worldwide founder support</strong>
+                <small>Remote-friendly guidance</small>
+              </span>
+            </div>
+
+            <div className={`${styles.globeInfoCard} ${styles.globeInfoRight}`}>
+              <span className={styles.globeInfoIcon}>
+                <Layers3 aria-hidden="true" />
+              </span>
+              <span>
+                <strong>Formation · Tax · Payments</strong>
+                <small>One clear service path</small>
+              </span>
+            </div>
+
+            <div className={`${styles.sideProof} ${styles.sideProofLeft}`}>
+              <strong>Clear at every step</strong>
+              <span>Requirements organized</span>
+              <span>Progress kept visible</span>
+              <span>Details handled securely</span>
+            </div>
+
+            <div className={`${styles.sideProof} ${styles.sideProofRight}`}>
+              <strong>Practical support</strong>
+              <span>Compliance-focused care</span>
+              <span>Follow-up guidance</span>
+              <span>Remote-friendly communication</span>
+            </div>
+          </div>
+
+          <span className={`${styles.signalField} ${styles.signalLeft}`} aria-hidden="true" />
+          <span className={`${styles.signalField} ${styles.signalRight}`} aria-hidden="true" />
 
           <div className={styles.panelContent}>
             <header className={styles.heading}>
