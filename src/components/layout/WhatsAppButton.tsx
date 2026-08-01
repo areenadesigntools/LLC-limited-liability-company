@@ -1,7 +1,3 @@
-'use client';
-
-import React from 'react';
-import Link from 'next/link';
 import { MessageCircle } from 'lucide-react';
 import { getWhatsAppUrl, generateMessageForService } from '@/lib/utils';
 import { cn } from '@/lib/cn';
@@ -13,43 +9,41 @@ interface WhatsAppButtonProps {
   size?: 'sm' | 'md' | 'lg';
 }
 
-export const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({
+export function WhatsAppButton({
   serviceSlug,
   customMessage,
   className,
   size = 'md',
-}) => {
+}: WhatsAppButtonProps) {
   const message = customMessage || generateMessageForService(serviceSlug || 'general');
   const url = getWhatsAppUrl(message);
 
-  const sizeClasses = {
-    sm: 'w-12 h-12',
-    md: 'w-14 h-14',
-    lg: 'w-16 h-16',
-  };
-
-  const iconSizes = {
-    sm: 'w-6 h-6',
-    md: 'w-7 h-7',
-    lg: 'w-8 h-8',
+  const sizes = {
+    sm: 'size-12',
+    md: 'size-13 sm:size-14',
+    lg: 'size-15 sm:size-16',
   };
 
   return (
-    <Link
+    <a
       href={url}
       target="_blank"
       rel="noopener noreferrer"
       className={cn(
-        'fixed bottom-6 right-6 rounded-full bg-green-500 hover:bg-green-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center animate-pulse hover:animate-none z-30',
-        sizeClasses[size],
+        'group fixed bottom-6 right-6 z-40 hidden place-items-center rounded-2xl border border-emerald-300/30 bg-emerald-500 text-white shadow-[0_18px_42px_-14px_rgba(16,185,129,.72)] hover:-translate-y-1 hover:bg-emerald-600 sm:grid',
+        sizes[size],
         className
       )}
-      aria-label="Contact on WhatsApp"
-      title="Contact on WhatsApp"
+      aria-label="Contact LLC Limited Liability Company on WhatsApp"
+      title="Chat on WhatsApp"
     >
-      <MessageCircle className={iconSizes[size]} />
-    </Link>
+      <span
+        aria-hidden="true"
+        className="absolute inset-0 -z-10 animate-signal rounded-2xl bg-emerald-400/40 blur-md"
+      />
+      <MessageCircle aria-hidden="true" className="size-6 sm:size-7" />
+    </a>
   );
-};
+}
 
 export default WhatsAppButton;

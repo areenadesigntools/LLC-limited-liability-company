@@ -84,7 +84,7 @@ export function generateMessageForService(serviceSlug: string): string {
 
 export function getWhatsAppUrl(message?: string, phone?: string): string {
   const whatsappPhone = phone || process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '+923712559501';
-  const phoneNumber = whatsappPhone.replace(/[^0-9+]/g, '');
+  const phoneNumber = whatsappPhone.replace(/\D/g, '');
   const encoded = encodeURIComponent(message || 'Hello');
   return `https://wa.me/${phoneNumber}?text=${encoded}`;
 }

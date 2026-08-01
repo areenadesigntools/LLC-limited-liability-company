@@ -1,0 +1,315 @@
+.section {
+  width: 100%;
+  overflow: hidden;
+  border-block: 1px solid rgba(37, 99, 235, 0.1);
+  background:
+    radial-gradient(circle at 50% -20%, rgba(34, 211, 238, 0.14), transparent 48%),
+    linear-gradient(180deg, #f8fcff 0%, #f2f8ff 100%);
+  padding: clamp(0.55rem, 1.2vw, 1rem) clamp(0.45rem, 1.8vw, 1.75rem);
+}
+
+.shell {
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid rgba(37, 99, 235, 0.17);
+  border-radius: clamp(1.2rem, 2.2vw, 2.15rem);
+  background:
+    radial-gradient(circle at 18% 15%, rgba(96, 165, 250, 0.12), transparent 23%),
+    radial-gradient(circle at 72% 20%, rgba(34, 211, 238, 0.1), transparent 25%),
+    rgba(255, 255, 255, 0.92);
+  box-shadow:
+    0 22px 55px -38px rgba(15, 55, 100, 0.5),
+    inset 0 1px rgba(255, 255, 255, 0.9);
+  padding: clamp(0.75rem, 1.6vw, 1.35rem) clamp(0.25rem, 2.2vw, 2.5rem) clamp(0.65rem, 1.35vw, 1.1rem);
+}
+
+.journey {
+  --node-size: clamp(4.8rem, 7.6vw, 6.8rem);
+  position: relative;
+  width: 100%;
+}
+
+.connector {
+  position: absolute;
+  top: calc(var(--node-size) / 2);
+  right: 12.5%;
+  left: 12.5%;
+  z-index: 0;
+  height: 3px;
+  translate: 0 -50%;
+}
+
+.connectorTrack,
+.connectorProgress {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+}
+
+.connectorTrack {
+  background:
+    repeating-linear-gradient(90deg, rgba(100, 116, 139, 0.2) 0 7px, transparent 7px 13px),
+    rgba(219, 230, 243, 0.5);
+}
+
+.connectorProgress {
+  right: auto;
+  background: linear-gradient(90deg, #1d4ed8 0%, #2563eb 52%, #22d3ee 100%);
+  box-shadow: 0 0 16px rgba(37, 99, 235, 0.42);
+  transition: width 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.connectorSpark {
+  position: absolute;
+  top: 50%;
+  width: 0.58rem;
+  height: 0.58rem;
+  translate: -50% -50%;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: #22d3ee;
+  box-shadow: 0 0 0.9rem rgba(34, 211, 238, 0.9);
+  transition: left 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.steps {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.step {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: center;
+  color: #5b6b82;
+  text-align: center;
+}
+
+.nodeFrame {
+  position: relative;
+  display: grid;
+  width: var(--node-size);
+  height: var(--node-size);
+  place-items: center;
+  border: 1px solid rgba(37, 99, 235, 0.11);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 10px 25px -18px rgba(15, 55, 100, 0.55);
+  transition:
+    border-color 0.45s ease,
+    box-shadow 0.45s ease,
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.nodeFrame::before,
+.nodeFrame::after {
+  position: absolute;
+  border: 1px solid rgba(37, 99, 235, 0.13);
+  border-radius: 50%;
+  content: '';
+}
+
+.nodeFrame::before {
+  inset: 7%;
+}
+
+.nodeFrame::after {
+  inset: 15%;
+}
+
+.node {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  width: 72%;
+  height: 72%;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid rgba(37, 99, 235, 0.24);
+  border-radius: 50%;
+  background: linear-gradient(145deg, #fff, #eff6ff);
+  box-shadow:
+    0 12px 26px -16px rgba(37, 99, 235, 0.55),
+    inset 0 1px rgba(255, 255, 255, 0.88);
+  color: #1d4ed8;
+  transition:
+    border-color 0.45s ease,
+    background 0.45s ease,
+    color 0.45s ease,
+    box-shadow 0.45s ease,
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.node::after {
+  position: absolute;
+  inset: -30% 58% -30% -15%;
+  rotate: 18deg;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.34), transparent);
+  content: '';
+  opacity: 0;
+  transform: translateX(-180%);
+}
+
+.node svg {
+  width: 35%;
+  height: 35%;
+  stroke-width: 1.65;
+}
+
+.node small {
+  position: absolute;
+  top: 16%;
+  right: 17%;
+  color: currentColor;
+  font-size: clamp(0.38rem, 0.55vw, 0.56rem);
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  opacity: 0.68;
+}
+
+.nodeOrbit {
+  position: absolute;
+  inset: -3%;
+  z-index: 3;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.nodeOrbit i {
+  position: absolute;
+  top: 47%;
+  right: -0.24rem;
+  width: 0.55rem;
+  height: 0.55rem;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: #22d3ee;
+  box-shadow: 0 0 0.75rem rgba(34, 211, 238, 0.85);
+}
+
+.step strong {
+  max-width: 100%;
+  margin-top: clamp(0.45rem, 0.9vw, 0.85rem);
+  overflow: hidden;
+  color: #24354d;
+  font-family: var(--font-poppins), system-ui, sans-serif;
+  font-size: clamp(0.52rem, 1vw, 0.88rem);
+  font-weight: 800;
+  letter-spacing: 0.015em;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: color 0.35s ease;
+}
+
+.step[data-state='complete'] .node,
+.step[data-state='active'] .node {
+  border-color: rgba(103, 232, 249, 0.48);
+  background: linear-gradient(145deg, #1d4ed8 0%, #2563eb 58%, #0891b2 100%);
+  box-shadow:
+    0 18px 34px -16px rgba(37, 99, 235, 0.78),
+    inset 0 1px rgba(255, 255, 255, 0.24);
+  color: #fff;
+}
+
+.step[data-state='complete'] .node {
+  filter: saturate(0.78);
+}
+
+.step[data-state='active'] .nodeFrame {
+  border-color: rgba(37, 99, 235, 0.35);
+  box-shadow: 0 18px 38px -18px rgba(37, 99, 235, 0.7), 0 0 0 0.38rem rgba(37, 99, 235, 0.055);
+  transform: translateY(-2px) scale(1.055);
+}
+
+.step[data-state='active'] .node {
+  transform: scale(1.04);
+}
+
+.step[data-state='active'] .node::after {
+  opacity: 1;
+  animation: node-sheen 1.55s ease-in-out infinite;
+}
+
+.step[data-state='active'] .nodeOrbit {
+  opacity: 1;
+  animation: node-orbit 5.5s linear infinite;
+}
+
+.step[data-state='active'] strong {
+  color: #1d4ed8;
+}
+
+.step:hover .nodeFrame {
+  border-color: rgba(37, 99, 235, 0.32);
+  transform: translateY(-2px);
+}
+
+@keyframes node-orbit {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes node-sheen {
+  0%, 28% { transform: translateX(-180%); }
+  72%, 100% { transform: translateX(420%); }
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding: 0.4rem 0.25rem;
+  }
+
+  .shell {
+    border-radius: 1.15rem;
+    padding: 0.65rem 0.15rem 0.58rem;
+  }
+
+  .journey {
+    --node-size: clamp(3.25rem, 15.5vw, 4.2rem);
+  }
+
+  .connector {
+    height: 2px;
+  }
+
+  .connectorSpark {
+    width: 0.42rem;
+    height: 0.42rem;
+    border-width: 1px;
+  }
+
+  .step strong {
+    margin-top: 0.38rem;
+    font-size: clamp(0.43rem, 1.82vw, 0.62rem);
+    letter-spacing: -0.01em;
+  }
+
+  .node small {
+    font-size: 0.34rem;
+  }
+
+  .nodeOrbit i {
+    right: -0.16rem;
+    width: 0.4rem;
+    height: 0.4rem;
+    border-width: 1px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .connectorProgress,
+  .connectorSpark,
+  .nodeFrame,
+  .node,
+  .nodeOrbit,
+  .node::after {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+  }
+}

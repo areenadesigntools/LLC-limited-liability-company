@@ -1,216 +1,559 @@
 'use client';
 
-import React from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { useState } from 'react';
-import { Menu, X, ChevronDown } from 'lucide-react';
-import { Container, Button } from '@/components/ui';
+import { usePathname } from 'next/navigation';
+import {
+  ArrowRight,
+  ArrowUpRight,
+  ChevronDown,
+  Mail,
+  MapPin,
+  Menu,
+  MessageCircle,
+  Phone,
+  X,
+} from 'lucide-react';
+import { contactInfo, socialLinks } from '@/data/company';
+import { Container } from '@/components/ui';
+import { FacebookIcon, InstagramIcon, LinkedInIcon } from '@/components/ui/BrandIcons';
 import { cn } from '@/lib/cn';
-import { services, taxServices } from '@/data';
+import { HeaderBrand } from './HeaderBrand';
+import { HeaderMegaMenu } from './HeaderMegaMenu';
+import {
+  headerNavItems,
+  type HeaderMenuId,
+  type HeaderNavItem,
+} from './headerNavigation';
 
-interface NavLink {
-  label: string;
-  href?: string;
-  submenu?: Array<{ label: string; href: string }>;
+const socialIconMap = {
+  Facebook: FacebookIcon,
+  Linkedin: LinkedInIcon,
+  Instagram: InstagramIcon,
+  MessageCircle,
+};
+
+function isCurrentPath(pathname: string, href?: string) {
+  if (!href) return false;
+  const route = href.split('#')[0];
+  return route === '/' ? pathname === '/' : pathname.startsWith(route);
 }
 
-export const Header: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null);
-  const [isScrolled, setIsScrolled] = useState(false);
+function isNavItemActive(pathname: string, item: HeaderNavItem) {
+  return (
+    isCurrentPath(pathname, item.href) ||
+    item.children?.some((child) => isCurrentPath(pathname, child.href)) ||
+    false
+  );
+}
 
-  React.useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
+export function Header() {
+  const pathname = usePathname();
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [openMenu, setOpenMenu] = useState<HeaderMenuId | null>(null);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [mobileSubmenu, setMobileSubmenu] = useState<HeaderMenuId | null>(null);
+  const headerRef = useRef<HTMLElement>(null);
+  const drawerRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const menuButtonRefs = useRef<Partial<Record<HeaderMenuId, HTMLButtonElement | null>>>({});
+  const suppressMenuFocusOpenRef = useRef(false);
+  const openTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const clearOpenTimer = () => {
+    if (openTimerRef.current) {
+      clearTimeout(openTimerRef.current);
+      openTimerRef.current = null;
+    }
+  };
+
+  const clearCloseTimer = () => {
+    if (closeTimerRef.current) {
+      clearTimeout(closeTimerRef.current);
+      closeTimerRef.current = null;
+    }
+  };
+
+  const openMenuNow = (menu: HeaderMenuId) => {
+    clearOpenTimer();
+    clearCloseTimer();
+    setOpenMenu(menu);
+  };
+
+  const scheduleMenuOpen = (menu: HeaderMenuId) => {
+    clearOpenTimer();
+    clearCloseTimer();
+    openTimerRef.current = setTimeout(() => setOpenMenu(menu), 110);
+  };
+
+  const scheduleMenuClose = () => {
+    clearOpenTimer();
+    clearCloseTimer();
+    closeTimerRef.current = setTimeout(() => setOpenMenu(null), 190);
+  };
+
+  const closeMenuNow = () => {
+    clearOpenTimer();
+    clearCloseTimer();
+    setOpenMenu(null);
+  };
+
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 28);
+    handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks: NavLink[] = [
-    { label: 'Home', href: '/' },
-    { label: 'About Us', href: '/about-us' },
-    {
-      label: 'Services',
-      submenu: services.map((s) => ({ label: s.title, href: s.href })),
+  useEffect(() => {
+    const closeMenuInEffect = () => {
+      if (openTimerRef.current) {
+        clearTimeout(openTimerRef.current);
+        openTimerRef.current = null;
+      }
+      if (closeTimerRef.current) {
+        clearTimeout(closeTimerRef.current);
+        closeTimerRef.current = null;
+      }
+      setOpenMenu(null);
+    };
+
+    const handlePointerDown = (event: MouseEvent) => {
+      if (headerRef.current && !headerRef.current.contains(event.target as Node)) {
+        closeMenuInEffect();
+      }
+    };
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape' || !openMenu) return;
+      const trigger = menuButtonRefs.current[openMenu];
+      suppressMenuFocusOpenRef.current = true;
+      closeMenuInEffect();
+      trigger?.focus();
+      requestAnimationFrame(() => {
+        suppressMenuFocusOpenRef.current = false;
+      });
+    };
+
+    document.addEventListener('mousedown', handlePointerDown);
+    document.addEventListener('keydown', handleEscape);
+    return () => {
+      document.removeEventListener('mousedown', handlePointerDown);
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [openMenu]);
+
+  useEffect(
+    () => () => {
+      if (openTimerRef.current) clearTimeout(openTimerRef.current);
+      if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
     },
-    {
-      label: 'Tax Services',
-      submenu: taxServices.slice(0, 3).map((taxService) => ({
-        label: taxService.name,
-        href: taxService.href,
-      })),
-    },
-    { label: 'FAQ', href: '/faq' },
-    { label: 'Contact Us', href: '/contact-us' },
-  ];
+    []
+  );
+
+  useEffect(() => {
+    if (!isDrawerOpen) return;
+
+    const previouslyFocused = document.activeElement as HTMLElement | null;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    closeButtonRef.current?.focus();
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsDrawerOpen(false);
+        return;
+      }
+
+      if (event.key !== 'Tab' || !drawerRef.current) return;
+      const focusable = Array.from(
+        drawerRef.current.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        )
+      );
+      if (!focusable.length) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener('keydown', handleKeyDown);
+      previouslyFocused?.focus();
+    };
+  }, [isDrawerOpen]);
+
+  const closeDrawer = () => {
+    setIsDrawerOpen(false);
+    setMobileSubmenu(null);
+  };
+
+  const handleMenuKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>, menu: HeaderMenuId) => {
+    if (event.key === 'ArrowDown') {
+      event.preventDefault();
+      openMenuNow(menu);
+      requestAnimationFrame(() => {
+        document.querySelector<HTMLElement>(`#desktop-${menu}-menu [data-mega-entry]`)?.focus();
+      });
+    }
+  };
 
   return (
     <>
       <header
+        ref={headerRef}
         className={cn(
-          'sticky top-0 z-40 transition-all duration-300',
-          isScrolled ? 'bg-white shadow-md' : 'bg-white/95 backdrop-blur'
+          'sticky top-0 z-[60] flex h-[5.5rem] items-center transition-[background-color,box-shadow,backdrop-filter] duration-300',
+          isScrolled
+            ? 'bg-white/94 shadow-[0_20px_54px_-32px_rgba(15,23,42,.38)] backdrop-blur-2xl'
+            : 'bg-gradient-to-b from-slate-50 via-white to-blue-50/90 shadow-[0_18px_42px_-34px_rgba(15,23,42,.34)]'
         )}
       >
-        <Container>
-          <div className="py-4 flex items-center justify-between">
-            {/* Logo */}
-            <Link href="/" className="flex items-center gap-2 font-bold text-xl">
-              <div className="w-10 h-10 bg-gradient-to-br from-primary-blue to-blue-700 rounded-lg flex items-center justify-center text-white font-bold">
-                LLC
-              </div>
-              <div className="hidden sm:block">
-                <div className="text-primary-dark font-bold">LLC</div>
-                <div className="text-xs text-gray-600">Limited Liability Co.</div>
-              </div>
-            </Link>
+        <Container className="h-full">
+          <div className="flex h-full items-center">
+            <div
+              className={cn(
+                'relative flex w-full items-center justify-between gap-4 overflow-visible rounded-[1.2rem] border px-3.5 transition-[height,background-color,border-color,box-shadow] duration-300 sm:px-4',
+                isScrolled
+                  ? 'h-[4.5rem] border-blue-200/80 bg-white/96 shadow-[0_20px_55px_-30px_rgba(15,23,42,.32),0_0_0_1px_rgba(37,99,235,.035)]'
+                  : 'h-[4.75rem] border-slate-200/90 bg-gradient-to-r from-white via-[#fbfdff] to-blue-50/80 shadow-[0_22px_60px_-34px_rgba(15,23,42,.34),0_0_0_1px_rgba(37,99,235,.035)] min-[1340px]:h-[5rem]'
+              )}
+            >
+              <span
+                aria-hidden="true"
+                className="header-shell-sheen pointer-events-none absolute inset-y-0 left-0 w-40 bg-gradient-to-r from-transparent via-blue-200/28 to-transparent"
+              />
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-blue-400/45 to-transparent"
+              />
 
-            {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-1">
-              {navLinks.map((link) => (
-                <div key={link.label} className="relative group">
-                  {link.href ? (
-                    <Link
-                      href={link.href}
-                      className="px-4 py-2 text-gray-700 hover:text-primary-blue transition-colors duration-200 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary-blue after:transition-all after:duration-300 hover:after:w-full"
-                    >
-                      {link.label}
-                    </Link>
-                  ) : (
-                    <button
-                      type="button"
-                      className="px-4 py-2 text-gray-700 hover:text-primary-blue transition-colors duration-200 flex items-center gap-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary-blue after:transition-all after:duration-300 hover:after:w-full"
-                    >
-                      {link.label}
-                      <ChevronDown className="w-4 h-4" />
-                    </button>
-                  )}
+              <HeaderBrand className="relative z-10" onClick={closeMenuNow} />
 
-                  {/* Mega Menu / Dropdown */}
-                  {link.submenu && (
-                    <div className="absolute left-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
-                      <div className="bg-white border border-gray-200 rounded-lg shadow-lg p-4 min-w-max">
-                        {link.submenu.map((item) => (
-                          <Link
-                            key={item.href}
-                            href={item.href}
-                            className="block px-4 py-2 text-gray-700 hover:text-primary-blue hover:bg-blue-50 rounded transition-colors duration-200"
-                          >
-                            {item.label}
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </nav>
-
-            {/* CTA & Badge */}
-            <div className="flex items-center gap-3">
-              <Link href="/free-llc-registration">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="hidden sm:inline-flex text-xs"
-                >
-                  Free LLC
-                </Button>
-              </Link>
-              <Link href="/contact-us">
-                <Button size="sm" className="hidden md:inline-flex text-xs">
-                  Get Consultation
-                </Button>
-              </Link>
-
-              {/* Mobile Menu Toggle */}
-              <button
-                type="button"
-                className="lg:hidden p-2 text-gray-700 hover:text-primary-blue"
-                onClick={() => setIsOpen(!isOpen)}
-                aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
-                aria-expanded={isOpen}
-                aria-controls="mobile-navigation"
+              <nav
+                aria-label="Primary navigation"
+                className="relative z-10 hidden min-w-0 flex-1 items-center justify-center gap-0 min-[1340px]:flex"
               >
-                {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-              </button>
+                {headerNavItems.map((item) => {
+                  const isActive = isNavItemActive(pathname, item);
+
+                  if (item.href) {
+                    return (
+                      <Link
+                        key={item.label}
+                        href={item.href}
+                        onClick={closeMenuNow}
+                        className={cn(
+                          'group relative flex min-h-11 items-center whitespace-nowrap rounded-lg px-2.5 text-[0.76rem] font-semibold text-slate-600 transition duration-200 min-[1420px]:px-3 min-[1420px]:text-[0.8rem]',
+                          'hover:bg-blue-50/90 hover:text-primary-dark',
+                          isActive && 'text-electric'
+                        )}
+                      >
+                        {item.label}
+                        <span
+                          aria-hidden="true"
+                          className={cn(
+                            'absolute inset-x-3 bottom-1 h-px origin-center scale-x-0 bg-gradient-to-r from-transparent via-electric to-cyan-400 opacity-0 shadow-[0_0_8px_rgba(37,99,235,.55)] transition duration-300 group-hover:scale-x-100 group-hover:opacity-70',
+                            isActive && 'scale-x-100 opacity-100'
+                          )}
+                        />
+                        {isActive && (
+                          <span
+                            aria-hidden="true"
+                            className="absolute bottom-0.5 left-1/2 size-1 -translate-x-1/2 rounded-full bg-electric shadow-[0_0_10px_2px_rgba(37,99,235,.45)]"
+                          />
+                        )}
+                      </Link>
+                    );
+                  }
+
+                  const menu = item.menu as HeaderMenuId;
+                  const isOpen = openMenu === menu;
+                  return (
+                    <div
+                      key={item.label}
+                      onMouseEnter={() => scheduleMenuOpen(menu)}
+                      onMouseLeave={scheduleMenuClose}
+                    >
+                      <button
+                        ref={(node) => {
+                          menuButtonRefs.current[menu] = node;
+                        }}
+                        type="button"
+                        aria-haspopup="true"
+                        aria-expanded={isOpen}
+                        aria-controls={`desktop-${menu}-menu`}
+                        onFocus={() => {
+                          if (!suppressMenuFocusOpenRef.current) openMenuNow(menu);
+                        }}
+                        onClick={() => (isOpen ? closeMenuNow() : openMenuNow(menu))}
+                        onKeyDown={(event) => handleMenuKeyDown(event, menu)}
+                        className={cn(
+                          'group relative flex min-h-11 items-center gap-1 whitespace-nowrap rounded-lg px-2.5 text-[0.76rem] font-semibold text-slate-600 transition duration-200 min-[1420px]:px-3 min-[1420px]:text-[0.8rem]',
+                          'hover:bg-blue-50/90 hover:text-primary-dark',
+                          (isOpen || isActive) && 'bg-blue-50/90 text-electric'
+                        )}
+                      >
+                        {item.label}
+                        <ChevronDown
+                          aria-hidden="true"
+                          className={cn(
+                            'size-3.5 text-slate-400 transition duration-200 group-hover:text-electric',
+                            isOpen && 'rotate-180 text-electric'
+                          )}
+                        />
+                        <span
+                          aria-hidden="true"
+                          className={cn(
+                            'absolute inset-x-3 bottom-1 h-px origin-center scale-x-0 bg-gradient-to-r from-transparent via-electric to-cyan-400 opacity-0 shadow-[0_0_8px_rgba(37,99,235,.55)] transition duration-300',
+                            (isOpen || isActive) && 'scale-x-100 opacity-100'
+                          )}
+                        />
+                      </button>
+                    </div>
+                  );
+                })}
+              </nav>
+
+              <div className="relative z-10 flex shrink-0 items-center gap-2">
+                <Link
+                  href="/contact-us"
+                  onClick={closeMenuNow}
+                  className="header-consultation-cta group relative hidden min-h-11 items-center gap-2 overflow-hidden whitespace-nowrap rounded-xl border border-blue-300/25 bg-gradient-to-r from-blue-600 via-blue-500 to-blue-600 px-4 text-xs font-bold text-white shadow-[0_14px_34px_-15px_rgba(37,99,235,.9)] hover:-translate-y-0.5 hover:border-cyan-200/35 sm:inline-flex min-[1340px]:px-4.5"
+                >
+                  <span
+                    aria-hidden="true"
+                    className="header-cta-sheen absolute inset-y-0 -left-16 w-12 skew-x-[-18deg] bg-white/25 blur-sm"
+                  />
+                  <span className="relative">Get Free Consultation</span>
+                  <ArrowUpRight
+                    aria-hidden="true"
+                    className="relative size-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                  />
+                </Link>
+
+                <button
+                  type="button"
+                  className="group grid size-11 place-items-center rounded-xl border border-slate-200 bg-white/85 text-primary-dark shadow-[0_8px_22px_-16px_rgba(15,23,42,.4)] hover:border-blue-300 hover:bg-blue-50 hover:text-electric min-[1340px]:hidden"
+                  onClick={() => {
+                    closeMenuNow();
+                    setIsDrawerOpen(true);
+                  }}
+                  aria-label="Open navigation menu"
+                  aria-expanded={isDrawerOpen}
+                  aria-controls="mobile-navigation"
+                >
+                  <span className="relative block size-5">
+                    <span className="absolute left-0 top-1 h-0.5 w-5 rounded-full bg-current transition-transform group-hover:translate-x-0.5" />
+                    <span className="absolute left-1 top-[0.56rem] h-0.5 w-4 rounded-full bg-current transition-all group-hover:left-0 group-hover:w-5" />
+                    <span className="absolute bottom-1 left-0 h-0.5 w-5 rounded-full bg-current transition-transform group-hover:-translate-x-0.5" />
+                  </span>
+                  <Menu aria-hidden="true" className="sr-only" />
+                </button>
+              </div>
+
+              {headerNavItems
+                .filter((item): item is HeaderNavItem & { menu: HeaderMenuId; children: NonNullable<HeaderNavItem['children']> } =>
+                  Boolean(item.menu && item.children)
+                )
+                .map((item) => (
+                  <HeaderMegaMenu
+                    key={item.menu}
+                    menu={item.menu}
+                    entries={item.children}
+                    isOpen={openMenu === item.menu}
+                    onEnter={clearCloseTimer}
+                    onLeave={scheduleMenuClose}
+                    onNavigate={closeMenuNow}
+                  />
+                ))}
             </div>
           </div>
         </Container>
       </header>
 
-      {/* Mobile Menu */}
-      {isOpen && (
-        <div className="lg:hidden bg-white border-b border-gray-200 shadow-md animate-in fade-in slide-in-from-top">
-          <Container>
-            <nav id="mobile-navigation" className="py-4 flex flex-col gap-2">
-              {navLinks.map((link) => (
-                <div key={link.label}>
-                  {link.href ? (
-                    <Link
-                      href={link.href}
-                      className="block px-4 py-2 text-gray-700 hover:text-primary-blue hover:bg-blue-50 rounded transition-colors"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      {link.label}
-                    </Link>
-                  ) : (
-                    <>
+      {isDrawerOpen && (
+        <div className="fixed inset-0 z-[90] min-[1340px]:hidden" role="presentation">
+          <button
+            type="button"
+            aria-label="Close navigation menu"
+            className="absolute inset-0 cursor-default bg-navy-950/82 backdrop-blur-md"
+            onClick={closeDrawer}
+          />
+          <div
+            ref={drawerRef}
+            id="mobile-navigation"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Mobile navigation"
+            className="absolute inset-y-0 right-0 flex w-[min(92vw,27rem)] flex-col overflow-hidden border-l border-cyan-200/12 bg-[#07101f] text-white shadow-[0_0_100px_-35px_rgba(37,99,235,.65)]"
+          >
+            <div aria-hidden="true" className="dark-grid absolute inset-0 opacity-40" />
+            <div
+              aria-hidden="true"
+              className="absolute -right-24 top-12 size-64 rounded-full bg-blue-600/16 blur-3xl"
+            />
+
+            <div className="relative flex items-center justify-between border-b border-white/9 px-5 py-4">
+              <HeaderBrand inverse onClick={closeDrawer} />
+              <button
+                ref={closeButtonRef}
+                type="button"
+                onClick={closeDrawer}
+                className="grid size-11 place-items-center rounded-xl border border-white/12 bg-white/[0.035] text-slate-300 hover:rotate-3 hover:border-cyan-200/25 hover:bg-blue-500/10 hover:text-white"
+                aria-label="Close navigation menu"
+              >
+                <X aria-hidden="true" className="size-5" />
+              </button>
+            </div>
+
+            <nav
+              aria-label="Mobile navigation"
+              className="relative flex-1 overflow-y-auto px-4 pb-8 pt-4"
+            >
+              <div className="space-y-1">
+                {headerNavItems.map((item) => {
+                  const isActive = isNavItemActive(pathname, item);
+                  if (item.href) {
+                    return (
+                      <Link
+                        key={item.label}
+                        href={item.href}
+                        onClick={closeDrawer}
+                        className={cn(
+                          'flex min-h-12 items-center rounded-xl px-4 text-[0.95rem] font-semibold text-slate-300 hover:bg-white/[0.055] hover:text-white',
+                          isActive && 'bg-blue-500/12 text-cyan-100'
+                        )}
+                      >
+                        {item.label}
+                      </Link>
+                    );
+                  }
+
+                  const menu = item.menu as HeaderMenuId;
+                  const isOpen = mobileSubmenu === menu;
+                  const submenuId = `mobile-${menu}-menu`;
+                  return (
+                    <div key={item.label}>
                       <button
                         type="button"
-                        className="w-full text-left px-4 py-2 text-gray-700 hover:text-primary-blue hover:bg-blue-50 rounded transition-colors flex items-center justify-between"
-                        onClick={() => setActiveSubmenu(activeSubmenu === link.label ? null : link.label)}
-                        aria-expanded={activeSubmenu === link.label}
+                        onClick={() => setMobileSubmenu(isOpen ? null : menu)}
+                        aria-expanded={isOpen}
+                        aria-controls={submenuId}
+                        className={cn(
+                          'flex min-h-12 w-full items-center justify-between rounded-xl px-4 text-left text-[0.95rem] font-semibold text-slate-300 hover:bg-white/[0.055] hover:text-white',
+                          (isOpen || isActive) && 'bg-blue-500/8 text-cyan-100'
+                        )}
                       >
-                        {link.label}
+                        <span className="whitespace-nowrap">{item.label}</span>
                         <ChevronDown
-                          className={cn('w-4 h-4 transition-transform', activeSubmenu === link.label && 'rotate-180')}
+                          aria-hidden="true"
+                          className={cn('size-4 transition-transform', isOpen && 'rotate-180')}
                         />
                       </button>
-                      {activeSubmenu === link.label && link.submenu && (
-                        <div className="pl-4 bg-gray-50">
-                          {link.submenu.map((item) => (
+                      {isOpen && (
+                        <div
+                          id={submenuId}
+                          className="mb-2 ml-3 space-y-1 border-l border-blue-400/25 pl-3"
+                        >
+                          {item.children?.map((child) => (
                             <Link
-                              key={item.href}
-                              href={item.href}
-                              className="block px-4 py-2 text-sm text-gray-600 hover:text-primary-blue transition-colors"
-                              onClick={() => setIsOpen(false)}
+                              key={child.href}
+                              href={child.href}
+                              onClick={closeDrawer}
+                              className="flex min-h-11 items-center rounded-lg px-3 text-sm font-medium text-slate-400 hover:bg-white/[0.055] hover:text-white"
                             >
-                              {item.label}
+                              {child.title}
                             </Link>
                           ))}
                         </div>
                       )}
-                    </>
-                  )}
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div className="mt-7 border-t border-white/9 pt-6">
+                <p className="px-2 text-[0.62rem] font-bold uppercase tracking-[0.17em] text-cyan-200">
+                  Connect with our team
+                </p>
+                <div className="mt-4 space-y-2">
+                  <a
+                    href={`tel:${contactInfo.phone}`}
+                    className="flex min-h-11 items-center gap-3 rounded-xl px-3 text-sm text-slate-400 hover:bg-white/[0.05] hover:text-white"
+                  >
+                    <Phone aria-hidden="true" className="size-4 text-cyan-300" />
+                    {contactInfo.phone}
+                  </a>
+                  <a
+                    href={`mailto:${contactInfo.email}`}
+                    className="flex min-h-11 items-center gap-3 rounded-xl px-3 text-sm text-slate-400 hover:bg-white/[0.05] hover:text-white"
+                  >
+                    <Mail aria-hidden="true" className="size-4 shrink-0 text-cyan-300" />
+                    <span className="min-w-0 break-all">{contactInfo.email}</span>
+                  </a>
+                  <div className="flex items-start gap-3 rounded-xl px-3 py-3 text-sm text-slate-500">
+                    <MapPin aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-cyan-300" />
+                    <span className="leading-5">{contactInfo.address}</span>
+                  </div>
                 </div>
-              ))}
-              <div className="pt-4 border-t border-gray-200 flex gap-2">
-                <Link href="/free-llc-registration" className="flex-1">
-                  <Button
-                    variant="outline"
-                    size="md"
-                    className="w-full"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    Free LLC
-                  </Button>
-                </Link>
-                <Link href="/contact-us" className="flex-1">
-                  <Button
-                    size="md"
-                    className="w-full"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    Consultation
-                  </Button>
-                </Link>
+                <div className="mt-4 flex gap-2 px-2">
+                  {socialLinks.map((link) => {
+                    const Icon = socialIconMap[link.icon as keyof typeof socialIconMap];
+                    return (
+                      <a
+                        key={link.name}
+                        href={link.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`Visit our ${link.name}`}
+                        className="grid size-10 place-items-center rounded-xl border border-white/10 bg-white/[0.035] text-slate-400 hover:border-cyan-200/25 hover:bg-blue-500/10 hover:text-white"
+                      >
+                        <Icon aria-hidden="true" className="size-4" />
+                      </a>
+                    );
+                  })}
+                </div>
               </div>
             </nav>
-          </Container>
+
+            <div className="relative border-t border-white/10 bg-navy-950/82 p-5 backdrop-blur-xl">
+              <Link
+                href="/contact-us"
+                onClick={closeDrawer}
+                className="group flex min-h-12 w-full items-center justify-center gap-2 rounded-xl border border-blue-300/25 bg-gradient-to-r from-blue-600 to-blue-500 px-5 text-sm font-bold text-white shadow-[0_14px_36px_-16px_rgba(37,99,235,.9)]"
+              >
+                Get Free Consultation
+                <ArrowUpRight
+                  aria-hidden="true"
+                  className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                />
+              </Link>
+              <Link
+                href="/free-llc-registration"
+                onClick={closeDrawer}
+                className="mt-3 flex min-h-10 items-center justify-center gap-2 text-xs font-bold text-cyan-100 hover:text-white"
+              >
+                Start Your LLC
+                <ArrowRight aria-hidden="true" className="size-3.5" />
+              </Link>
+              <p className="mt-2 text-center text-[0.65rem] leading-5 text-slate-500">
+                Free registration assistance. Applicable state fees are paid by the client.
+              </p>
+            </div>
+          </div>
         </div>
       )}
     </>
   );
-};
+}

@@ -1,0 +1,119 @@
+.footer {
+  isolation: isolate;
+  background:
+    radial-gradient(circle at 12% 28%, rgba(37, 99, 235, 0.13), transparent 30rem),
+    linear-gradient(180deg, #0a1930 0%, #050e20 44%, #020617 100%);
+}
+
+.skylineBackdrop {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: url('/images/footer-skyline.jpg');
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: max(75rem, 100vw) auto;
+  opacity: 1;
+  mask-image: linear-gradient(to bottom, #000 0%, #000 58%, transparent 86%);
+  pointer-events: none;
+}
+
+.contactPanel {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(147, 197, 253, 0.42);
+  border-radius: 1.25rem;
+  background: linear-gradient(135deg, #2563eb 0%, #1e63ed 52%, #0f56d9 100%);
+  box-shadow:
+    0 1.5rem 3rem -1.7rem rgba(37, 99, 235, 0.9),
+    inset 0 1px rgba(255, 255, 255, 0.22);
+}
+
+.contactPanel::before {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 18%, rgba(255, 255, 255, 0.13) 42%, transparent 62%);
+  content: '';
+  pointer-events: none;
+}
+
+.contactItem {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-width: 0;
+  align-items: flex-start;
+  gap: 0.85rem;
+  min-height: 6rem;
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 1rem;
+  background: rgba(4, 24, 75, 0.2);
+  box-shadow:
+    inset 0 1px rgba(255, 255, 255, 0.11),
+    0 0.9rem 1.8rem -1.5rem rgba(2, 6, 23, 0.8);
+  transition:
+    transform 250ms ease,
+    border-color 250ms ease,
+    background-color 250ms ease;
+}
+
+.contactItem:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.09);
+  transform: translateY(-0.15rem);
+}
+
+.contactIcon {
+  display: grid;
+  width: 2.5rem;
+  flex: 0 0 2.5rem;
+  aspect-ratio: 1;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0.8rem;
+  background: rgba(3, 16, 48, 0.38);
+  box-shadow:
+    inset 0 1px rgba(255, 255, 255, 0.15),
+    0 0.8rem 1.4rem -0.9rem currentColor;
+}
+
+.contactIcon[data-tone='cyan'] {
+  color: #67e8f9;
+}
+
+.contactIcon[data-tone='green'] {
+  color: #86efac;
+}
+
+.contactIcon[data-tone='sky'] {
+  color: #bfdbfe;
+}
+
+.contactIcon[data-tone='gold'] {
+  color: #fde68a;
+}
+
+.contactPanel p,
+.contactPanel a {
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.contactPanel div > p:first-child {
+  color: #fff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contactItem {
+    transition: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .skylineBackdrop {
+    background-position: 51% top;
+    background-size: 75rem auto;
+    opacity: 1;
+    mask-image: linear-gradient(to bottom, #000 0%, #000 28rem, transparent 48rem);
+  }
+}

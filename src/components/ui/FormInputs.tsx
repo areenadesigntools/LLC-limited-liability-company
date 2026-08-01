@@ -1,11 +1,40 @@
 import React from 'react';
 import { cn } from '@/lib/cn';
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+const fieldClasses =
+  'w-full rounded-xl border border-slate-200 bg-slate-50/80 px-4 py-3 text-primary-dark shadow-inner shadow-slate-950/[0.025] transition duration-200 hover:border-slate-300 focus:border-electric focus:bg-white focus:outline-none focus:ring-4 focus:ring-electric/10';
+
+interface FieldProps {
   label?: string;
   error?: string;
   helperText?: string;
 }
+
+function Description({
+  id,
+  error,
+  helperText,
+}: {
+  id: string;
+  error?: string;
+  helperText?: string;
+}) {
+  if (error) {
+    return (
+      <p id={`${id}-error`} className="mt-1.5 text-sm text-red-600" role="alert">
+        {error}
+      </p>
+    );
+  }
+
+  return helperText ? (
+    <p id={`${id}-helper`} className="mt-1.5 text-sm text-muted">
+      {helperText}
+    </p>
+  ) : null;
+}
+
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement>, FieldProps {}
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ label, error, helperText, className, id, ...props }, ref) => {
@@ -20,7 +49,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     return (
       <div className="w-full">
         {label && (
-          <label htmlFor={inputId} className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor={inputId} className="mb-2 block text-sm font-semibold text-slate-700">
             {label}
           </label>
         )}
@@ -30,22 +59,14 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           aria-describedby={descriptionId}
           aria-invalid={error ? true : undefined}
           className={cn(
-            'w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-blue focus:border-transparent transition-all duration-300',
-            error && 'border-red-500 focus:ring-red-500',
+            fieldClasses,
+            'min-h-12',
+            error && 'border-red-500 focus:border-red-500 focus:ring-red-500/10',
             className
           )}
           {...props}
         />
-        {error && (
-          <p id={`${inputId}-error`} className="mt-1 text-sm text-red-600" role="alert">
-            {error}
-          </p>
-        )}
-        {helperText && !error && (
-          <p id={`${inputId}-helper`} className="mt-1 text-sm text-gray-500">
-            {helperText}
-          </p>
-        )}
+        <Description id={inputId} error={error} helperText={helperText} />
       </div>
     );
   }
@@ -53,11 +74,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
 Input.displayName = 'Input';
 
-interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
-  label?: string;
-  error?: string;
-  helperText?: string;
-}
+interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement>, FieldProps {}
 
 export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
   ({ label, error, helperText, className, id, ...props }, ref) => {
@@ -72,7 +89,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     return (
       <div className="w-full">
         {label && (
-          <label htmlFor={textareaId} className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor={textareaId} className="mb-2 block text-sm font-semibold text-slate-700">
             {label}
           </label>
         )}
@@ -82,22 +99,14 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
           aria-describedby={descriptionId}
           aria-invalid={error ? true : undefined}
           className={cn(
-            'w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-blue focus:border-transparent transition-all duration-300 resize-none',
-            error && 'border-red-500 focus:ring-red-500',
+            fieldClasses,
+            'resize-none',
+            error && 'border-red-500 focus:border-red-500 focus:ring-red-500/10',
             className
           )}
           {...props}
         />
-        {error && (
-          <p id={`${textareaId}-error`} className="mt-1 text-sm text-red-600" role="alert">
-            {error}
-          </p>
-        )}
-        {helperText && !error && (
-          <p id={`${textareaId}-helper`} className="mt-1 text-sm text-gray-500">
-            {helperText}
-          </p>
-        )}
+        <Description id={textareaId} error={error} helperText={helperText} />
       </div>
     );
   }
@@ -105,10 +114,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
 
 Textarea.displayName = 'Textarea';
 
-interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
-  label?: string;
-  error?: string;
-  helperText?: string;
+interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement>, FieldProps {
   options: Array<{ value: string; label: string }>;
 }
 
@@ -125,7 +131,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
     return (
       <div className="w-full">
         {label && (
-          <label htmlFor={selectId} className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor={selectId} className="mb-2 block text-sm font-semibold text-slate-700">
             {label}
           </label>
         )}
@@ -135,29 +141,21 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
           aria-describedby={descriptionId}
           aria-invalid={error ? true : undefined}
           className={cn(
-            'w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-blue focus:border-transparent transition-all duration-300',
-            error && 'border-red-500 focus:ring-red-500',
+            fieldClasses,
+            'min-h-12',
+            error && 'border-red-500 focus:border-red-500 focus:ring-red-500/10',
             className
           )}
           {...props}
         >
           <option value="">Select an option...</option>
-          {options.map((opt) => (
-            <option key={opt.value} value={opt.value}>
-              {opt.label}
+          {options.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
             </option>
           ))}
         </select>
-        {error && (
-          <p id={`${selectId}-error`} className="mt-1 text-sm text-red-600" role="alert">
-            {error}
-          </p>
-        )}
-        {helperText && !error && (
-          <p id={`${selectId}-helper`} className="mt-1 text-sm text-gray-500">
-            {helperText}
-          </p>
-        )}
+        <Description id={selectId} error={error} helperText={helperText} />
       </div>
     );
   }
@@ -166,7 +164,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
 Select.displayName = 'Select';
 
 interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  label?: string;
+  label?: React.ReactNode;
   error?: string;
 }
 
@@ -174,35 +172,30 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
   ({ label, error, className, id, ...props }, ref) => {
     const generatedId = React.useId();
     const checkboxId = id ?? generatedId;
-    const errorId = error ? `${checkboxId}-error` : undefined;
 
     return (
       <div className="w-full">
-        <div className="flex items-start gap-2">
+        <div className="flex items-start gap-3">
           <input
             ref={ref}
             id={checkboxId}
             type="checkbox"
-            aria-describedby={errorId}
+            aria-describedby={error ? `${checkboxId}-error` : undefined}
             aria-invalid={error ? true : undefined}
             className={cn(
-              'w-5 h-5 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary-blue cursor-pointer',
-              error && 'border-red-500 focus:ring-red-500',
+              'mt-0.5 size-5 shrink-0 cursor-pointer rounded border border-slate-300 accent-electric focus:outline-none focus:ring-4 focus:ring-electric/10',
+              error && 'border-red-500 focus:ring-red-500/10',
               className
             )}
             {...props}
           />
           {label && (
-            <label htmlFor={checkboxId} className="text-sm font-medium text-gray-700 cursor-pointer">
+            <label htmlFor={checkboxId} className="cursor-pointer text-sm leading-6 text-slate-600">
               {label}
             </label>
           )}
         </div>
-        {error && (
-          <p id={`${checkboxId}-error`} className="mt-1 text-sm text-red-600" role="alert">
-            {error}
-          </p>
-        )}
+        {error && <Description id={checkboxId} error={error} />}
       </div>
     );
   }

@@ -1,0 +1,187 @@
+.softLight {
+  animation: soft-light 8s ease-in-out infinite;
+}
+
+.entryLine::after {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 999px;
+  background: #22d3ee;
+  box-shadow: 0 0 12px rgb(34 211 238 / 0.65);
+  content: '';
+  animation: entry-progress 5.5s ease-in-out infinite;
+}
+
+.documentBack {
+  animation: document-back 6s ease-in-out infinite;
+}
+
+.documentMiddle {
+  animation: document-middle 6s ease-in-out infinite;
+}
+
+.documentFront {
+  animation: document-front 6s ease-in-out infinite;
+}
+
+.processProgress {
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: process-progress 7s ease-in-out infinite;
+}
+
+.statusOne,
+.statusTwo,
+.statusThree {
+  animation: status-step 7s ease-in-out infinite;
+}
+
+.statusTwo {
+  animation-delay: 0.65s;
+}
+
+.statusThree {
+  animation-delay: 1.3s;
+}
+
+.readyNode {
+  animation: ready-status 7s ease-in-out infinite;
+}
+
+@keyframes soft-light {
+  0%,
+  100% {
+    opacity: 0.58;
+    transform: translate3d(-1%, 0, 0) scale(0.98);
+  }
+  50% {
+    opacity: 0.86;
+    transform: translate3d(2%, -1%, 0) scale(1.04);
+  }
+}
+
+@keyframes entry-progress {
+  0%,
+  18% {
+    left: 0;
+    opacity: 0;
+    transform: translate(-50%, -50%);
+  }
+  28% {
+    opacity: 1;
+  }
+  72% {
+    opacity: 1;
+  }
+  82%,
+  100% {
+    left: 100%;
+    opacity: 0;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@keyframes document-back {
+  0%,
+  100% {
+    transform: translate3d(-0.2rem, 0.15rem, 0) rotate(-4deg);
+  }
+  50% {
+    transform: translate3d(-0.35rem, -0.05rem, 0) rotate(-3deg);
+  }
+}
+
+@keyframes document-middle {
+  0%,
+  100% {
+    transform: translate3d(0.18rem, 0.08rem, 0) rotate(2.5deg);
+  }
+  50% {
+    transform: translate3d(0.3rem, -0.08rem, 0) rotate(1.8deg);
+  }
+}
+
+@keyframes document-front {
+  0%,
+  100% {
+    transform: translateY(0) rotateX(0deg);
+  }
+  50% {
+    transform: translateY(-0.2rem) rotateX(1.5deg);
+  }
+}
+
+@keyframes process-progress {
+  0%,
+  14% {
+    opacity: 0.45;
+    transform: scaleX(0);
+  }
+  72%,
+  88% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+  100% {
+    opacity: 0.45;
+    transform: scaleX(0);
+  }
+}
+
+@keyframes status-step {
+  0%,
+  22% {
+    border-color: rgb(219 234 254);
+    background: white;
+    box-shadow: 0 1px 2px rgb(15 23 42 / 0.08);
+  }
+  35%,
+  72% {
+    border-color: rgb(125 211 252);
+    background: rgb(239 246 255);
+    box-shadow: 0 0 0 0.25rem rgb(37 99 235 / 0.08);
+  }
+  90%,
+  100% {
+    border-color: rgb(219 234 254);
+    background: white;
+    box-shadow: 0 1px 2px rgb(15 23 42 / 0.08);
+  }
+}
+
+@keyframes ready-status {
+  0%,
+  58%,
+  100% {
+    box-shadow: 0 14px 32px -18px rgb(15 23 42 / 0.8);
+  }
+  72%,
+  86% {
+    box-shadow:
+      0 14px 32px -18px rgb(15 23 42 / 0.8),
+      0 0 0 0.3rem rgb(34 211 238 / 0.13),
+      0 0 1.5rem rgb(34 211 238 / 0.28);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .softLight,
+  .entryLine::after,
+  .documentBack,
+  .documentMiddle,
+  .documentFront,
+  .processProgress,
+  .statusOne,
+  .statusTwo,
+  .statusThree,
+  .readyNode {
+    animation: none;
+  }
+
+  .processProgress {
+    transform: scaleX(1);
+  }
+}

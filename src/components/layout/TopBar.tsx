@@ -1,79 +1,61 @@
-'use client';
-
-import React from 'react';
+import { Mail, MapPin, MessageCircle, Phone } from 'lucide-react';
 import { contactInfo, socialLinks } from '@/data/company';
-import { Phone, Mail, MapPin, MessageCircle } from 'lucide-react';
 import { Container } from '@/components/ui';
 import { FacebookIcon, InstagramIcon, LinkedInIcon } from '@/components/ui/BrandIcons';
-import { cn } from '@/lib/cn';
 
-export const TopBar: React.FC = () => {
-  const [isVisible, setIsVisible] = React.useState(true);
-  const [lastScrollY, setLastScrollY] = React.useState(0);
+const iconMap = {
+  Facebook: FacebookIcon,
+  Linkedin: LinkedInIcon,
+  Instagram: InstagramIcon,
+  MessageCircle,
+};
 
-  React.useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      setIsVisible(currentScrollY < 100 || currentScrollY < lastScrollY);
-      setLastScrollY(currentScrollY);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY]);
-
-  const iconMap: Record<string, React.ReactNode> = {
-    Facebook: <FacebookIcon className="w-4 h-4" />,
-    Linkedin: <LinkedInIcon className="w-4 h-4" />,
-    Instagram: <InstagramIcon className="w-4 h-4" />,
-    MessageCircle: <MessageCircle className="w-4 h-4" />,
-  };
-
+export function TopBar() {
   return (
-    <div
-      className={cn(
-        'bg-primary-dark text-white transition-all duration-300 hidden md:block',
-        !isVisible && '-translate-y-full'
-      )}
-    >
+    <div className="border-b border-white/8 bg-navy-950 text-slate-300">
       <Container>
-        <div className="py-3 flex items-center justify-between">
-          {/* Left Side - Contact Info */}
-          <div className="flex items-center gap-6 text-sm">
-            <div className="flex items-center gap-2">
-              <MapPin className="w-4 h-4 text-primary-blue" />
-              <span className="hover:text-primary-blue transition">{contactInfo.address}</span>
-            </div>
-            <div className="h-4 w-px bg-gray-600"></div>
-            <a href={`tel:${contactInfo.phone}`} className="flex items-center gap-2 hover:text-primary-blue transition">
-              <Phone className="w-4 h-4 text-primary-blue" />
-              <span>{contactInfo.phone}</span>
+        <div className="flex min-h-10 items-center justify-between gap-3 py-1.5 text-xs">
+          <div className="flex min-w-0 items-center gap-3 md:gap-5">
+            <span className="hidden min-w-0 items-center gap-2 xl:flex">
+              <MapPin aria-hidden="true" className="size-3.5 shrink-0 text-cyan-400" />
+              <span className="truncate">{contactInfo.address}</span>
+            </span>
+            <a
+              href={`tel:${contactInfo.phone}`}
+              className="flex shrink-0 items-center gap-2 hover:text-white"
+            >
+              <Phone aria-hidden="true" className="size-3.5 text-cyan-400" />
+              {contactInfo.phone}
             </a>
-            <div className="h-4 w-px bg-gray-600"></div>
-            <a href={`mailto:${contactInfo.email}`} className="flex items-center gap-2 hover:text-primary-blue transition">
-              <Mail className="w-4 h-4 text-primary-blue" />
-              <span className="hidden lg:inline">{contactInfo.email}</span>
+            <a
+              href={`mailto:${contactInfo.email}`}
+              className="hidden min-w-0 items-center gap-2 hover:text-white md:flex"
+            >
+              <Mail aria-hidden="true" className="size-3.5 shrink-0 text-cyan-400" />
+              <span className="truncate">{contactInfo.email}</span>
             </a>
           </div>
 
-          {/* Right Side - Social Links */}
-          <div className="flex items-center gap-4">
-            {socialLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 rounded-full hover:bg-primary-blue transition duration-300"
-                aria-label={link.name}
-                title={link.name}
-              >
-                {iconMap[link.icon] ?? null}
-              </a>
-            ))}
+          <div className="flex shrink-0 items-center gap-0.5">
+            {socialLinks.map((link) => {
+              const Icon = iconMap[link.icon as keyof typeof iconMap];
+
+              return (
+                <a
+                  key={link.name}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="grid size-8 place-items-center rounded-lg text-slate-400 hover:bg-white/8 hover:text-white"
+                  aria-label={`Visit our ${link.name}`}
+                >
+                  <Icon aria-hidden="true" className="size-3.5" />
+                </a>
+              );
+            })}
           </div>
         </div>
       </Container>
     </div>
   );
-};
+}

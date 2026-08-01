@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
-import { TopBar, Header, Footer, WhatsAppButton } from "@/components/layout";
+import { AnnouncementBar, TopBar, Header, Footer, WhatsAppButton } from "@/components/layout";
 import { generateWebsiteSchema, generateOrganizationSchema } from "@/lib/seo";
 
 const inter = Inter({
@@ -61,7 +61,8 @@ export default function RootLayout({
           <meta name="google-site-verification" content={process.env.NEXT_PUBLIC_GOOGLE_SEARCH_CONSOLE_CODE} />
         )}
       </head>
-      <body className={`${inter.variable} ${poppins.variable} antialiased bg-white`}>
+      <body className={`${inter.variable} ${poppins.variable} antialiased`}>
+        <AnnouncementBar />
         <TopBar />
         <Header />
         <main>
