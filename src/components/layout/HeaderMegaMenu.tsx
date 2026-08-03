@@ -1,8 +1,8 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import {
   ArrowUpRight,
   Building2,
-  Check,
   CircleDollarSign,
   CreditCard,
   FileCheck2,
@@ -11,7 +11,6 @@ import {
   FileText,
   Globe2,
   Landmark,
-  LockKeyhole,
   PackageCheck,
   ReceiptText,
   ShieldCheck,
@@ -80,163 +79,44 @@ const menuContent: Record<
   },
 };
 
-function FormationVisual() {
-  return (
-    <div className="relative h-full min-h-72 overflow-hidden rounded-2xl border border-blue-300/12 bg-[#081326] p-6">
-      <div aria-hidden="true" className="absolute inset-0 dark-grid opacity-50" />
-      <div
-        aria-hidden="true"
-        className="absolute -right-16 -top-16 size-44 rounded-full bg-blue-500/20 blur-3xl"
-      />
-      <div className="relative">
-        <div className="flex items-center justify-between">
-          <span className="text-[0.62rem] font-bold uppercase tracking-[0.16em] text-cyan-200">
-            Launch workspace
-          </span>
-          <span className="flex items-center gap-1.5 text-[0.6rem] font-semibold text-emerald-300">
-            <span className="size-1.5 rounded-full bg-emerald-300" />
-            Guided
-          </span>
-        </div>
-        <div className="header-visual-float mt-6 rounded-2xl border border-white/10 bg-white/[0.045] p-5 shadow-2xl">
-          <div className="flex items-center gap-3">
-            <span className="grid size-10 place-items-center rounded-xl bg-blue-500 text-white shadow-glow">
-              <Building2 aria-hidden="true" className="size-4.5" />
-            </span>
-            <div>
-              <p className="text-[0.58rem] uppercase tracking-[0.14em] text-slate-500">
-                Company foundation
-              </p>
-              <p className="mt-1 text-sm font-bold text-white">U.S. business launch</p>
-            </div>
-          </div>
-          <div className="mt-5 h-1.5 overflow-hidden rounded-full bg-white/8">
-            <div className="h-full w-3/4 rounded-full bg-gradient-to-r from-blue-500 to-cyan-300" />
-          </div>
-          <div className="mt-3 flex justify-between text-[0.56rem] font-semibold text-slate-500">
-            <span>Formation</span>
-            <span>Tax ID</span>
-            <span>Compliance</span>
-          </div>
-        </div>
-        <div className="mt-4 grid grid-cols-2 gap-3">
-          {['Documents organized', 'Next steps visible'].map((label) => (
-            <div
-              key={label}
-              className="flex items-center gap-2 rounded-xl border border-white/8 bg-white/[0.025] px-3 py-3 text-[0.65rem] font-semibold text-slate-300"
-            >
-              <Check aria-hidden="true" className="size-3.5 text-cyan-300" />
-              {label}
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function TaxVisual() {
-  const rows = [
-    { label: 'Information review', state: 'Ready' },
-    { label: 'Filing category', state: 'Mapped' },
-    { label: 'Document checklist', state: 'Secure' },
-  ];
-
-  return (
-    <div className="relative h-full min-h-72 overflow-hidden rounded-2xl border border-cyan-300/12 bg-[#071423] p-6">
-      <div aria-hidden="true" className="absolute inset-0 dark-grid opacity-45" />
-      <div
-        aria-hidden="true"
-        className="absolute -bottom-20 -left-12 size-48 rounded-full bg-cyan-400/10 blur-3xl"
-      />
-      <div className="relative">
-        <div className="flex items-center justify-between">
-          <span className="text-[0.62rem] font-bold uppercase tracking-[0.16em] text-cyan-200">
-            Compliance dashboard
-          </span>
-          <LockKeyhole aria-hidden="true" className="size-4 text-blue-300" />
-        </div>
-        <div className="header-visual-float mt-6 rounded-2xl border border-white/10 bg-white/[0.045] p-4">
-          <div className="space-y-2.5">
-            {rows.map((row, index) => (
-              <div
-                key={row.label}
-                className="flex items-center justify-between rounded-xl border border-white/7 bg-white/[0.025] px-3 py-3"
-              >
-                <div className="flex items-center gap-3">
-                  <span className="grid size-7 place-items-center rounded-lg bg-blue-500/12 text-[0.6rem] font-bold text-blue-200">
-                    0{index + 1}
-                  </span>
-                  <span className="text-xs font-semibold text-slate-200">{row.label}</span>
-                </div>
-                <span className="text-[0.58rem] font-bold uppercase tracking-wider text-emerald-300">
-                  {row.state}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="mt-4 flex items-center gap-3 rounded-xl border border-blue-300/10 bg-blue-500/[0.055] p-3">
-          <ShieldCheck aria-hidden="true" className="size-4 text-cyan-300" />
-          <p className="text-[0.65rem] leading-5 text-slate-400">
-            Filing needs depend on entity, ownership, income, and residency.
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function PaymentVisual() {
-  return (
-    <div className="relative h-full min-h-64 overflow-hidden rounded-2xl border border-blue-300/12 bg-[#081326] p-6">
-      <div aria-hidden="true" className="absolute inset-0 dark-grid opacity-45" />
-      <div
-        aria-hidden="true"
-        className="absolute inset-[18%] rounded-full border border-dashed border-blue-300/15"
-      />
-      <div
-        aria-hidden="true"
-        className="header-orbit absolute inset-[23%] rounded-full border border-cyan-300/12"
-      >
-        <span className="absolute left-0 top-1/2 size-2 rounded-full bg-cyan-300 shadow-[0_0_14px_3px_rgba(34,211,238,.45)]" />
-      </div>
-      <div className="relative grid h-full min-h-52 place-items-center">
-        <div className="grid size-24 place-items-center rounded-[1.6rem] border border-blue-300/18 bg-gradient-to-br from-blue-500/25 to-cyan-300/5 shadow-[0_26px_70px_-28px_rgba(37,99,235,.85)] backdrop-blur">
-          <Globe2 aria-hidden="true" className="size-9 text-cyan-100" strokeWidth={1.4} />
-        </div>
-        {[
-          'left-3 top-7',
-          'right-3 top-14',
-          'bottom-7 left-10',
-          'bottom-4 right-10',
-        ].map((position, index) => (
-          <span
-            key={position}
-            className={cn(
-              'absolute grid size-9 place-items-center rounded-xl border border-white/10 bg-navy-800 text-blue-200 shadow-xl',
-              position
-            )}
-          >
-            {index % 2 === 0 ? (
-              <WalletCards aria-hidden="true" className="size-3.5" />
-            ) : (
-              <CircleDollarSign aria-hidden="true" className="size-3.5" />
-            )}
-          </span>
-        ))}
-      </div>
-      <p className="relative text-center text-[0.62rem] font-medium leading-5 text-slate-500">
-        Setup assistance only. Provider approval is not guaranteed.
-      </p>
-    </div>
-  );
-}
+const menuVisuals: Record<HeaderMenuId, { src: string; alt: string }> = {
+  formation: {
+    src: '/images/Business Information.webp',
+    alt: 'Business information and U.S. company compliance services',
+  },
+  tax: {
+    src: '/images/Tax Services Mega Manu.webp',
+    alt: 'Tax services, filing checklist, and calculator',
+  },
+  payment: {
+    src: '/images/Payment Account mega manu.webp',
+    alt: 'Secure global payment account setup services',
+  },
+};
 
 function MenuVisual({ menu }: { menu: HeaderMenuId }) {
-  if (menu === 'formation') return <FormationVisual />;
-  if (menu === 'tax') return <TaxVisual />;
-  return <PaymentVisual />;
+  const visual = menuVisuals[menu];
+
+  return (
+    <div className="group relative min-h-72 overflow-hidden rounded-2xl border border-blue-300/15 bg-[#050d1b] shadow-[inset_0_1px_rgba(255,255,255,.06),0_22px_60px_-34px_rgba(37,99,235,.75)]">
+      <div aria-hidden="true" className="absolute inset-0 dark-grid opacity-45" />
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-[12%] top-0 h-24 rounded-full bg-blue-500/18 blur-3xl"
+      />
+      <Image
+        src={visual.src}
+        alt={visual.alt}
+        fill
+        sizes="(max-width: 1024px) 34vw, 390px"
+        className="relative z-10 object-contain p-1.5 transition-transform duration-700 ease-out group-hover:scale-[1.025]"
+      />
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-20 rounded-2xl shadow-[inset_0_0_34px_rgba(2,8,23,.35)] ring-1 ring-inset ring-white/[0.035]"
+      />
+    </div>
+  );
 }
 
 function getIcon(menu: HeaderMenuId, id: string) {

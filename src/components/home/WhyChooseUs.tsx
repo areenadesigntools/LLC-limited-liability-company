@@ -1,35 +1,31 @@
-import Image from 'next/image';
+import { Eye, Headphones, ListChecks, ShieldCheck } from 'lucide-react';
 import { Container } from '@/components/ui';
 import styles from './WhyChooseUs.module.css';
 
 const reasons = [
   {
+    icon: Eye,
     title: 'Transparent',
     description:
       'Clear requirements, pricing guidance, and next steps before your service begins.',
-    image: '/images/LLC Formation Card Banner.webp',
-    alt: 'LLC formation documents arranged on a professional desk',
   },
   {
+    icon: ListChecks,
     title: 'Structured',
     description:
       'One organized process for sharing information, reviewing documents, and tracking progress.',
-    image: '/images/EIN Application Card Banner.webp',
-    alt: 'EIN application documents prepared for review',
   },
   {
+    icon: ShieldCheck,
     title: 'Secure',
     description:
       'Your business and personal information is handled carefully throughout every request.',
-    image: '/images/Registered Agent Card Banner.webp',
-    alt: 'Professional registered agent service workspace',
   },
   {
+    icon: Headphones,
     title: 'Reliable',
     description:
       'Practical updates and responsive support keep your U.S. business journey moving forward.',
-    image: '/images/Reseller Certificate Banner.webp',
-    alt: 'Reseller certificate and business compliance materials',
   },
 ];
 
@@ -56,30 +52,30 @@ export function WhyChooseUs() {
         </header>
 
         <div className={styles.timeline}>
-          {reasons.map((reason, index) => (
-            <div key={reason.title} className={styles.item}>
-              <article className={styles.card}>
-                <div className={styles.content}>
-                  <h3>{reason.title}</h3>
-                  <p>{reason.description}</p>
-                </div>
+          {reasons.map((reason, index) => {
+            const Icon = reason.icon;
 
-                <div className={styles.imageWrap}>
-                  <Image
-                    src={reason.image}
-                    alt={reason.alt}
-                    fill
-                    sizes="(max-width: 640px) 42vw, (max-width: 1024px) 34vw, 360px"
-                  />
-                  <span aria-hidden="true" />
-                </div>
-              </article>
+            return (
+              <div key={reason.title} className={styles.item}>
+                <article className={styles.card}>
+                  <div className={styles.content}>
+                    <h3>{reason.title}</h3>
+                    <p>{reason.description}</p>
+                  </div>
 
-              {index < reasons.length - 1 ? (
-                <Connector side={index % 2 === 0 ? 'left' : 'right'} />
-              ) : null}
-            </div>
-          ))}
+                  <div className={styles.iconPanel} aria-hidden="true">
+                    <span className={styles.iconRing}>
+                      <Icon />
+                    </span>
+                  </div>
+                </article>
+
+                {index < reasons.length - 1 ? (
+                  <Connector side={index % 2 === 0 ? 'left' : 'right'} />
+                ) : null}
+              </div>
+            );
+          })}
         </div>
       </Container>
     </section>

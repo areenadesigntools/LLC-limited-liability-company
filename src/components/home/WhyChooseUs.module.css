@@ -2,7 +2,7 @@
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  padding: clamp(4.5rem, 6vw, 6.5rem) 0 clamp(2rem, 3vw, 3rem);
+  padding: clamp(3.75rem, 5vw, 5.25rem) 0 clamp(1.5rem, 2.5vw, 2.25rem);
   background:
     radial-gradient(circle at 7% 30%, rgba(37, 99, 235, 0.07), transparent 24rem),
     radial-gradient(circle at 94% 72%, rgba(34, 211, 238, 0.07), transparent 22rem),
@@ -29,7 +29,7 @@
 .heading h2 {
   color: #050a15;
   font-family: var(--font-poppins), system-ui, sans-serif;
-  font-size: clamp(2.75rem, 5.4vw, 5.2rem);
+  font-size: clamp(2.65rem, 5vw, 4.75rem);
   font-weight: 850;
   line-height: 0.98;
   letter-spacing: -0.065em;
@@ -38,20 +38,20 @@
 
 .heading p {
   max-width: 36rem;
-  margin: 0.8rem auto 0;
+  margin: 0.7rem auto 0;
   color: #354156;
-  font-size: clamp(0.9rem, 1.5vw, 1.15rem);
+  font-size: clamp(0.86rem, 1.4vw, 1.05rem);
   line-height: 1.45;
 }
 
 .timeline {
-  max-width: 73rem;
-  margin: clamp(3rem, 5vw, 4.75rem) auto 0;
+  max-width: 68rem;
+  margin: clamp(2.4rem, 4vw, 3.5rem) auto 0;
 }
 
 .item {
   position: relative;
-  width: 73%;
+  width: 64%;
 }
 
 .item:nth-child(even) {
@@ -59,36 +59,36 @@
 }
 
 .item + .item {
-  margin-top: 2.35rem;
+  margin-top: 1.6rem;
 }
 
 .card {
   position: relative;
   display: grid;
-  min-height: 11.25rem;
-  grid-template-columns: minmax(0, 1.2fr) minmax(17rem, 0.8fr);
+  min-height: 7.6rem;
+  grid-template-columns: minmax(0, 1fr) 7.6rem;
   overflow: hidden;
-  border: 1px solid rgba(148, 163, 184, 0.32);
-  border-radius: 2rem;
+  border: 1px solid rgba(148, 163, 184, 0.34);
+  border-radius: 1.55rem;
   background: rgba(255, 255, 255, 0.96);
   box-shadow:
-    0 1.7rem 3rem -1.7rem rgba(15, 23, 42, 0.45),
-    0 0.35rem 0.8rem rgba(15, 23, 42, 0.1),
-    inset 0 1px rgba(255, 255, 255, 0.9);
+    0 1.25rem 2.4rem -1.55rem rgba(15, 23, 42, 0.42),
+    0 0.25rem 0.65rem rgba(15, 23, 42, 0.08),
+    inset 0 1px rgba(255, 255, 255, 0.92);
   transform: translateZ(0);
   transition:
-    transform 420ms cubic-bezier(0.2, 0.75, 0.2, 1),
-    box-shadow 420ms ease,
-    border-color 320ms ease;
+    transform 380ms cubic-bezier(0.2, 0.75, 0.2, 1),
+    box-shadow 380ms ease,
+    border-color 300ms ease;
 }
 
 .card:hover {
-  border-color: rgba(37, 99, 235, 0.35);
+  border-color: rgba(37, 99, 235, 0.38);
   box-shadow:
-    0 2.2rem 3.5rem -1.6rem rgba(37, 99, 235, 0.3),
-    0 0.5rem 1rem rgba(15, 23, 42, 0.1),
+    0 1.7rem 2.8rem -1.45rem rgba(37, 99, 235, 0.26),
+    0 0.35rem 0.8rem rgba(15, 23, 42, 0.08),
     inset 0 1px rgba(255, 255, 255, 0.92);
-  transform: translateY(-0.45rem);
+  transform: translateY(-0.32rem);
 }
 
 .content {
@@ -97,7 +97,7 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
-  padding: 1.6rem 2rem;
+  padding: 1.15rem 1.5rem;
 }
 
 .content h3 {
@@ -106,7 +106,7 @@
   background-clip: text;
   color: transparent;
   font-family: var(--font-poppins), system-ui, sans-serif;
-  font-size: clamp(1.55rem, 3vw, 2.35rem);
+  font-size: clamp(1.25rem, 2.2vw, 1.75rem);
   font-weight: 850;
   line-height: 1;
   letter-spacing: -0.045em;
@@ -115,60 +115,85 @@
 
 .content p {
   max-width: 31rem;
-  margin-top: 0.85rem;
-  color: #3d4658;
-  font-size: 0.83rem;
-  line-height: 1.55;
+  margin-top: 0.55rem;
+  color: #465166;
+  font-size: 0.72rem;
+  line-height: 1.5;
 }
 
-.imageWrap {
+.iconPanel {
   position: relative;
-  min-height: 11.25rem;
+  display: grid;
+  place-items: center;
   overflow: hidden;
-  border-radius: 2rem;
-  background: #dbeafe;
-}
-
-.imageWrap img {
-  object-fit: cover;
-  transition: transform 700ms cubic-bezier(0.2, 0.7, 0.2, 1);
-}
-
-.imageWrap > span {
-  position: absolute;
-  inset: 0;
+  border-left: 1px solid rgba(147, 197, 253, 0.36);
   background:
-    linear-gradient(135deg, rgba(37, 99, 235, 0.08), rgba(6, 182, 212, 0.16)),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.16), transparent 35%);
-  pointer-events: none;
+    radial-gradient(circle at 75% 20%, rgba(34, 211, 238, 0.2), transparent 48%),
+    linear-gradient(145deg, #edf5ff, #dceaff);
 }
 
-.card:hover .imageWrap img {
-  transform: scale(1.055);
+.iconPanel::before {
+  position: absolute;
+  width: 6.5rem;
+  height: 6.5rem;
+  border: 1px dashed rgba(37, 99, 235, 0.22);
+  border-radius: 50%;
+  content: '';
+  transition: transform 600ms ease;
+}
+
+.card:hover .iconPanel::before {
+  transform: rotate(35deg) scale(1.08);
+}
+
+.iconRing {
+  position: relative;
+  display: grid;
+  width: 3.8rem;
+  height: 3.8rem;
+  place-items: center;
+  border: 1px solid rgba(147, 197, 253, 0.7);
+  border-radius: 1.25rem;
+  background: linear-gradient(145deg, #3b82f6, #1555cc);
+  box-shadow:
+    0 1rem 1.6rem -0.75rem rgba(37, 99, 235, 0.72),
+    inset 0 1px rgba(255, 255, 255, 0.3);
+  color: #fff;
+  transition: transform 380ms ease;
+}
+
+.iconRing svg {
+  width: 1.45rem;
+  height: 1.45rem;
+  stroke-width: 1.8;
+}
+
+.card:hover .iconRing {
+  transform: translateY(-0.15rem) scale(1.05);
 }
 
 .connector {
   position: absolute;
-  bottom: -4.65rem;
-  width: 7.6rem;
-  height: 5rem;
+  bottom: -3.15rem;
+  width: 5.3rem;
+  height: 3.5rem;
   overflow: visible;
   fill: none;
-  stroke: #526071;
+  stroke: #647185;
   stroke-dasharray: 4 5;
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-width: 1.2;
-  opacity: 0.8;
+  opacity: 0.72;
   pointer-events: none;
 }
 
 .connector.left {
-  left: 2.2rem;
+  left: 1.4rem;
 }
 
 .connector.right {
-  right: 2.2rem;
+  right: 1.4rem;
   transform: scaleX(-1);
 }
 
@@ -178,31 +203,27 @@
 
 @media (max-width: 900px) {
   .item {
-    width: 84%;
-  }
-
-  .card {
-    grid-template-columns: minmax(0, 1.15fr) minmax(13rem, 0.85fr);
+    width: 76%;
   }
 }
 
 @media (max-width: 640px) {
   .section {
-    padding: 3.5rem 0 1.5rem;
+    padding: 3.15rem 0 1.25rem;
   }
 
   .heading h2 {
-    font-size: clamp(2.5rem, 12.5vw, 3.75rem);
+    font-size: clamp(2.4rem, 11.8vw, 3.4rem);
   }
 
   .heading p {
     max-width: 20rem;
-    margin-top: 0.6rem;
-    font-size: 0.76rem;
+    margin-top: 0.55rem;
+    font-size: 0.73rem;
   }
 
   .timeline {
-    margin-top: 2.5rem;
+    margin-top: 2rem;
   }
 
   .item,
@@ -212,35 +233,43 @@
   }
 
   .item + .item {
-    margin-top: 1.25rem;
+    margin-top: 0.8rem;
   }
 
   .card {
-    min-height: 8.8rem;
-    grid-template-columns: minmax(0, 1.14fr) minmax(8.4rem, 0.86fr);
-    border-radius: 1.25rem;
-    box-shadow:
-      0 1.3rem 2.2rem -1.4rem rgba(15, 23, 42, 0.35),
-      0 0.25rem 0.6rem rgba(15, 23, 42, 0.08);
+    min-height: 6.9rem;
+    grid-template-columns: minmax(0, 1fr) 5.5rem;
+    border-radius: 1.15rem;
   }
 
   .content {
-    padding: 1rem 0.65rem 1rem 1rem;
+    padding: 0.9rem 0.7rem 0.9rem 1rem;
   }
 
   .content h3 {
-    font-size: clamp(1.05rem, 5vw, 1.35rem);
+    font-size: 1.05rem;
   }
 
   .content p {
-    margin-top: 0.5rem;
-    font-size: 0.61rem;
-    line-height: 1.48;
+    margin-top: 0.42rem;
+    font-size: 0.59rem;
+    line-height: 1.45;
   }
 
-  .imageWrap {
-    min-height: 8.8rem;
-    border-radius: 1.25rem;
+  .iconRing {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 0.95rem;
+  }
+
+  .iconRing svg {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+
+  .iconPanel::before {
+    width: 4.7rem;
+    height: 4.7rem;
   }
 
   .connector {
@@ -250,7 +279,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .card,
-  .imageWrap img {
+  .iconPanel::before,
+  .iconRing {
     transition: none;
   }
 }
