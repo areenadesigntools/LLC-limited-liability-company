@@ -40,12 +40,12 @@ export default function ContactPage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
-      <section className="relative isolate overflow-hidden bg-[#050b16] py-20 text-white md:py-28">
+      <section className="relative isolate overflow-hidden bg-[#050b16] py-8 text-white md:py-12">
         <div aria-hidden="true" className="dark-grid absolute inset-0 -z-20 opacity-70" />
         <div aria-hidden="true" className="absolute -right-44 -top-52 -z-10 size-[42rem] rounded-full bg-blue-600/25 blur-[120px]" />
         <Container>
-          <div className="grid items-center gap-12 lg:grid-cols-[1fr_.72fr]">
-            <div><span className="eyebrow eyebrow-dark"><Send aria-hidden="true" className="size-3.5" />Start a conversation</span><h1 className="mt-6 max-w-4xl text-balance text-4xl leading-[1.02] tracking-[-.055em] text-white sm:text-5xl lg:text-7xl">Talk through your next U.S. business step.</h1><p className="mt-6 max-w-2xl text-base leading-8 text-slate-300 sm:text-lg">Share the service you need, where you are in the process, and any important timing. We will review your inquiry and help organize a practical starting point.</p><a href="#contact-form" className="mt-8 inline-flex min-h-13 items-center justify-center gap-2 rounded-xl border border-blue-400/25 bg-electric px-6 py-3 text-base font-semibold text-white shadow-glow hover:-translate-y-0.5 hover:bg-blue-500">Send an Inquiry <ArrowDown aria-hidden="true" className="size-4" /></a></div>
+          <div className="grid items-center gap-7 lg:grid-cols-[1fr_.66fr]">
+            <div><span className="eyebrow eyebrow-dark"><Send aria-hidden="true" className="size-3.5" />Start a conversation</span><h1 className="mt-4 max-w-4xl text-balance text-4xl leading-[1.02] tracking-[-.055em] text-white sm:text-5xl lg:text-6xl">Talk through your next U.S. business step.</h1><p className="mt-4 max-w-2xl text-sm leading-7 text-slate-300 sm:text-base">Share the service you need, where you are in the process, and any important timing. We will review your inquiry and help organize a practical starting point.</p><a href="#contact-form" className="mt-5 inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-blue-400/25 bg-electric px-5 py-2.5 text-sm font-semibold text-white shadow-glow hover:-translate-y-0.5 hover:bg-blue-500">Send an Inquiry <ArrowDown aria-hidden="true" className="size-4" /></a></div>
             <AnimatedHeroVisual visualKey="contact-us" title="Consultation desk" points={['Share your service details', 'Remote coordination', 'Clear starting point']} />
           </div>
         </Container>

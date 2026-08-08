@@ -6,8 +6,9 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { contactFormSchema, type ContactForm } from '@/lib/validations';
 import { Button, Input, Select, Textarea, Checkbox, Card } from '@/components/ui';
-import { AlertCircle, CheckCircle } from 'lucide-react';
+import { MessageCircle } from 'lucide-react';
 import { cn } from '@/lib/cn';
+import { getWhatsAppUrl } from '@/lib/utils';
 
 interface ContactFormComponentProps {
   onSuccess?: () => void;
@@ -18,51 +19,40 @@ export const ContactFormComponent: React.FC<ContactFormComponentProps> = ({
   onSuccess,
   className,
 }) => {
-  const [isSubmitting, setIsSubmitting] = React.useState(false);
-  const [submitStatus, setSubmitStatus] = React.useState<'idle' | 'success' | 'error'>('idle');
-  const [errorMessage, setErrorMessage] = React.useState('');
-
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm<ContactForm>({
     resolver: zodResolver(contactFormSchema),
   });
 
-  const onSubmit = async (data: ContactForm) => {
-    setIsSubmitting(true);
-    setSubmitStatus('idle');
-    
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      });
-      const result = await response.json().catch(() => null) as { error?: string } | null;
+  const onSubmit = (data: ContactForm) => {
+    const serviceLabels: Record<string, string> = {
+      'free-llc': 'Free LLC Registration',
+      'llc-formation': 'LLC Formation',
+      'ein-application': 'EIN Application',
+      'itin-application': 'ITIN Application',
+      'tax-services': 'Tax Services',
+      'payment-accounts': 'Payment Accounts',
+      other: 'Other',
+    };
 
-      if (response.ok) {
-        setSubmitStatus('success');
-        reset();
-        setTimeout(() => {
-          setSubmitStatus('idle');
-          onSuccess?.();
-        }, 3000);
-      } else {
-        throw new Error(result?.error || 'Failed to send message');
-      }
-    } catch (error) {
-      setSubmitStatus('error');
-      setErrorMessage(
-        error instanceof Error
-          ? error.message
-          : 'Failed to send your message. Please try again.'
-      );
-    } finally {
-      setIsSubmitting(false);
-    }
+    const whatsappMessage = [
+      'Hello, I would like to submit a free consultation request.',
+      '',
+      `Name: ${data.name}`,
+      `Email: ${data.email}`,
+      `Phone: ${data.phone}`,
+      `Service: ${serviceLabels[data.service || ''] || 'Not specified'}`,
+      `Subject: ${data.subject}`,
+      '',
+      'Message:',
+      data.message,
+    ].join('\n');
+
+    onSuccess?.();
+    window.location.assign(getWhatsAppUrl(whatsappMessage));
   };
 
   return (
@@ -73,7 +63,7 @@ export const ContactFormComponent: React.FC<ContactFormComponentProps> = ({
         </p>
         <h2 className="mt-2 text-2xl text-primary-dark">How can we help?</h2>
         <p className="mt-2 text-sm leading-6 text-muted">
-          Required fields are validated before your inquiry is securely submitted.
+          Complete the form and continue directly to WhatsApp with your inquiry ready to send.
         </p>
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-5" noValidate>
@@ -158,29 +148,9 @@ export const ContactFormComponent: React.FC<ContactFormComponentProps> = ({
           {...register('consent')}
         />
 
-        {submitStatus === 'success' && (
-          <div
-            className="flex items-start gap-3 rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-emerald-700"
-            role="status"
-            aria-live="polite"
-          >
-            <CheckCircle className="mt-0.5 size-5 shrink-0" />
-            <span>Message sent successfully! We&apos;ll be in touch soon.</span>
-          </div>
-        )}
-
-        {submitStatus === 'error' && (
-          <div
-            className="flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 p-4 text-red-700"
-            role="alert"
-          >
-            <AlertCircle className="mt-0.5 size-5 shrink-0" />
-            <span>{errorMessage}</span>
-          </div>
-        )}
-
-        <Button type="submit" size="lg" isLoading={isSubmitting} className="w-full">
-          {isSubmitting ? 'Sending securely...' : 'Send Inquiry'}
+        <Button type="submit" size="lg" className="w-full">
+          <MessageCircle aria-hidden="true" className="size-5" />
+          Send via WhatsApp
         </Button>
       </form>
     </Card>

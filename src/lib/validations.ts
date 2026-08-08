@@ -36,7 +36,7 @@ export const contactFormSchema = z.object({
   phone: z.string().min(10, 'Valid phone number is required'),
   service: z.string().optional(),
   subject: z.string().min(5, 'Subject is required'),
-  message: z.string().min(20, 'Message must be at least 20 characters'),
+  message: z.string().trim().min(1, 'Message is required'),
   consent: z.boolean().refine((val) => val === true, 'You must consent to contact'),
   website: z.string().max(200).optional(),
 });
