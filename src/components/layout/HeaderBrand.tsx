@@ -1,5 +1,5 @@
+import Image from 'next/image';
 import Link from 'next/link';
-import { Building2 } from 'lucide-react';
 import { cn } from '@/lib/cn';
 
 interface HeaderBrandProps {
@@ -19,39 +19,31 @@ export function HeaderBrand({
     <Link
       href="/"
       onClick={onClick}
-      className={cn('group inline-flex shrink-0 items-center gap-2.5', className)}
+      className={cn(
+        'group inline-flex shrink-0 items-center',
+        inverse && 'rounded-xl bg-white/95 px-2 py-1.5 shadow-[0_14px_35px_-20px_rgba(37,99,235,.75)]',
+        className
+      )}
       aria-label="LLC Limited Liability Company home"
     >
-      <span className="relative grid size-10 shrink-0 place-items-center overflow-hidden rounded-xl border border-cyan-200/25 bg-gradient-to-br from-blue-500 via-blue-600 to-blue-800 text-white shadow-[0_10px_30px_-12px_rgba(37,99,235,.9)]">
-        <span
-          aria-hidden="true"
-          className="absolute inset-x-1 top-0 h-px bg-gradient-to-r from-transparent via-white/90 to-transparent"
+      {compact ? (
+        <Image
+          src="/images/llc-favicon.png"
+          alt=""
+          width={1286}
+          height={1253}
+          className="size-10 object-contain"
+          priority
         />
-        <span
-          aria-hidden="true"
-          className="absolute -right-3 -top-3 size-7 rounded-full bg-cyan-200/35 blur-md transition-transform duration-500 group-hover:translate-x-1 group-hover:translate-y-1"
+      ) : (
+        <Image
+          src="/images/llc-logo.png"
+          alt=""
+          width={4244}
+          height={1253}
+          className="h-auto w-[11.25rem] object-contain sm:w-[12.5rem] lg:w-[13.25rem]"
+          priority
         />
-        <Building2 aria-hidden="true" className="relative size-[1.1rem]" strokeWidth={2.25} />
-      </span>
-      {!compact && (
-        <span className="min-w-0">
-          <span
-            className={cn(
-              'block whitespace-nowrap font-display text-[1.05rem] font-bold leading-none tracking-[-0.025em]',
-              inverse ? 'text-white' : 'text-primary-dark'
-            )}
-          >
-            LLC
-          </span>
-          <span
-            className={cn(
-              'mt-1 block whitespace-nowrap text-[0.56rem] font-bold uppercase tracking-[0.17em]',
-              inverse ? 'text-slate-400' : 'text-slate-500'
-            )}
-          >
-            Limited Liability Company
-          </span>
-        </span>
       )}
     </Link>
   );
