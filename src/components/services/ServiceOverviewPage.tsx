@@ -55,22 +55,22 @@ export function ServiceOverviewPage({
 
   return (
     <>
-      <section className="relative isolate overflow-hidden bg-[#050b16] py-8 text-white md:py-12">
+      <section className="relative isolate overflow-hidden bg-[#050b16] py-8 text-white md:py-6">
         <div aria-hidden="true" className="dark-grid absolute inset-0 -z-20 opacity-70" />
         <div aria-hidden="true" className="absolute -right-40 -top-52 -z-10 size-[42rem] rounded-full bg-blue-600/25 blur-[120px]" />
         <Container>
-          <div className={cn('grid items-center gap-7', variant === 'tax' ? 'lg:grid-cols-[1.05fr_.75fr]' : 'lg:grid-cols-[.92fr_.88fr]')}>
+          <div className={cn('grid items-center gap-5', variant === 'tax' ? 'lg:grid-cols-[1.05fr_.75fr]' : 'lg:grid-cols-[.92fr_.88fr]')}>
             <div>
               <span className="eyebrow eyebrow-dark"><span className="size-1.5 rounded-full bg-current" />{eyebrow}</span>
-              <h1 className="mt-4 max-w-4xl text-balance text-4xl leading-[1.02] tracking-[-.055em] text-white sm:text-5xl lg:text-6xl">{title}</h1>
-              <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-300 sm:text-base">{description}</p>
-              <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+              <h1 className="mt-2 max-w-4xl text-balance text-4xl leading-[1.02] tracking-[-.055em] text-white sm:text-5xl lg:text-5xl">{title}</h1>
+              <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-300 lg:line-clamp-2">{description}</p>
+              <div className="mt-3 flex flex-col gap-3 sm:flex-row">
                 <Link href="/contact-us" className={buttonStyles({ size: 'lg' })}>Get Free Consultation <ArrowRight aria-hidden="true" className="size-4" /></Link>
                 <a href="#service-directory" className={buttonStyles({ variant: 'secondary', size: 'lg' })}>Explore Services</a>
               </div>
             </div>
 
-            <AnimatedHeroVisual visualKey={variant === 'tax' ? 'tax-services' : 'payment-accounts'} title={title} points={[`${items.length} service pathways`, variant === 'tax' ? 'Records mapped to filing' : 'Provider-ready information', 'Remote coordination']} />
+            <AnimatedHeroVisual compact visualKey={variant === 'tax' ? 'tax-services' : 'payment-accounts'} title={title} points={[`${items.length} service pathways`, variant === 'tax' ? 'Records mapped to filing' : 'Provider-ready information', 'Remote coordination']} />
           </div>
         </Container>
       </section>

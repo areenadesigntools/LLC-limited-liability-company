@@ -43,9 +43,9 @@ export default function FAQPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
-      <section className="relative isolate overflow-hidden bg-[#050b16] py-8 text-white md:py-12">
+      <section className="relative isolate overflow-hidden bg-[#050b16] py-8 text-white md:py-6">
         <div aria-hidden="true" className="dark-grid absolute inset-0 -z-20 opacity-70" /><div aria-hidden="true" className="absolute -right-44 -top-52 -z-10 size-[42rem] rounded-full bg-blue-600/25 blur-[120px]" />
-        <Container><div className="grid items-center gap-7 lg:grid-cols-[1fr_.66fr]"><div><span className="eyebrow eyebrow-dark"><CircleHelp aria-hidden="true" className="size-3.5" />Knowledge centre</span><h1 className="mt-4 text-balance text-4xl leading-[1.02] tracking-[-.055em] text-white sm:text-5xl lg:text-6xl">Questions answered with useful context.</h1><p className="mt-4 max-w-2xl text-sm leading-7 text-slate-300 sm:text-base">Review common questions about our service process, documents, fees, tax identifiers, and provider-controlled outcomes before you begin.</p></div><AnimatedHeroVisual visualKey="faq" title="Answer navigator" points={['Formation questions', 'Tax and compliance', 'Payment accounts']} /></div></Container>
+        <Container><div className="grid items-center gap-5 lg:grid-cols-[1fr_.66fr]"><div><span className="eyebrow eyebrow-dark"><CircleHelp aria-hidden="true" className="size-3.5" />Knowledge centre</span><h1 className="mt-2 text-balance text-4xl leading-[1.02] tracking-[-.055em] text-white sm:text-5xl">Questions answered with useful context.</h1><p className="mt-2 max-w-2xl text-sm leading-6 text-slate-300 lg:line-clamp-2">Review common questions about our service process, documents, fees, tax identifiers, and provider-controlled outcomes before you begin.</p></div><AnimatedHeroVisual compact visualKey="faq" title="Answer navigator" points={['Formation questions', 'Tax and compliance', 'Payment accounts']} /></div></Container>
       </section>
 
       <section className="light-grid bg-[#f5f8fd] py-14 md:py-20">

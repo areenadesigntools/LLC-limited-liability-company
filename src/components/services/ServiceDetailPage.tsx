@@ -108,7 +108,7 @@ export function ServiceDetailPage({
                 <Link href={overviewHref} className={buttonStyles({ variant: 'secondary', size: 'lg' })}>Explore Related Services</Link>
               </div>
             </div>
-            <div className={styles.visualWrap}><AnimatedHeroVisual visualKey={visualKey} title={title} points={heroPoints} /></div>
+            <div className={styles.visualWrap}><AnimatedHeroVisual compact visualKey={visualKey} title={title} points={heroPoints} /></div>
           </div>
         </Container>
       </section>

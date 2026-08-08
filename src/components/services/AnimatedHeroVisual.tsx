@@ -59,6 +59,7 @@ interface AnimatedHeroVisualProps {
   visualKey: string;
   title: string;
   points?: string[];
+  compact?: boolean;
 }
 
 function FormationScene({ visualKey, title }: { visualKey: string; title: string }) {
@@ -130,20 +131,22 @@ function SymbolScene({ visualKey, points }: { visualKey: SceneKey; points: strin
   );
 }
 
-export function AnimatedHeroVisual({ visualKey, title, points = [] }: AnimatedHeroVisualProps) {
+export function AnimatedHeroVisual({ visualKey, title, points = [], compact = false }: AnimatedHeroVisualProps) {
   const isFormation = Boolean(formationImages[visualKey]);
   const isPayment = Boolean(paymentLogos[visualKey]);
   const isDocument = visualKey in sceneConfig && (visualKey.includes('tax') || visualKey.includes('form-'));
   const sceneKey = (visualKey in sceneConfig ? visualKey : 'about-us') as SceneKey;
 
   return (
-    <div className={styles.scene} data-scene={visualKey} aria-hidden={isPayment ? undefined : true}>
+    <div className={styles.scene} data-scene={visualKey} data-compact={compact ? 'true' : undefined} aria-hidden={isPayment ? undefined : true}>
       <span className={styles.ambient} />
       <span className={styles.floor} />
-      {isFormation ? <FormationScene visualKey={visualKey} title={title} /> : null}
-      {isPayment ? <PaymentScene visualKey={visualKey} title={title} /> : null}
-      {isDocument ? <DocumentScene visualKey={sceneKey} points={points} /> : null}
-      {!isFormation && !isPayment && !isDocument ? <SymbolScene visualKey={sceneKey} points={points} /> : null}
+      <div className={styles.stage}>
+        {isFormation ? <FormationScene visualKey={visualKey} title={title} /> : null}
+        {isPayment ? <PaymentScene visualKey={visualKey} title={title} /> : null}
+        {isDocument ? <DocumentScene visualKey={sceneKey} points={points} /> : null}
+        {!isFormation && !isPayment && !isDocument ? <SymbolScene visualKey={sceneKey} points={points} /> : null}
+      </div>
     </div>
   );
 }

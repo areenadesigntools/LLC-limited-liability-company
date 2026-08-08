@@ -60,22 +60,22 @@ export default function AboutPage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
-      <section className="relative isolate overflow-hidden bg-[#050b16] py-8 text-white md:py-12">
+      <section className="relative isolate overflow-hidden bg-[#050b16] py-8 text-white md:py-6">
         <div aria-hidden="true" className="dark-grid absolute inset-0 -z-20 opacity-70" />
         <div aria-hidden="true" className="absolute -right-44 -top-52 -z-10 size-[42rem] rounded-full bg-blue-600/25 blur-[120px]" />
         <Container>
-          <div className="grid items-center gap-7 lg:grid-cols-[1.08fr_.66fr]">
+          <div className="grid items-center gap-5 lg:grid-cols-[1.08fr_.66fr]">
             <div>
               <span className="eyebrow eyebrow-dark"><BadgeCheck aria-hidden="true" className="size-3.5" />About our company</span>
-              <h1 className="mt-4 max-w-4xl text-balance text-4xl leading-[1.02] tracking-[-.055em] text-white sm:text-5xl lg:text-6xl">Clearer coordination for your U.S. business journey.</h1>
-              <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-300 sm:text-base">LLC Limited Liability Company helps founders organize formation, tax-support, and payment-account requests through one practical, remote-first service experience.</p>
-              <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+              <h1 className="mt-2 max-w-4xl text-balance text-4xl leading-[1.02] tracking-[-.055em] text-white sm:text-5xl">Clearer coordination for your U.S. business journey.</h1>
+              <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-300 lg:line-clamp-2">LLC Limited Liability Company helps founders organize formation, tax-support, and payment-account requests through one practical, remote-first service experience.</p>
+              <div className="mt-3 flex flex-col gap-3 sm:flex-row">
                 <Link href="/contact-us" className={buttonStyles({ size: 'lg' })}>Discuss Your Needs <ArrowRight aria-hidden="true" className="size-4" /></Link>
                 <Link href="/free-llc-registration" className={buttonStyles({ variant: 'secondary', size: 'lg' })}>Explore Free LLC Assistance</Link>
               </div>
             </div>
 
-            <AnimatedHeroVisual visualKey="about-us" title="Global founder support" points={['Remote-first coordination', 'Formation · Tax · Payments', 'Practical next steps']} />
+            <AnimatedHeroVisual compact visualKey="about-us" title="Global founder support" points={['Remote-first coordination', 'Formation · Tax · Payments', 'Practical next steps']} />
           </div>
         </Container>
       </section>

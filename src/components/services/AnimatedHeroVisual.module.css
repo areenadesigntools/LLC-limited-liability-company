@@ -7,6 +7,37 @@
   transform-style: preserve-3d;
 }
 
+.stage {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+
+@media (min-width: 901px) {
+  .scene[data-compact='true'] {
+    min-height: 12.25rem;
+  }
+
+  .scene[data-compact='true'] .stage {
+    top: 50%;
+    left: 50%;
+    width: 142.86%;
+    height: 142.86%;
+    transform: translate(-50%, -50%) scale(.7);
+    transform-origin: center;
+  }
+
+  .scene[data-compact='true'] .ambient {
+    inset: 5% 9% 0;
+    filter: blur(1rem);
+  }
+
+  .scene[data-compact='true'] .floor {
+    bottom: -5%;
+    height: 2.4rem;
+  }
+}
+
 .scene[data-scene='free-llc-registration'] { --scene-accent: #2563eb; --scene-accent-2: #67e8f9; }
 .scene[data-scene='llc-formation'] { --scene-accent: #7c3aed; --scene-accent-2: #38bdf8; }
 .scene[data-scene='ein-application'] { --scene-accent: #0891b2; --scene-accent-2: #60a5fa; }
@@ -101,6 +132,15 @@
 
 @media (max-width: 767px) {
   .scene { min-height: 16rem; }
+  .scene[data-compact='true'] { min-height: 12rem; }
+  .scene[data-compact='true'] .stage {
+    top: 50%;
+    left: 50%;
+    width: 133.34%;
+    height: 133.34%;
+    transform: translate(-50%, -50%) scale(.75);
+    transform-origin: center;
+  }
   .imageDeck,.paymentTerminal { inset: .5rem 0; }
   .deckBack,.deckMiddle,.imageCard { inset: 2rem .75rem; }
   .floatingChip { max-width: 10.5rem; font-size: .56rem; }

@@ -36,18 +36,18 @@ export function PolicyPage({
 }: PolicyPageProps) {
   return (
     <>
-      <section className={cn('relative isolate overflow-hidden py-8 text-white md:py-11', variant === 'privacy' && 'bg-[#041c20]', variant === 'terms' && 'bg-[#0d1031]', variant === 'refund' && 'bg-[#291005]')}>
+      <section className={cn('relative isolate overflow-hidden py-8 text-white md:py-6', variant === 'privacy' && 'bg-[#041c20]', variant === 'terms' && 'bg-[#0d1031]', variant === 'refund' && 'bg-[#291005]')}>
         <div aria-hidden="true" className="dark-grid absolute inset-0 -z-20 opacity-65" />
         <div aria-hidden="true" className="absolute -right-40 -top-64 -z-10 size-[38rem] rounded-full bg-blue-600/25 blur-[120px]" />
         <Container>
           <div className="grid items-center gap-6 lg:grid-cols-[1fr_.64fr]">
             <div className="max-w-4xl">
               <span className="eyebrow eyebrow-dark"><ShieldCheck aria-hidden="true" className="size-3.5" />{eyebrow}</span>
-              <h1 className="mt-4 text-balance text-4xl leading-[1.04] tracking-[-.05em] text-white sm:text-5xl">{title}</h1>
-              <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-300 sm:text-base">{description}</p>
-              <div className="mt-4 inline-flex rounded-xl border border-white/10 bg-white/[.045] px-4 py-3 backdrop-blur-xl"><div><p className="text-[.58rem] font-extrabold uppercase tracking-[.15em] text-cyan-200">Last updated</p><p className="mt-1 text-xs font-semibold text-white">{updated}</p></div></div>
+              <h1 className="mt-2 text-balance text-4xl leading-[1.04] tracking-[-.05em] text-white sm:text-5xl">{title}</h1>
+              <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-300 lg:line-clamp-2">{description}</p>
+              <div className="mt-3 inline-flex rounded-xl border border-white/10 bg-white/[.045] px-3 py-2 backdrop-blur-xl"><div><p className="text-[.52rem] font-extrabold uppercase tracking-[.15em] text-cyan-200">Last updated</p><p className="mt-0.5 text-[.68rem] font-semibold text-white">{updated}</p></div></div>
             </div>
-            <AnimatedHeroVisual visualKey={variant} title={title} points={sections.slice(0, 3).map((section) => section.title)} />
+            <AnimatedHeroVisual compact visualKey={variant} title={title} points={sections.slice(0, 3).map((section) => section.title)} />
           </div>
         </Container>
       </section>
