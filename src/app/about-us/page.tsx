@@ -1,14 +1,53 @@
 import type { Metadata } from 'next';
-import { Section, Container, SectionHeading, Grid } from '@/components/ui';
-import { companyInfo, contactInfo } from '@/data';
-import { Users, Zap, Globe, Shield } from 'lucide-react';
+import Link from 'next/link';
+import {
+  ArrowRight,
+  BadgeCheck,
+  CheckCircle2,
+  FileCheck2,
+  Globe2,
+  Landmark,
+  MessageSquareText,
+  Scale,
+  ShieldCheck,
+  WalletCards,
+} from 'lucide-react';
+import { buttonStyles, Container } from '@/components/ui';
 import { generateMetadata as generateSeoMetadata, generateBreadcrumbSchema } from '@/lib/seo';
 
 export const metadata: Metadata = generateSeoMetadata({
   title: 'About Us - LLC Limited Liability Company',
-  description: 'Learn about LLC Limited Liability Company - our mission, values, and commitment to helping entrepreneurs worldwide establish U.S. businesses.',
+  description: 'Learn how LLC Limited Liability Company coordinates U.S. business formation, tax support, and payment-account setup for founders worldwide.',
   canonical: 'https://llclimitedliabilitycompany.com/about-us',
 });
+
+const servicePillars = [
+  {
+    icon: Landmark,
+    title: 'Business formation',
+    description: 'Organized assistance for LLC formation, EIN, ITIN, registered-agent, and reseller-certificate requests.',
+    href: '/llc-formation',
+  },
+  {
+    icon: FileCheck2,
+    title: 'Tax and compliance',
+    description: 'A structured intake and document-coordination process for federal and state filing support.',
+    href: '/tax-services',
+  },
+  {
+    icon: WalletCards,
+    title: 'Payment account setup',
+    description: 'Practical preparation support for PayPal, Stripe, Wise, and Payoneer applications.',
+    href: '/payment-accounts',
+  },
+];
+
+const values = [
+  { icon: MessageSquareText, title: 'Clear communication', description: 'We explain requested information, next actions, and known limitations in plain language.' },
+  { icon: ShieldCheck, title: 'Careful handling', description: 'Business and personal information is requested only when relevant to the selected service.' },
+  { icon: Globe2, title: 'Remote-first support', description: 'Our workflow is designed for founders coordinating a U.S. business from different time zones.' },
+  { icon: Scale, title: 'Responsible guidance', description: 'We distinguish administrative support from decisions that require licensed legal or tax advice.' },
+];
 
 export default function AboutPage() {
   const breadcrumbSchema = generateBreadcrumbSchema([
@@ -16,121 +55,72 @@ export default function AboutPage() {
     { name: 'About Us', url: 'https://llclimitedliabilitycompany.com/about-us' },
   ]);
 
-  const values = [
-    {
-      icon: Shield,
-      title: 'Integrity',
-      description: 'We operate with transparency and honesty in all business dealings',
-    },
-    {
-      icon: Globe,
-      title: 'Global Perspective',
-      description: 'We serve entrepreneurs worldwide with culturally sensitive support',
-    },
-    {
-      icon: Users,
-      title: 'Customer Focus',
-      description: 'Your success is our success - we are committed to your growth',
-    },
-    {
-      icon: Zap,
-      title: 'Excellence',
-      description: 'We strive for excellence in every service we provide',
-    },
-  ];
-
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
-      
-      <Section className="pt-24 pb-20">
+
+      <section className="relative isolate overflow-hidden bg-[#050b16] py-20 text-white md:py-28">
+        <div aria-hidden="true" className="dark-grid absolute inset-0 -z-20 opacity-70" />
+        <div aria-hidden="true" className="absolute -right-44 -top-52 -z-10 size-[42rem] rounded-full bg-blue-600/25 blur-[120px]" />
         <Container>
-          <SectionHeading title="About LLC Limited Liability Company" centered />
-
-          <div className="max-w-3xl mx-auto mb-16">
-            <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-              {companyInfo.description}
-            </p>
-            <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-              We are dedicated to making U.S. business formation and compliance services accessible to entrepreneurs around the world. Our team brings expertise in business formation, tax compliance, and regulatory requirements.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-12 mb-16 max-w-4xl mx-auto">
+          <div className="grid items-center gap-12 lg:grid-cols-[1.08fr_.72fr]">
             <div>
-              <h3 className="text-2xl font-bold text-primary-dark mb-4">Our Mission</h3>
-              <p className="text-gray-600 leading-relaxed">
-                {companyInfo.mission}
-              </p>
+              <span className="eyebrow eyebrow-dark"><BadgeCheck aria-hidden="true" className="size-3.5" />About our company</span>
+              <h1 className="mt-6 max-w-4xl text-balance text-4xl leading-[1.02] tracking-[-.055em] text-white sm:text-5xl lg:text-7xl">Clearer coordination for your U.S. business journey.</h1>
+              <p className="mt-6 max-w-2xl text-base leading-8 text-slate-300 sm:text-lg">LLC Limited Liability Company helps founders organize formation, tax-support, and payment-account requests through one practical, remote-first service experience.</p>
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <Link href="/contact-us" className={buttonStyles({ size: 'lg' })}>Discuss Your Needs <ArrowRight aria-hidden="true" className="size-4" /></Link>
+                <Link href="/free-llc-registration" className={buttonStyles({ variant: 'secondary', size: 'lg' })}>Explore Free LLC Assistance</Link>
+              </div>
             </div>
-            <div>
-              <h3 className="text-2xl font-bold text-primary-dark mb-4">Our Vision</h3>
-              <p className="text-gray-600 leading-relaxed">
-                {companyInfo.vision}
-              </p>
-            </div>
-          </div>
 
-          <SectionHeading title="Our Values" centered className="mb-12" />
-
-          <Grid cols={4} gap="md" className="mb-16">
-            {values.map((value) => {
-              const Icon = value.icon;
-              return (
-                <div key={value.title} className="text-center">
-                  <Icon className="w-12 h-12 text-primary-blue mx-auto mb-4" />
-                  <h3 className="text-lg font-bold text-primary-dark mb-2">{value.title}</h3>
-                  <p className="text-sm text-gray-600">{value.description}</p>
+            <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[.045] p-6 shadow-[0_35px_95px_-50px_rgba(37,99,235,.95)] backdrop-blur-xl">
+              <div aria-hidden="true" className="dark-grid absolute inset-0 opacity-55" />
+              <div className="relative">
+                <div className="flex items-center justify-between"><p className="text-[.64rem] font-extrabold uppercase tracking-[.15em] text-cyan-200">Our support model</p><span className="rounded-full border border-emerald-300/20 bg-emerald-400/10 px-2.5 py-1 text-[.6rem] font-bold text-emerald-300">Remote-first</span></div>
+                <div className="mt-6 rounded-2xl border border-white/10 bg-[#07162d]/80 p-5">
+                  <div className="flex items-center gap-4"><span className="grid size-12 place-items-center rounded-xl bg-[#2563eb] text-white shadow-glow"><Globe2 aria-hidden="true" className="size-5" /></span><div><p className="text-[.6rem] uppercase tracking-[.13em] text-slate-500">One coordinated path</p><p className="mt-1 text-lg font-bold text-white">Formation · Tax · Payments</p></div></div>
+                  <div className="mt-6 h-1.5 overflow-hidden rounded-full bg-white/8"><div className="h-full w-4/5 rounded-full bg-gradient-to-r from-blue-500 to-cyan-300" /></div>
                 </div>
-              );
-            })}
-          </Grid>
-
-          <div className="bg-blue-50 border-l-4 border-primary-blue p-8 rounded mb-16 max-w-3xl mx-auto">
-            <h3 className="text-xl font-bold text-primary-dark mb-4">What We Offer</h3>
-            <ul className="space-y-3 text-gray-700">
-              <li className="flex items-start gap-3">
-                <span className="text-primary-blue font-bold mt-1">✓</span>
-                <span><strong>Free LLC Registration Assistance:</strong> No hidden charges for basic LLC formation guidance</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="text-primary-blue font-bold mt-1">✓</span>
-                <span><strong>Comprehensive Tax Services:</strong> From Form 1065 to 1040-NR filing support</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="text-primary-blue font-bold mt-1">✓</span>
-                <span><strong>Payment Account Guidance:</strong> PayPal, Stripe, Wise, and Payoneer setup assistance</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="text-primary-blue font-bold mt-1">✓</span>
-                <span><strong>Global Support:</strong> Available to clients in any country</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="text-primary-blue font-bold mt-1">✓</span>
-                <span><strong>Transparent Communication:</strong> Clear fees, no surprises</span>
-              </li>
-            </ul>
-          </div>
-
-          <div className="text-center">
-            <h3 className="text-2xl font-bold text-primary-dark mb-4">Get in Touch</h3>
-            <p className="text-gray-600 mb-6">
-              Ready to start your U.S. business journey? Contact us today!
-            </p>
-            <div className="space-y-2">
-              <p className="text-gray-600">
-                <strong>Email:</strong> {contactInfo.email}
-              </p>
-              <p className="text-gray-600">
-                <strong>Phone:</strong> {contactInfo.phone}
-              </p>
-              <p className="text-gray-600">
-                <strong>Address:</strong> {contactInfo.address}
-              </p>
+                <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                  {['Relevant document checklists', 'Practical status communication', 'Clear third-party limitations', 'Service-specific next steps'].map((item) => <div key={item} className="flex items-start gap-2 rounded-xl border border-white/8 bg-white/[.025] p-3 text-xs leading-5 text-slate-300"><CheckCircle2 aria-hidden="true" className="mt-0.5 size-3.5 shrink-0 text-cyan-300" />{item}</div>)}
+                </div>
+              </div>
             </div>
           </div>
         </Container>
-      </Section>
+      </section>
+
+      <section className="light-grid bg-[#f5f8fd] py-16 md:py-24">
+        <Container>
+          <div className="grid gap-8 lg:grid-cols-[.8fr_1.2fr] lg:items-end">
+            <div><span className="eyebrow"><span className="size-1.5 rounded-full bg-current" />What guides our work</span><h2 className="mt-5 text-balance text-3xl text-primary-dark sm:text-4xl lg:text-5xl">Support built around clarity, not guesswork.</h2></div>
+            <div className="grid gap-4 sm:grid-cols-2"><div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-card"><p className="text-xs font-extrabold uppercase tracking-[.14em] text-electric">Our mission</p><p className="mt-3 text-sm leading-7 text-slate-600">Make U.S. business support easier to navigate by organizing information, documents, and next steps into a clear service process.</p></div><div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-card"><p className="text-xs font-extrabold uppercase tracking-[.14em] text-electric">Our approach</p><p className="mt-3 text-sm leading-7 text-slate-600">Set realistic expectations, communicate what is known, and identify when a licensed professional or third-party provider controls the outcome.</p></div></div>
+          </div>
+
+          <div className="mt-14 grid gap-5 lg:grid-cols-3">
+            {servicePillars.map(({ icon: Icon, title, description, href }) => (
+              <article key={title} className="group flex flex-col rounded-3xl border border-slate-200 bg-white p-6 shadow-card transition duration-300 hover:-translate-y-1 hover:border-blue-300 hover:shadow-[0_28px_70px_-40px_rgba(37,99,235,.55)]">
+                <span className="grid size-12 place-items-center rounded-xl bg-[#2563eb] text-white shadow-glow"><Icon aria-hidden="true" className="size-5" /></span><h3 className="mt-6 text-xl text-primary-dark">{title}</h3><p className="mt-3 text-sm leading-7 text-slate-600">{description}</p><Link href={href} className="mt-auto inline-flex items-center gap-2 pt-6 text-sm font-bold text-electric">View services <ArrowRight aria-hidden="true" className="size-4 transition-transform group-hover:translate-x-1" /></Link>
+              </article>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      <section className="bg-white py-16 md:py-24">
+        <Container>
+          <div className="mx-auto max-w-3xl text-center"><span className="eyebrow"><span className="size-1.5 rounded-full bg-current" />Our working principles</span><h2 className="mt-5 text-3xl text-primary-dark sm:text-4xl lg:text-5xl">Professional support with clear boundaries.</h2><p className="mt-4 text-sm leading-7 text-muted sm:text-base">A reliable service experience starts with knowing what we coordinate—and what remains with authorities, providers, and licensed advisers.</p></div>
+          <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-4">{values.map(({ icon: Icon, title, description }) => <article key={title} className="rounded-2xl border border-slate-200 bg-gradient-to-br from-white to-blue-50/60 p-5 shadow-card"><span className="grid size-10 place-items-center rounded-xl border border-blue-100 bg-blue-50 text-electric"><Icon aria-hidden="true" className="size-4.5" /></span><h3 className="mt-5 text-base text-primary-dark">{title}</h3><p className="mt-2 text-xs leading-6 text-muted">{description}</p></article>)}</div>
+
+          <div className="mt-12 grid gap-5 lg:grid-cols-2">
+            <div className="rounded-3xl border border-emerald-200 bg-emerald-50/65 p-6"><p className="text-xs font-extrabold uppercase tracking-[.14em] text-emerald-700">What our support can include</p><ul className="mt-5 space-y-3">{['Service selection and intake guidance', 'Document and information checklists', 'Application or filing coordination within the agreed scope', 'Progress communication and practical follow-up steps'].map((item) => <li key={item} className="flex items-start gap-3 text-sm leading-6 text-emerald-950"><CheckCircle2 aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-emerald-600" />{item}</li>)}</ul></div>
+            <div className="rounded-3xl border border-amber-200 bg-amber-50/70 p-6"><p className="text-xs font-extrabold uppercase tracking-[.14em] text-amber-800">Important service boundaries</p><p className="mt-5 text-sm leading-7 text-amber-950/80">We do not promise government processing times, payment-provider approval, or a particular tax or legal result. Website information is general and does not replace advice from a qualified attorney, accountant, or tax professional.</p></div>
+          </div>
+
+          <div className="mt-14 grid items-center gap-8 overflow-hidden rounded-[2rem] bg-[#071226] p-7 text-white shadow-[0_34px_80px_-45px_rgba(37,99,235,.7)] md:grid-cols-[1fr_auto] md:p-10"><div><span className="text-xs font-extrabold uppercase tracking-[.15em] text-cyan-300">Ready to organize your next step?</span><h2 className="mt-3 text-2xl text-white sm:text-3xl">Start with a clear conversation about your needs.</h2><p className="mt-3 max-w-2xl text-sm leading-7 text-slate-300">Tell us where you are in the process, and we will help identify the most relevant service pathway.</p></div><Link href="/contact-us" className={buttonStyles({ variant: 'secondary', size: 'lg' })}>Get Free Consultation <ArrowRight aria-hidden="true" className="size-4" /></Link></div>
+        </Container>
+      </section>
     </>
   );
 }

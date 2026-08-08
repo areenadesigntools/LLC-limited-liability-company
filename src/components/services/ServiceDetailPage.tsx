@@ -2,13 +2,20 @@ import Link from 'next/link';
 import {
   ArrowLeft,
   ArrowRight,
+  BadgeCheck,
+  Check,
   CheckCircle2,
   ClipboardCheck,
+  FileCheck2,
   FileText,
+  Globe2,
   MessageSquareText,
   ShieldCheck,
+  Sparkles,
 } from 'lucide-react';
 import { buttonStyles, Container } from '@/components/ui';
+import type { ServiceFaq, ServiceProcessStep } from '@/data';
+import styles from './ServiceDetailPage.module.css';
 
 interface DetailList {
   title: string;
@@ -32,7 +39,25 @@ interface ServiceDetailPageProps {
   notice: string;
   lists: DetailList[];
   related: RelatedService[];
+  heroPoints?: string[];
+  process?: ServiceProcessStep[];
+  faqs?: ServiceFaq[];
 }
+
+const defaultHeroPoints = [
+  'Clear service scope',
+  'Organized document checklist',
+  'Visible next-step guidance',
+];
+
+const defaultProcess: ServiceProcessStep[] = [
+  { title: 'Initial review', description: 'We confirm the service scope and the context relevant to your request.' },
+  { title: 'Information collection', description: 'You receive a focused checklist for the details and documents commonly required.' },
+  { title: 'Preparation and review', description: 'The information is organized and checked for obvious gaps before the next action.' },
+  { title: 'Progress and next steps', description: 'We communicate the outcome, pending items, and practical follow-up requirements.' },
+];
+
+const listIcons = [ClipboardCheck, ShieldCheck, FileCheck2];
 
 export function ServiceDetailPage({
   category,
@@ -45,153 +70,200 @@ export function ServiceDetailPage({
   notice,
   lists,
   related,
+  heroPoints = defaultHeroPoints,
+  process = defaultProcess,
+  faqs = [],
 }: ServiceDetailPageProps) {
   return (
     <>
-      <section className="relative overflow-hidden bg-navy-950 py-20 text-white md:py-28">
-        <div aria-hidden="true" className="dark-grid absolute inset-0 opacity-50" />
-        <div
-          aria-hidden="true"
-          className="absolute -right-40 top-0 size-[30rem] rounded-full bg-blue-600/20 blur-[110px]"
-        />
-        <Container className="relative">
-          <Link
-            href={overviewHref}
-            className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.13em] text-blue-200 hover:text-cyan-100"
-          >
-            <ArrowLeft aria-hidden="true" className="size-3.5" />
+      <section className={styles.hero}>
+        <div aria-hidden="true" className={styles.heroGrid} />
+        <div aria-hidden="true" className={styles.heroGlow} />
+        <Container className={styles.heroContainer}>
+          <Link href={overviewHref} className={styles.backLink}>
+            <ArrowLeft aria-hidden="true" />
             {overviewLabel}
           </Link>
-          <p className="mt-10 text-xs font-bold uppercase tracking-[0.18em] text-cyan-200">
-            {category}
-          </p>
-          <h1 className="mt-3 max-w-4xl text-4xl font-bold tracking-[-0.04em] text-white md:text-5xl lg:text-6xl">
-            {title}
-          </h1>
-          <p className="mt-6 max-w-2xl text-base leading-8 text-slate-300 md:text-lg">
-            {description}
-          </p>
-          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <Link href="/contact-us" className={buttonStyles({ size: 'lg' })}>
-              Get Free Consultation
-              <ArrowRight aria-hidden="true" className="size-4" />
-            </Link>
-            <Link
-              href={overviewHref}
-              className={buttonStyles({ variant: 'secondary', size: 'lg' })}
-            >
-              View All Services
-            </Link>
+
+          <div className={styles.heroLayout}>
+            <div>
+              <span className={styles.eyebrow}>{category}</span>
+              <h1>{title}</h1>
+              <p className={styles.heroDescription}>{description}</p>
+              <div className={styles.heroActions}>
+                <Link href="/contact-us" className={buttonStyles({ size: 'lg' })}>
+                  Get Free Consultation
+                  <ArrowRight aria-hidden="true" />
+                </Link>
+                <Link
+                  href={overviewHref}
+                  className={buttonStyles({ variant: 'secondary', size: 'lg' })}
+                >
+                  Explore Related Services
+                </Link>
+              </div>
+            </div>
+
+            <aside className={styles.blueprint} aria-label={`${title} service highlights`}>
+              <div className={styles.blueprintTop}>
+                <span>
+                  <Sparkles aria-hidden="true" />
+                  Service blueprint
+                </span>
+                <BadgeCheck aria-hidden="true" />
+              </div>
+              <div className={styles.blueprintTitle}>
+                <span className={styles.blueprintIcon}>
+                  <FileText aria-hidden="true" />
+                </span>
+                <div>
+                  <small>Structured support</small>
+                  <strong>{title}</strong>
+                </div>
+              </div>
+              <ul>
+                {heroPoints.map((point) => (
+                  <li key={point}>
+                    <Check aria-hidden="true" />
+                    {point}
+                  </li>
+                ))}
+              </ul>
+              <p className={styles.blueprintNote}>Clear scope · careful review · practical next steps</p>
+            </aside>
           </div>
         </Container>
       </section>
 
-      <section className="light-grid bg-background py-16 md:py-24">
+      <section className={styles.detailsSection}>
         <Container>
-          <div className="grid gap-8 lg:grid-cols-[1.2fr_.55fr] lg:items-start">
-            <div>
-              <div className="rounded-3xl border border-blue-100 bg-white p-6 shadow-card sm:p-8">
-                <div className="flex items-start gap-4">
-                  <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-[#2563eb] text-white shadow-glow">
-                    <FileText aria-hidden="true" className="size-5" />
-                  </span>
-                  <div>
-                    <p className="text-xs font-bold uppercase tracking-[0.14em] text-electric">
-                      {summaryLabel}
-                    </p>
-                    <p className="mt-3 text-sm leading-7 text-slate-600 sm:text-base">{summary}</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-6 grid gap-5 md:grid-cols-2">
-                {lists.map((list, index) => (
-                  <article
-                    key={list.title}
-                    className="rounded-3xl border border-slate-200 bg-white p-6 shadow-card sm:p-7"
-                  >
-                    <span className="grid size-10 place-items-center rounded-xl border border-blue-100 bg-blue-50 text-electric">
-                      {index === 0 ? (
-                        <ClipboardCheck aria-hidden="true" className="size-5" />
-                      ) : (
-                        <ShieldCheck aria-hidden="true" className="size-5" />
-                      )}
-                    </span>
-                    <h2 className="mt-5 text-xl text-primary-dark">{list.title}</h2>
-                    <ul className="mt-5 space-y-3">
-                      {list.items.map((item) => (
-                        <li key={item} className="flex items-start gap-3 text-sm leading-6 text-slate-600">
-                          <CheckCircle2
-                            aria-hidden="true"
-                            className="mt-1 size-4 shrink-0 text-electric"
-                          />
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </article>
-                ))}
-              </div>
-            </div>
-
-            <aside className="rounded-3xl border border-blue-200 bg-gradient-to-br from-blue-50 to-white p-6 shadow-card lg:sticky lg:top-28 sm:p-7">
-              <span className="grid size-11 place-items-center rounded-xl bg-[#2563eb] text-white shadow-glow">
-                <MessageSquareText aria-hidden="true" className="size-5" />
-              </span>
-              <h2 className="mt-5 text-2xl text-primary-dark">Need guidance?</h2>
-              <p className="mt-3 text-sm leading-7 text-slate-600">
-                Tell us about your business, ownership, residency, and current documentation. Our
-                team can explain the next practical steps.
-              </p>
-              <Link
-                href="/contact-us"
-                className={buttonStyles({ size: 'md', className: 'mt-6 w-full' })}
-              >
-                Contact Our Team
-                <ArrowRight aria-hidden="true" className="size-4" />
-              </Link>
-              <p className="mt-5 border-t border-blue-100 pt-5 text-xs leading-6 text-slate-500">
-                {notice}
-              </p>
-            </aside>
+          <div className={styles.assuranceStrip}>
+            <div><ClipboardCheck aria-hidden="true" /><span><strong>Clear requirements</strong><small>Know what to prepare</small></span></div>
+            <div><ShieldCheck aria-hidden="true" /><span><strong>Careful handling</strong><small>Organized information review</small></span></div>
+            <div><Globe2 aria-hidden="true" /><span><strong>Remote coordination</strong><small>Support for global founders</small></span></div>
           </div>
 
-          <div className="mt-16 border-t border-slate-200 pt-12">
-            <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
-              <div>
-                <p className="text-xs font-bold uppercase tracking-[0.15em] text-electric">
-                  Related services
-                </p>
-                <h2 className="mt-2 text-2xl text-primary-dark sm:text-3xl">Explore more options</h2>
+          <div className={styles.contentLayout}>
+            <div>
+              <article className={styles.summaryCard}>
+                <span><FileText aria-hidden="true" /></span>
+                <div>
+                  <p>{summaryLabel}</p>
+                  <h2>A focused service path for your request</h2>
+                  <div>{summary}</div>
+                </div>
+              </article>
+
+              <div className={styles.listGrid}>
+                {lists.map((list, index) => {
+                  const Icon = listIcons[index % listIcons.length];
+                  return (
+                    <article key={list.title} className={styles.listCard}>
+                      <span className={styles.listIcon}><Icon aria-hidden="true" /></span>
+                      <h2>{list.title}</h2>
+                      <ul>
+                        {list.items.map((item) => (
+                          <li key={item}>
+                            <CheckCircle2 aria-hidden="true" />
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </article>
+                  );
+                })}
               </div>
-              <Link
-                href={overviewHref}
-                className="inline-flex items-center gap-2 text-sm font-bold text-electric"
-              >
-                {overviewLabel}
-                <ArrowRight aria-hidden="true" className="size-4" />
-              </Link>
             </div>
-            <div className="mt-7 grid gap-4 md:grid-cols-3">
-              {related.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-card hover:-translate-y-0.5 hover:border-blue-300"
-                >
-                  <h3 className="text-base text-primary-dark group-hover:text-electric">
-                    {item.title}
-                  </h3>
-                  <p className="mt-2 line-clamp-2 text-xs leading-5 text-slate-500">
-                    {item.description}
-                  </p>
-                  <span className="mt-4 inline-flex items-center gap-2 text-xs font-bold text-electric">
-                    View service
-                    <ArrowRight aria-hidden="true" className="size-3.5" />
-                  </span>
-                </Link>
+
+            <aside className={styles.guidanceCard}>
+              <span><MessageSquareText aria-hidden="true" /></span>
+              <p className={styles.guidanceEyebrow}>Speak with our team</p>
+              <h2>Not sure what applies?</h2>
+              <p>
+                Share your business, ownership, residency, and current-document context. We will
+                help organize the next practical questions before you proceed.
+              </p>
+              <Link href="/contact-us" className={buttonStyles({ size: 'md', className: styles.fullButton })}>
+                Discuss Your Requirements
+                <ArrowRight aria-hidden="true" />
+              </Link>
+              <div className={styles.notice}>{notice}</div>
+            </aside>
+          </div>
+        </Container>
+      </section>
+
+      <section className={styles.processSection}>
+        <Container>
+          <div className={styles.sectionIntro}>
+            <span>How the service works</span>
+            <h2>A structured path from inquiry to next steps</h2>
+            <p>Every request is different, but the working process stays clear and organized.</p>
+          </div>
+          <div className={styles.processGrid}>
+            {process.map((step, index) => (
+              <article key={step.title} className={styles.processCard}>
+                <span className={styles.stepNumber}>{String(index + 1).padStart(2, '0')}</span>
+                <h3>{step.title}</h3>
+                <p>{step.description}</p>
+              </article>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      {faqs.length > 0 ? (
+        <section className={styles.faqSection}>
+          <Container>
+            <div className={styles.sectionIntro}>
+              <span>Common questions</span>
+              <h2>Helpful context before you begin</h2>
+            </div>
+            <div className={styles.faqGrid}>
+              {faqs.map((faq) => (
+                <article key={faq.question}>
+                  <h3>{faq.question}</h3>
+                  <p>{faq.answer}</p>
+                </article>
               ))}
             </div>
+          </Container>
+        </section>
+      ) : null}
+
+      <section className={styles.relatedSection}>
+        <Container>
+          <div className={styles.relatedHeading}>
+            <div>
+              <span>Related services</span>
+              <h2>Continue building your support plan</h2>
+            </div>
+            <Link href={overviewHref}>
+              {overviewLabel}
+              <ArrowRight aria-hidden="true" />
+            </Link>
+          </div>
+          <div className={styles.relatedGrid}>
+            {related.map((item) => (
+              <Link key={item.href} href={item.href} className={styles.relatedCard}>
+                <span><FileCheck2 aria-hidden="true" /></span>
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+                <strong>View service <ArrowRight aria-hidden="true" /></strong>
+              </Link>
+            ))}
+          </div>
+
+          <div className={styles.finalCta}>
+            <div>
+              <span>Ready when you are</span>
+              <h2>Get a clear starting point for your request.</h2>
+              <p>No obligation. Tell us what you need and we will help organize the next steps.</p>
+            </div>
+            <Link href="/contact-us" className={buttonStyles({ variant: 'secondary', size: 'lg' })}>
+              Request a Free Consultation
+              <ArrowRight aria-hidden="true" />
+            </Link>
           </div>
         </Container>
       </section>

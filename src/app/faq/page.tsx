@@ -1,27 +1,33 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { ArrowRight, CircleHelp, FileText, Landmark, MessageSquareText, WalletCards } from 'lucide-react';
+import { FaqAccordion } from '@/components/home/FaqAccordion';
+import { buttonStyles, Container } from '@/components/ui';
 import { faqItems } from '@/data';
-import { Section, Container, SectionHeading } from '@/components/ui';
-import { Card } from '@/components/ui';
 import { generateMetadata as generateSeoMetadata, generateFAQSchema, generateBreadcrumbSchema } from '@/lib/seo';
 
 export const metadata: Metadata = generateSeoMetadata({
-  title: 'FAQ - LLC Limited Liability Company',
-  description: 'Find answers to frequently asked questions about LLC registration, business formation, EIN, ITIN, tax services, and more.',
+  title: 'Frequently Asked Questions - LLC Limited Liability Company',
+  description: 'Clear answers about U.S. LLC formation, EIN and ITIN support, tax services, payment accounts, fees, timelines, and international founder assistance.',
   canonical: 'https://llclimitedliabilitycompany.com/faq',
 });
 
-// Group FAQs by category
 function groupFAQsByCategory(items: typeof faqItems) {
-  const grouped: Record<string, typeof faqItems> = {};
-  items.forEach((item) => {
-    if (!grouped[item.category]) {
-      grouped[item.category] = [];
-    }
-    grouped[item.category].push(item);
-  });
-  return grouped;
+  return items.reduce<Record<string, typeof faqItems>>((groups, item) => {
+    (groups[item.category] ??= []).push(item);
+    return groups;
+  }, {});
 }
+
+function categoryId(category: string) {
+  return category.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+}
+
+const topicCards = [
+  { icon: Landmark, title: 'Formation', text: 'LLC setup, state fees, registered agents, and tax IDs.' },
+  { icon: FileText, title: 'Tax support', text: 'Filing coordination, document requirements, and service limits.' },
+  { icon: WalletCards, title: 'Payment accounts', text: 'Preparation support and third-party approval expectations.' },
+];
 
 export default function FAQPage() {
   const faqSchema = generateFAQSchema(faqItems.map((item) => ({ question: item.question, answer: item.answer })));
@@ -29,58 +35,34 @@ export default function FAQPage() {
     { name: 'Home', url: 'https://llclimitedliabilitycompany.com' },
     { name: 'FAQ', url: 'https://llclimitedliabilitycompany.com/faq' },
   ]);
-
   const groupedFAQs = groupFAQsByCategory(faqItems);
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
-      
-      <Section className="pt-24 pb-20">
+
+      <section className="relative isolate overflow-hidden bg-[#050b16] py-20 text-white md:py-24">
+        <div aria-hidden="true" className="dark-grid absolute inset-0 -z-20 opacity-70" /><div aria-hidden="true" className="absolute -right-44 -top-52 -z-10 size-[42rem] rounded-full bg-blue-600/25 blur-[120px]" />
+        <Container><div className="mx-auto max-w-4xl text-center"><span className="eyebrow eyebrow-dark"><CircleHelp aria-hidden="true" className="size-3.5" />Knowledge centre</span><h1 className="mt-6 text-balance text-4xl leading-[1.02] tracking-[-.055em] text-white sm:text-5xl lg:text-7xl">Questions answered with useful context.</h1><p className="mx-auto mt-6 max-w-2xl text-base leading-8 text-slate-300 sm:text-lg">Review common questions about our service process, documents, fees, tax identifiers, and provider-controlled outcomes before you begin.</p></div><div className="mx-auto mt-12 grid max-w-5xl gap-4 md:grid-cols-3">{topicCards.map(({ icon: Icon, title, text }) => <div key={title} className="rounded-2xl border border-white/10 bg-white/[.045] p-5 text-left backdrop-blur-xl"><span className="grid size-10 place-items-center rounded-xl bg-[#2563eb] text-white shadow-glow"><Icon aria-hidden="true" className="size-4.5" /></span><h2 className="mt-4 text-base text-white">{title}</h2><p className="mt-2 text-xs leading-6 text-slate-400">{text}</p></div>)}</div></Container>
+      </section>
+
+      <section className="light-grid bg-[#f5f8fd] py-14 md:py-20">
         <Container>
-          <SectionHeading
-            title="Frequently Asked Questions"
-            subtitle="Find answers to your questions about our services"
-            centered
-          />
+          <div className="mx-auto max-w-6xl rounded-3xl border border-slate-200 bg-white p-5 shadow-card"><p className="text-[.62rem] font-extrabold uppercase tracking-[.15em] text-electric">Browse by topic</p><nav aria-label="FAQ categories" className="mt-4 flex flex-wrap gap-2">{Object.keys(groupedFAQs).map((category) => <a key={category} href={`#${categoryId(category)}`} className="rounded-full border border-blue-100 bg-blue-50 px-3.5 py-2 text-xs font-bold text-slate-700 hover:border-blue-300 hover:bg-blue-100 hover:text-electric">{category}</a>)}</nav></div>
 
-          {Object.entries(groupedFAQs).map(([category, items]) => (
-            <div key={category} className="mb-16">
-              <h2 className="text-2xl font-bold text-primary-dark mb-6 pb-3 border-b-2 border-primary-blue">
-                {category}
-              </h2>
-              <div className="space-y-4">
-                {items.map((item) => (
-                  <Card key={item.id} className="p-6 hover:shadow-md transition-all">
-                    <div className="flex items-start gap-4">
-                      <div className="flex-shrink-0">
-                        <div className="flex items-center justify-center h-8 w-8 rounded-full bg-primary-blue/20 text-primary-blue font-bold">
-                          Q
-                        </div>
-                      </div>
-                      <div className="flex-grow">
-                        <h3 className="text-lg font-bold text-primary-dark mb-3">{item.question}</h3>
-                        <p className="text-gray-600 leading-relaxed">{item.answer}</p>
-                      </div>
-                    </div>
-                  </Card>
-                ))}
-              </div>
-            </div>
-          ))}
-
-          <div className="mt-16 bg-blue-50 border border-blue-200 rounded-lg p-8 text-center">
-            <h3 className="text-xl font-bold text-primary-dark mb-3">Didn&apos;t find your answer?</h3>
-            <p className="text-gray-600 mb-4">
-              Feel free to contact us directly. Our team is ready to help.
-            </p>
-            <Link href="/contact-us" className="inline-block text-primary-blue font-semibold hover:underline transition">
-              Contact Us → 
-            </Link>
+          <div className="mx-auto mt-10 max-w-6xl space-y-8">
+            {Object.entries(groupedFAQs).map(([category, items], index) => (
+              <section id={categoryId(category)} key={category} className="scroll-mt-28 grid gap-5 lg:grid-cols-[15rem_minmax(0,1fr)]">
+                <div className="pt-2"><span className="text-[.62rem] font-black uppercase tracking-[.16em] text-blue-500">Topic {String(index + 1).padStart(2, '0')}</span><h2 className="mt-2 text-2xl text-primary-dark">{category}</h2><p className="mt-2 text-xs leading-6 text-muted">Open a question to review the complete answer.</p></div>
+                <FaqAccordion items={items} />
+              </section>
+            ))}
           </div>
+
+          <div className="mx-auto mt-14 grid max-w-6xl items-center gap-8 overflow-hidden rounded-[2rem] bg-[#071226] p-7 text-white shadow-[0_34px_80px_-45px_rgba(37,99,235,.7)] md:grid-cols-[1fr_auto] md:p-10"><div><span className="text-xs font-extrabold uppercase tracking-[.15em] text-cyan-300">Need a service-specific answer?</span><h2 className="mt-3 text-2xl text-white sm:text-3xl">Share the details of your situation.</h2><p className="mt-3 max-w-2xl text-sm leading-7 text-slate-300">We can help identify the relevant service questions and information you may need to prepare.</p></div><Link href="/contact-us" className={buttonStyles({ variant: 'secondary', size: 'lg' })}><MessageSquareText aria-hidden="true" className="size-4" />Contact Our Team <ArrowRight aria-hidden="true" className="size-4" /></Link></div>
         </Container>
-      </Section>
+      </section>
     </>
   );
 }

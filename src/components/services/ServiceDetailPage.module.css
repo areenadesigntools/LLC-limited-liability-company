@@ -1,0 +1,238 @@
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(5rem, 8vw, 7.5rem) 0 clamp(4rem, 7vw, 6rem);
+  background: #050b16;
+  color: #fff;
+}
+
+.heroGrid {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-image:
+    linear-gradient(rgba(148, 163, 184, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.055) 1px, transparent 1px);
+  background-size: 3rem 3rem;
+  mask-image: linear-gradient(to bottom, #000, transparent 90%);
+}
+
+.heroGlow {
+  position: absolute;
+  top: -18rem;
+  right: -12rem;
+  z-index: -1;
+  width: 45rem;
+  height: 45rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.3), rgba(34, 211, 238, 0.08) 36%, transparent 68%);
+}
+
+.heroContainer { position: relative; }
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: #a9c8ff;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.backLink:hover { color: #a5f3fc; }
+.backLink svg { width: 0.9rem; height: 0.9rem; }
+
+.heroLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(19rem, 0.62fr);
+  align-items: center;
+  gap: clamp(2.5rem, 6vw, 6rem);
+  margin-top: clamp(2.25rem, 4vw, 3.75rem);
+}
+
+.eyebrow {
+  display: inline-flex;
+  border: 1px solid rgba(103, 232, 249, 0.2);
+  border-radius: 999px;
+  background: rgba(37, 99, 235, 0.13);
+  padding: 0.5rem 0.78rem;
+  color: #a5f3fc;
+  font-size: 0.65rem;
+  font-weight: 850;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.heroLayout h1 {
+  max-width: 55rem;
+  margin-top: 1.2rem;
+  font-size: clamp(2.65rem, 5.5vw, 5.25rem);
+  line-height: 0.98;
+  letter-spacing: -0.06em;
+  text-wrap: balance;
+}
+
+.heroDescription {
+  max-width: 46rem;
+  margin-top: 1.4rem;
+  color: #bec9d9;
+  font-size: clamp(0.98rem, 1.5vw, 1.15rem);
+  line-height: 1.75;
+}
+
+.heroActions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem; }
+.heroActions svg, .fullButton svg, .finalCta svg, .relatedHeading svg { width: 1rem; height: 1rem; }
+
+.blueprint {
+  position: relative;
+  overflow: hidden;
+  padding: 1.35rem;
+  border: 1px solid rgba(96, 165, 250, 0.24);
+  border-radius: 1.6rem;
+  background:
+    radial-gradient(circle at 100% 0, rgba(37, 99, 235, 0.25), transparent 38%),
+    rgba(9, 23, 48, 0.82);
+  box-shadow: 0 2.5rem 5rem -3rem rgba(37, 99, 235, 0.65), inset 0 1px rgba(255,255,255,.08);
+  backdrop-filter: blur(18px);
+}
+
+.blueprint::before {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(96,165,250,.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(96,165,250,.045) 1px, transparent 1px);
+  background-size: 2.25rem 2.25rem;
+  content: '';
+  pointer-events: none;
+}
+
+.blueprintTop, .blueprintTitle, .blueprint ul, .blueprintNote { position: relative; }
+.blueprintTop { display: flex; align-items: center; justify-content: space-between; color: #a5f3fc; }
+.blueprintTop span { display: flex; align-items: center; gap: .45rem; font-size: .62rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+.blueprintTop svg { width: 1rem; height: 1rem; }
+.blueprintTitle { display: flex; align-items: center; gap: .9rem; margin-top: 1.25rem; padding: 1rem; border: 1px solid rgba(255,255,255,.09); border-radius: 1rem; background: rgba(255,255,255,.04); }
+.blueprintIcon { display: grid; width: 3rem; height: 3rem; flex: 0 0 3rem; place-items: center; border-radius: .9rem; background: #2563eb; box-shadow: 0 1rem 2rem -1rem rgba(37,99,235,.9); }
+.blueprintIcon svg { width: 1.25rem; height: 1.25rem; }
+.blueprintTitle small { display: block; color: #6f819b; font-size: .55rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.blueprintTitle strong { display: block; margin-top: .22rem; color: #fff; font-size: .9rem; }
+.blueprint ul { display: grid; gap: .55rem; margin-top: 1rem; }
+.blueprint li { display: flex; align-items: center; gap: .65rem; border: 1px solid rgba(255,255,255,.07); border-radius: .8rem; background: rgba(255,255,255,.025); padding: .7rem .8rem; color: #cbd5e1; font-size: .69rem; }
+.blueprint li svg { width: .9rem; height: .9rem; flex: 0 0 .9rem; color: #67e8f9; }
+.blueprintNote { margin-top: .9rem; color: #667892; font-size: .56rem; line-height: 1.6; text-align: center; }
+
+.detailsSection { padding: clamp(3.5rem, 6vw, 6rem) 0; background: #f5f8fd; }
+
+.assuranceStrip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  overflow: hidden;
+  margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
+  border: 1px solid #dce5f2;
+  border-radius: 1.35rem;
+  background: #fff;
+  box-shadow: 0 1.5rem 3.5rem -2.7rem rgba(15,23,42,.35);
+}
+
+.assuranceStrip > div { display: flex; align-items: center; gap: .85rem; min-width: 0; padding: 1rem 1.2rem; }
+.assuranceStrip > div + div { border-left: 1px solid #e3eaf4; }
+.assuranceStrip svg { width: 1.25rem; height: 1.25rem; flex: 0 0 1.25rem; color: #2563eb; }
+.assuranceStrip strong, .assuranceStrip small { display: block; }
+.assuranceStrip strong { color: #0b1730; font-size: .76rem; }
+.assuranceStrip small { margin-top: .15rem; color: #718096; font-size: .61rem; }
+
+.contentLayout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(18rem, .36fr); align-items: start; gap: 1.5rem; }
+.summaryCard, .listCard, .guidanceCard { border: 1px solid #d9e3f0; background: #fff; box-shadow: 0 1.5rem 3.5rem -2.7rem rgba(15,23,42,.38); }
+.summaryCard { display: flex; gap: 1rem; padding: 1.4rem; border-radius: 1.35rem; }
+.summaryCard > span, .listIcon, .guidanceCard > span { display: grid; width: 2.8rem; height: 2.8rem; flex: 0 0 2.8rem; place-items: center; border-radius: .85rem; background: #2563eb; color: #fff; box-shadow: 0 1rem 2rem -1rem rgba(37,99,235,.75); }
+.summaryCard svg, .listIcon svg, .guidanceCard > span svg { width: 1.2rem; height: 1.2rem; }
+.summaryCard p, .guidanceEyebrow { color: #2563eb; font-size: .6rem; font-weight: 850; letter-spacing: .13em; text-transform: uppercase; }
+.summaryCard h2 { margin-top: .35rem; color: #0b1730; font-size: 1.1rem; }
+.summaryCard div > div { margin-top: .55rem; color: #607087; font-size: .78rem; line-height: 1.7; }
+.listGrid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 1rem; margin-top: 1rem; }
+.listCard { padding: 1.35rem; border-radius: 1.35rem; }
+.listIcon { width: 2.55rem; height: 2.55rem; background: linear-gradient(145deg,#edf5ff,#dbeafe); color: #2563eb; box-shadow: none; }
+.listCard h2 { margin-top: 1rem; color: #0b1730; font-size: 1rem; }
+.listCard ul { display: grid; gap: .65rem; margin-top: .85rem; }
+.listCard li { display: flex; gap: .58rem; color: #5f6f86; font-size: .7rem; line-height: 1.55; }
+.listCard li svg { width: .9rem; height: .9rem; flex: 0 0 .9rem; margin-top: .13rem; color: #2563eb; }
+
+.guidanceCard { position: sticky; top: 7.5rem; padding: 1.35rem; border-color: rgba(96,165,250,.35); border-radius: 1.35rem; background: linear-gradient(145deg,#eef6ff,#fff 62%); }
+.guidanceCard h2 { margin-top: .35rem; color: #0b1730; font-size: 1.3rem; }
+.guidanceEyebrow { margin-top: 1rem; }
+.guidanceCard > p:not(.guidanceEyebrow) { margin-top: .7rem; color: #607087; font-size: .74rem; line-height: 1.7; }
+.fullButton { width: 100%; margin-top: 1.1rem; }
+.notice { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #dce7f5; color: #6b7a90; font-size: .61rem; line-height: 1.65; }
+
+.processSection { padding: clamp(3.75rem, 6vw, 6rem) 0; background: #071226; color: #fff; }
+.sectionIntro { max-width: 46rem; margin-inline: auto; text-align: center; }
+.sectionIntro > span, .relatedHeading span, .finalCta span { color: #67e8f9; font-size: .62rem; font-weight: 850; letter-spacing: .15em; text-transform: uppercase; }
+.sectionIntro h2 { margin-top: .6rem; color: inherit; font-size: clamp(1.8rem,4vw,3.1rem); line-height: 1.1; text-wrap: balance; }
+.sectionIntro p { margin-top: .75rem; color: #91a0b6; font-size: .8rem; line-height: 1.65; }
+.processGrid { display: grid; grid-template-columns: repeat(4,1fr); gap: .75rem; margin-top: 2.25rem; }
+.processCard { position: relative; overflow: hidden; min-height: 12rem; padding: 1.2rem; border: 1px solid rgba(96,165,250,.16); border-radius: 1.2rem; background: linear-gradient(145deg,rgba(37,99,235,.11),rgba(255,255,255,.025)); }
+.processCard::after { position: absolute; right: -2rem; bottom: -2rem; width: 7rem; height: 7rem; border-radius: 50%; background: rgba(37,99,235,.12); content: ''; filter: blur(1rem); }
+.stepNumber { color: #60a5fa; font-size: .64rem; font-weight: 850; letter-spacing: .12em; }
+.processCard h3 { margin-top: 2.2rem; color: #fff; font-size: .95rem; }
+.processCard p { position: relative; z-index: 1; margin-top: .55rem; color: #94a3b8; font-size: .68rem; line-height: 1.65; }
+
+.faqSection { padding: clamp(3.5rem,6vw,5.5rem) 0; background: #fff; color: #0b1730; }
+.faqGrid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-top: 2rem; }
+.faqGrid article { padding: 1.35rem; border: 1px solid #dce5f2; border-radius: 1.2rem; background: linear-gradient(145deg,#fff,#f6f9fd); box-shadow: 0 1.3rem 3rem -2.5rem rgba(15,23,42,.35); }
+.faqGrid h3 { color: #0b1730; font-size: .9rem; line-height: 1.35; }
+.faqGrid p { margin-top: .65rem; color: #607087; font-size: .7rem; line-height: 1.7; }
+
+.relatedSection { padding: clamp(3.5rem,6vw,5.5rem) 0; background: #f5f8fd; }
+.relatedHeading { display: flex; align-items: end; justify-content: space-between; gap: 1rem; }
+.relatedHeading span { color: #2563eb; }
+.relatedHeading h2 { margin-top: .4rem; color: #0b1730; font-size: clamp(1.6rem,3vw,2.4rem); }
+.relatedHeading > a { display: inline-flex; align-items: center; gap: .45rem; color: #2563eb; font-size: .72rem; font-weight: 800; }
+.relatedGrid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-top: 1.5rem; }
+.relatedCard { padding: 1.25rem; border: 1px solid #dce5f2; border-radius: 1.2rem; background: #fff; box-shadow: 0 1.4rem 3rem -2.5rem rgba(15,23,42,.38); }
+.relatedCard:hover { border-color: #93c5fd; transform: translateY(-.2rem); }
+.relatedCard > span { display: grid; width: 2.5rem; height: 2.5rem; place-items: center; border-radius: .78rem; background: #eff6ff; color: #2563eb; }
+.relatedCard > span svg { width: 1.1rem; height: 1.1rem; }
+.relatedCard h3 { margin-top: .9rem; color: #0b1730; font-size: .92rem; }
+.relatedCard p { margin-top: .45rem; color: #6a788e; font-size: .66rem; line-height: 1.6; }
+.relatedCard strong { display: flex; align-items: center; gap: .35rem; margin-top: .8rem; color: #2563eb; font-size: .66rem; }
+.relatedCard strong svg { width: .8rem; height: .8rem; }
+
+.finalCta { display: flex; align-items: center; justify-content: space-between; gap: 2rem; margin-top: 2.5rem; padding: clamp(1.5rem,3vw,2.25rem); border-radius: 1.5rem; background: linear-gradient(115deg,#0a1933,#10366d); color: #fff; box-shadow: 0 2rem 4rem -2.5rem rgba(37,99,235,.6); }
+.finalCta h2 { margin-top: .35rem; color: #fff; font-size: clamp(1.35rem,2.5vw,2rem); }
+.finalCta p { margin-top: .5rem; color: #aebbd0; font-size: .72rem; line-height: 1.6; }
+.finalCta > a { flex: 0 0 auto; }
+
+@media (max-width: 900px) {
+  .heroLayout { grid-template-columns: 1fr; }
+  .blueprint { max-width: 37rem; }
+  .contentLayout { grid-template-columns: 1fr; }
+  .guidanceCard { position: static; }
+  .processGrid { grid-template-columns: repeat(2,1fr); }
+  .faqGrid, .relatedGrid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+  .hero { padding: 4rem 0 3.5rem; }
+  .heroLayout { gap: 2rem; margin-top: 1.8rem; }
+  .heroLayout h1 { font-size: clamp(2.35rem,12vw,3.5rem); }
+  .heroDescription { font-size: .82rem; line-height: 1.7; }
+  .heroActions { flex-direction: column; }
+  .heroActions a { width: 100%; }
+  .blueprint { padding: 1rem; border-radius: 1.25rem; }
+  .assuranceStrip { grid-template-columns: 1fr; }
+  .assuranceStrip > div + div { border-top: 1px solid #e3eaf4; border-left: 0; }
+  .listGrid { grid-template-columns: 1fr; }
+  .processGrid { grid-template-columns: 1fr 1fr; gap: .6rem; }
+  .processCard { min-height: 10.5rem; padding: .9rem; }
+  .processCard h3 { margin-top: 1.5rem; font-size: .78rem; }
+  .processCard p { font-size: .58rem; }
+  .relatedHeading, .finalCta { align-items: stretch; flex-direction: column; }
+  .finalCta > a { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .relatedCard { transition: none; }
+}
