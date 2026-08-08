@@ -97,11 +97,11 @@ export function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`Visit our ${link.name}`}
-                    className={`group grid size-10 place-items-center rounded-xl border transition duration-300 hover:-translate-y-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400 ${socialIconToneClasses[link.name as keyof typeof socialIconToneClasses]}`}
+                    className={`group grid size-10 place-items-center rounded-xl border transition duration-300 hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400 ${socialIconToneClasses[link.name as keyof typeof socialIconToneClasses]}`}
                   >
                     <Icon
                       aria-hidden="true"
-                      className="size-4 transition-transform duration-300 group-hover:scale-110"
+                      className="size-4 transition-colors duration-300"
                     />
                   </a>
                 );
