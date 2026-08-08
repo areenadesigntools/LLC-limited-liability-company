@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import {
-  ArrowDown,
   CheckCircle2,
   Clock3,
   Globe2,
@@ -8,10 +7,8 @@ import {
   MapPin,
   MessageCircle,
   Phone,
-  Send,
 } from 'lucide-react';
 import { ContactFormComponent } from '@/components/forms/ContactForm';
-import { AnimatedHeroVisual } from '@/components/services/AnimatedHeroVisual';
 import { Container } from '@/components/ui';
 import { contactInfo } from '@/data';
 import { generateMetadata as generateSeoMetadata, generateBreadcrumbSchema } from '@/lib/seo';
@@ -39,17 +36,6 @@ export default function ContactPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
-
-      <section className="relative isolate overflow-hidden bg-[#050b16] py-8 text-white md:py-6">
-        <div aria-hidden="true" className="dark-grid absolute inset-0 -z-20 opacity-70" />
-        <div aria-hidden="true" className="absolute -right-44 -top-52 -z-10 size-[42rem] rounded-full bg-blue-600/25 blur-[120px]" />
-        <Container>
-          <div className="grid items-center gap-5 lg:grid-cols-[1fr_.66fr]">
-            <div><span className="eyebrow eyebrow-dark"><Send aria-hidden="true" className="size-3.5" />Start a conversation</span><h1 className="mt-2 max-w-4xl text-balance text-4xl leading-[1.02] tracking-[-.055em] text-white sm:text-5xl">Talk through your next U.S. business step.</h1><p className="mt-2 max-w-2xl text-sm leading-6 text-slate-300 lg:line-clamp-2">Share the service you need, where you are in the process, and any important timing. We will review your inquiry and help organize a practical starting point.</p><a href="#contact-form" className="mt-3 inline-flex min-h-10 items-center justify-center gap-2 rounded-xl border border-blue-400/25 bg-electric px-4 py-2 text-xs font-semibold text-white shadow-glow hover:-translate-y-0.5 hover:bg-blue-500">Send an Inquiry <ArrowDown aria-hidden="true" className="size-4" /></a></div>
-            <AnimatedHeroVisual compact visualKey="contact-us" title="Consultation desk" points={['Share your service details', 'Remote coordination', 'Clear starting point']} />
-          </div>
-        </Container>
-      </section>
 
       <section className="light-grid bg-[#f5f8fd] py-14 md:py-20">
         <Container>
