@@ -13,6 +13,7 @@ import {
   WalletCards,
 } from 'lucide-react';
 import { buttonStyles, Container } from '@/components/ui';
+import { AnimatedHeroVisual } from '@/components/services/AnimatedHeroVisual';
 import { generateMetadata as generateSeoMetadata, generateBreadcrumbSchema } from '@/lib/seo';
 
 export const metadata: Metadata = generateSeoMetadata({
@@ -74,19 +75,7 @@ export default function AboutPage() {
               </div>
             </div>
 
-            <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[.045] p-6 shadow-[0_35px_95px_-50px_rgba(37,99,235,.95)] backdrop-blur-xl">
-              <div aria-hidden="true" className="dark-grid absolute inset-0 opacity-55" />
-              <div className="relative">
-                <div className="flex items-center justify-between"><p className="text-[.64rem] font-extrabold uppercase tracking-[.15em] text-cyan-200">Our support model</p><span className="rounded-full border border-emerald-300/20 bg-emerald-400/10 px-2.5 py-1 text-[.6rem] font-bold text-emerald-300">Remote-first</span></div>
-                <div className="mt-6 rounded-2xl border border-white/10 bg-[#07162d]/80 p-5">
-                  <div className="flex items-center gap-4"><span className="grid size-12 place-items-center rounded-xl bg-[#2563eb] text-white shadow-glow"><Globe2 aria-hidden="true" className="size-5" /></span><div><p className="text-[.6rem] uppercase tracking-[.13em] text-slate-500">One coordinated path</p><p className="mt-1 text-lg font-bold text-white">Formation · Tax · Payments</p></div></div>
-                  <div className="mt-6 h-1.5 overflow-hidden rounded-full bg-white/8"><div className="h-full w-4/5 rounded-full bg-gradient-to-r from-blue-500 to-cyan-300" /></div>
-                </div>
-                <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                  {['Relevant document checklists', 'Practical status communication', 'Clear third-party limitations', 'Service-specific next steps'].map((item) => <div key={item} className="flex items-start gap-2 rounded-xl border border-white/8 bg-white/[.025] p-3 text-xs leading-5 text-slate-300"><CheckCircle2 aria-hidden="true" className="mt-0.5 size-3.5 shrink-0 text-cyan-300" />{item}</div>)}
-                </div>
-              </div>
-            </div>
+            <AnimatedHeroVisual visualKey="about-us" title="Global founder support" points={['Remote-first coordination', 'Formation · Tax · Payments', 'Practical next steps']} />
           </div>
         </Container>
       </section>

@@ -34,6 +34,7 @@ export function FormationServicePage({ slug }: { slug: string }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
       />
       <ServiceDetailPage
+        visualKey={service.slug}
         category={service.id === 'free-llc' ? 'Free LLC Registration Assistance' : 'Business Formation'}
         title={service.title}
         description={service.description}

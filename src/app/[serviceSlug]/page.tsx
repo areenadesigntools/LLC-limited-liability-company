@@ -89,6 +89,7 @@ export default async function IndividualServicePage({ params }: ServicePageProps
           dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
         />
         <ServiceDetailPage
+          visualKey={taxService.slug}
           category="Tax & Compliance"
           title={taxService.name}
           description={taxService.description}
@@ -157,6 +158,7 @@ export default async function IndividualServicePage({ params }: ServicePageProps
           dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
         />
         <ServiceDetailPage
+          visualKey={provider.slug}
           category="Payment Account Assistance"
           title={`${provider.name} Setup Assistance`}
           description={provider.description}

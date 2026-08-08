@@ -102,5 +102,5 @@ export default function TermsPage() {
     { name: 'Terms & Conditions', url: 'https://llclimitedliabilitycompany.com/terms-and-conditions' },
   ]);
 
-  return <><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} /><PolicyPage eyebrow="Website and service framework" title="Terms & Conditions" description="The general terms for using this website, submitting an inquiry, and understanding the boundaries of our administrative support." updated="8 August 2026" sections={sections} closingTitle="Need clarification before you begin?" closingText="Ask us to explain the proposed service scope, listed charges, and information requirements before you authorize work." /></>;
+  return <><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} /><PolicyPage variant="terms" eyebrow="Website and service framework" title="Terms & Conditions" description="The general terms for using this website, submitting an inquiry, and understanding the boundaries of our administrative support." updated="8 August 2026" sections={sections} closingTitle="Need clarification before you begin?" closingText="Ask us to explain the proposed service scope, listed charges, and information requirements before you authorize work." /></>;
 }

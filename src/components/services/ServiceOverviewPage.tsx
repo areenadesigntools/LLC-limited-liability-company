@@ -1,16 +1,15 @@
 import Link from 'next/link';
 import {
   ArrowRight,
-  BadgeCheck,
   CheckCircle2,
   CircleAlert,
   CreditCard,
   FileText,
-  Globe2,
-  ListChecks,
   MessageSquareText,
 } from 'lucide-react';
 import { buttonStyles, Container } from '@/components/ui';
+import { cn } from '@/lib/cn';
+import { AnimatedHeroVisual } from './AnimatedHeroVisual';
 
 interface OverviewItem {
   title: string;
@@ -60,7 +59,7 @@ export function ServiceOverviewPage({
         <div aria-hidden="true" className="dark-grid absolute inset-0 -z-20 opacity-70" />
         <div aria-hidden="true" className="absolute -right-40 -top-52 -z-10 size-[42rem] rounded-full bg-blue-600/25 blur-[120px]" />
         <Container>
-          <div className="grid items-center gap-12 lg:grid-cols-[1.15fr_.55fr]">
+          <div className={cn('grid items-center gap-10', variant === 'tax' ? 'lg:grid-cols-[1.05fr_.75fr]' : 'lg:grid-cols-[.92fr_.88fr]')}>
             <div>
               <span className="eyebrow eyebrow-dark"><span className="size-1.5 rounded-full bg-current" />{eyebrow}</span>
               <h1 className="mt-6 max-w-4xl text-balance text-4xl leading-[1.02] tracking-[-.055em] text-white sm:text-5xl lg:text-7xl">{title}</h1>
@@ -71,28 +70,12 @@ export function ServiceOverviewPage({
               </div>
             </div>
 
-            <div className="relative overflow-hidden rounded-[1.75rem] border border-blue-300/20 bg-blue-500/[.07] p-6 shadow-[0_35px_90px_-50px_rgba(37,99,235,.9)] backdrop-blur-xl">
-              <div aria-hidden="true" className="dark-grid absolute inset-0 opacity-50" />
-              <div className="relative">
-                <div className="flex items-center justify-between text-cyan-200">
-                  <span className="text-[.62rem] font-extrabold uppercase tracking-[.15em]">Service directory</span>
-                  <BadgeCheck aria-hidden="true" className="size-5" />
-                </div>
-                <div className="mt-6 flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[.045] p-5">
-                  <span className="grid size-12 place-items-center rounded-xl bg-[#2563eb] text-white shadow-glow"><DirectoryIcon aria-hidden="true" className="size-5" /></span>
-                  <div><small className="text-[.6rem] uppercase tracking-[.13em] text-slate-500">Available pathways</small><p className="mt-1 text-2xl font-bold text-white">{items.length} services</p></div>
-                </div>
-                <div className="mt-4 grid grid-cols-2 gap-3 text-[.68rem] font-semibold text-slate-300">
-                  <span className="rounded-xl border border-white/8 bg-white/[.025] p-3"><ListChecks aria-hidden="true" className="mb-2 size-4 text-cyan-300" />Clear checklists</span>
-                  <span className="rounded-xl border border-white/8 bg-white/[.025] p-3"><Globe2 aria-hidden="true" className="mb-2 size-4 text-cyan-300" />Remote support</span>
-                </div>
-              </div>
-            </div>
+            <AnimatedHeroVisual visualKey={variant === 'tax' ? 'tax-services' : 'payment-accounts'} title={title} points={[`${items.length} service pathways`, variant === 'tax' ? 'Records mapped to filing' : 'Provider-ready information', 'Remote coordination']} />
           </div>
         </Container>
       </section>
 
-      <section id="service-directory" className="light-grid scroll-mt-24 bg-[#f5f8fd] py-16 md:py-24">
+      <section id="service-directory" className={cn('scroll-mt-24 py-16 md:py-24', variant === 'tax' ? 'light-grid bg-[#f5f8fd]' : 'bg-white')}>
         <Container>
           <div className="mx-auto flex max-w-4xl items-start gap-4 rounded-2xl border border-amber-200/80 bg-amber-50 p-5 text-amber-950 shadow-card">
             <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-amber-100 text-amber-700"><CircleAlert aria-hidden="true" className="size-5" /></span>
@@ -105,23 +88,23 @@ export function ServiceOverviewPage({
             <p className="mt-4 text-sm leading-7 text-muted sm:text-base">{directoryDescription}</p>
           </div>
 
-          <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          <div className={cn('mt-10 grid gap-5 md:grid-cols-2', variant === 'tax' ? 'lg:grid-cols-3' : 'xl:grid-cols-2')}>
             {items.map((item) => (
-              <article key={item.href} className="group flex h-full flex-col rounded-3xl border border-slate-200 bg-white p-6 shadow-card transition duration-300 hover:-translate-y-1 hover:border-blue-300 hover:shadow-[0_30px_70px_-38px_rgba(37,99,235,.5)]">
+              <article key={item.href} className={cn('group flex h-full flex-col border border-slate-200 bg-white p-6 shadow-card transition duration-300 hover:-translate-y-1 hover:border-blue-300 hover:shadow-[0_30px_70px_-38px_rgba(37,99,235,.5)]', variant === 'tax' ? 'rounded-3xl' : 'rounded-[2rem] md:grid md:grid-cols-[auto_1fr] md:gap-x-5')}>
                 <span className="grid size-11 place-items-center rounded-xl bg-[#2563eb] text-white shadow-glow"><DirectoryIcon aria-hidden="true" className="size-5" /></span>
-                <h3 className="mt-5 text-xl text-primary-dark group-hover:text-electric">{item.title}</h3>
-                <p className="mt-3 text-sm leading-6 text-muted">{item.description}</p>
-                <div className="mt-5 rounded-2xl border border-blue-100 bg-blue-50/70 p-4">
+                <h3 className={cn('text-xl text-primary-dark group-hover:text-electric', variant === 'tax' ? 'mt-5' : 'mt-5 md:mt-0')}>{item.title}</h3>
+                <p className={cn('mt-3 text-sm leading-6 text-muted', variant === 'payment' && 'md:col-start-2')}>{item.description}</p>
+                <div className={cn('mt-5 rounded-2xl border border-blue-100 bg-blue-50/70 p-4', variant === 'payment' && 'md:col-span-2')}>
                   <p className="text-[.6rem] font-extrabold uppercase tracking-[.13em] text-electric">{item.metaLabel}</p>
                   <p className="mt-2 text-xs leading-5 text-slate-600">{item.meta}</p>
                 </div>
-                <div className="mt-5">
+                <div className={cn('mt-5', variant === 'payment' && 'md:col-span-2')}>
                   <p className="text-[.6rem] font-extrabold uppercase tracking-[.13em] text-slate-500">{item.listLabel}</p>
                   <ul className="mt-3 space-y-2.5">
                     {item.list.slice(0, 3).map((entry) => <li key={entry} className="flex items-start gap-2 text-xs leading-5 text-slate-600"><CheckCircle2 aria-hidden="true" className="mt-0.5 size-3.5 shrink-0 text-electric" />{entry}</li>)}
                   </ul>
                 </div>
-                <Link href={item.href} className="mt-auto inline-flex items-center gap-2 pt-6 text-sm font-bold text-electric">View Service Details <ArrowRight aria-hidden="true" className="size-4 transition-transform group-hover:translate-x-1" /></Link>
+                <Link href={item.href} className={cn('mt-auto inline-flex items-center gap-2 pt-6 text-sm font-bold text-electric', variant === 'payment' && 'md:col-span-2')}>View Service Details <ArrowRight aria-hidden="true" className="size-4 transition-transform group-hover:translate-x-1" /></Link>
               </article>
             ))}
           </div>

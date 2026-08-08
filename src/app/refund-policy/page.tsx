@@ -91,5 +91,5 @@ export default function RefundPolicyPage() {
     { name: 'Refund Policy', url: 'https://llclimitedliabilitycompany.com/refund-policy' },
   ]);
 
-  return <><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} /><PolicyPage eyebrow="Payments and cancellations" title="Refund Policy" description="How service fees, completed work, government payments, and third-party charges are considered when a refund request is reviewed." updated="8 August 2026" sections={sections} closingTitle="Ask before authorizing a payment." closingText="We can identify which amount relates to our service and which charges will be paid or committed to an authority or third party." /></>;
+  return <><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} /><PolicyPage variant="refund" eyebrow="Payments and cancellations" title="Refund Policy" description="How service fees, completed work, government payments, and third-party charges are considered when a refund request is reviewed." updated="8 August 2026" sections={sections} closingTitle="Ask before authorizing a payment." closingText="We can identify which amount relates to our service and which charges will be paid or committed to an authority or third party." /></>;
 }

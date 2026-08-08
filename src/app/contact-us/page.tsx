@@ -11,6 +11,7 @@ import {
   Send,
 } from 'lucide-react';
 import { ContactFormComponent } from '@/components/forms/ContactForm';
+import { AnimatedHeroVisual } from '@/components/services/AnimatedHeroVisual';
 import { Container } from '@/components/ui';
 import { contactInfo } from '@/data';
 import { generateMetadata as generateSeoMetadata, generateBreadcrumbSchema } from '@/lib/seo';
@@ -45,7 +46,7 @@ export default function ContactPage() {
         <Container>
           <div className="grid items-center gap-12 lg:grid-cols-[1fr_.72fr]">
             <div><span className="eyebrow eyebrow-dark"><Send aria-hidden="true" className="size-3.5" />Start a conversation</span><h1 className="mt-6 max-w-4xl text-balance text-4xl leading-[1.02] tracking-[-.055em] text-white sm:text-5xl lg:text-7xl">Talk through your next U.S. business step.</h1><p className="mt-6 max-w-2xl text-base leading-8 text-slate-300 sm:text-lg">Share the service you need, where you are in the process, and any important timing. We will review your inquiry and help organize a practical starting point.</p><a href="#contact-form" className="mt-8 inline-flex min-h-13 items-center justify-center gap-2 rounded-xl border border-blue-400/25 bg-electric px-6 py-3 text-base font-semibold text-white shadow-glow hover:-translate-y-0.5 hover:bg-blue-500">Send an Inquiry <ArrowDown aria-hidden="true" className="size-4" /></a></div>
-            <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[.045] p-6 backdrop-blur-xl"><div aria-hidden="true" className="dark-grid absolute inset-0 opacity-50" /><div className="relative"><div className="flex items-center justify-between"><p className="text-[.64rem] font-extrabold uppercase tracking-[.15em] text-cyan-200">Consultation desk</p><span className="rounded-full border border-emerald-300/20 bg-emerald-400/10 px-2.5 py-1 text-[.6rem] font-bold text-emerald-300">Available remotely</span></div><div className="mt-6 rounded-2xl border border-white/10 bg-[#07162d]/80 p-5"><div className="flex items-center gap-4"><span className="grid size-12 place-items-center rounded-xl bg-[#2563eb] text-white shadow-glow"><MessageCircle aria-hidden="true" className="size-5" /></span><div><p className="text-[.6rem] uppercase tracking-[.13em] text-slate-500">Best first step</p><p className="mt-1 text-lg font-bold text-white">Send your service details</p></div></div></div><div className="mt-4 grid grid-cols-2 gap-3">{['Formation', 'Tax support', 'Payment setup', 'General inquiry'].map((item) => <span key={item} className="rounded-xl border border-white/8 bg-white/[.025] p-3 text-xs font-semibold text-slate-300">{item}</span>)}</div></div></div>
+            <AnimatedHeroVisual visualKey="contact-us" title="Consultation desk" points={['Share your service details', 'Remote coordination', 'Clear starting point']} />
           </div>
         </Container>
       </section>

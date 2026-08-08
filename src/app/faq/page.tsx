@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, CircleHelp, FileText, Landmark, MessageSquareText, WalletCards } from 'lucide-react';
 import { FaqAccordion } from '@/components/home/FaqAccordion';
+import { AnimatedHeroVisual } from '@/components/services/AnimatedHeroVisual';
 import { buttonStyles, Container } from '@/components/ui';
 import { faqItems } from '@/data';
 import { generateMetadata as generateSeoMetadata, generateFAQSchema, generateBreadcrumbSchema } from '@/lib/seo';
@@ -44,7 +45,7 @@ export default function FAQPage() {
 
       <section className="relative isolate overflow-hidden bg-[#050b16] py-20 text-white md:py-24">
         <div aria-hidden="true" className="dark-grid absolute inset-0 -z-20 opacity-70" /><div aria-hidden="true" className="absolute -right-44 -top-52 -z-10 size-[42rem] rounded-full bg-blue-600/25 blur-[120px]" />
-        <Container><div className="mx-auto max-w-4xl text-center"><span className="eyebrow eyebrow-dark"><CircleHelp aria-hidden="true" className="size-3.5" />Knowledge centre</span><h1 className="mt-6 text-balance text-4xl leading-[1.02] tracking-[-.055em] text-white sm:text-5xl lg:text-7xl">Questions answered with useful context.</h1><p className="mx-auto mt-6 max-w-2xl text-base leading-8 text-slate-300 sm:text-lg">Review common questions about our service process, documents, fees, tax identifiers, and provider-controlled outcomes before you begin.</p></div><div className="mx-auto mt-12 grid max-w-5xl gap-4 md:grid-cols-3">{topicCards.map(({ icon: Icon, title, text }) => <div key={title} className="rounded-2xl border border-white/10 bg-white/[.045] p-5 text-left backdrop-blur-xl"><span className="grid size-10 place-items-center rounded-xl bg-[#2563eb] text-white shadow-glow"><Icon aria-hidden="true" className="size-4.5" /></span><h2 className="mt-4 text-base text-white">{title}</h2><p className="mt-2 text-xs leading-6 text-slate-400">{text}</p></div>)}</div></Container>
+        <Container><div className="grid items-center gap-10 lg:grid-cols-[1fr_.72fr]"><div><span className="eyebrow eyebrow-dark"><CircleHelp aria-hidden="true" className="size-3.5" />Knowledge centre</span><h1 className="mt-6 text-balance text-4xl leading-[1.02] tracking-[-.055em] text-white sm:text-5xl lg:text-7xl">Questions answered with useful context.</h1><p className="mt-6 max-w-2xl text-base leading-8 text-slate-300 sm:text-lg">Review common questions about our service process, documents, fees, tax identifiers, and provider-controlled outcomes before you begin.</p></div><AnimatedHeroVisual visualKey="faq" title="Answer navigator" points={['Formation questions', 'Tax and compliance', 'Payment accounts']} /></div><div className="mx-auto mt-10 grid max-w-5xl gap-4 md:grid-cols-3">{topicCards.map(({ icon: Icon, title, text }) => <div key={title} className="rounded-2xl border border-white/10 bg-white/[.045] p-5 text-left backdrop-blur-xl"><span className="grid size-10 place-items-center rounded-xl bg-[#2563eb] text-white shadow-glow"><Icon aria-hidden="true" className="size-4.5" /></span><h2 className="mt-4 text-base text-white">{title}</h2><p className="mt-2 text-xs leading-6 text-slate-400">{text}</p></div>)}</div></Container>
       </section>
 
       <section className="light-grid bg-[#f5f8fd] py-14 md:py-20">

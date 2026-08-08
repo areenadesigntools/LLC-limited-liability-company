@@ -98,5 +98,5 @@ export default function PrivacyPolicyPage() {
     { name: 'Privacy Policy', url: 'https://llclimitedliabilitycompany.com/privacy-policy' },
   ]);
 
-  return <><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} /><PolicyPage eyebrow="Privacy and information handling" title="Privacy Policy" description="A clear overview of the information our website and service process may use, the reasons it may be needed, and the choices available to you." updated="8 August 2026" sections={sections} closingTitle="Contact us about your information." closingText="Send a privacy question or request from the email address connected with your inquiry so that we can identify the relevant records." /></>;
+  return <><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} /><PolicyPage variant="privacy" eyebrow="Privacy and information handling" title="Privacy Policy" description="A clear overview of the information our website and service process may use, the reasons it may be needed, and the choices available to you." updated="8 August 2026" sections={sections} closingTitle="Contact us about your information." closingText="Send a privacy question or request from the email address connected with your inquiry so that we can identify the relevant records." /></>;
 }
